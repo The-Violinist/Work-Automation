@@ -136,7 +136,7 @@
 ### Remote access on Apple devices
    - **_For iOS_**
        1. Download OpenVPN Connect
-       2. Download the .ovpn file (https://208.67.62.138:4443/sslvpn)
+       2. Download the .ovpn file
        3. Goto Downloads and open the .ovpn file in OpenVPN Connect
        4. Enter the required fields
        5. Turn on VPN
