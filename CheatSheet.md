@@ -63,17 +63,17 @@
 ### Printer
 
  - **_Clear Print Spooler_**
-    1. run `services.msc`
-    2. stop printer spooler
-    3. run `%WINDIR%\system32\spool\printers`
-    4. delete contents of the printers directory
-    5. start printer spooler
+    - run `services.msc`
+    - stop printer spooler
+    - run `%WINDIR%\system32\spool\printers`
+    - delete contents of the printers directory
+    - start printer spooler
 
 - **_Configure printer driver for RDP printing_**
-    1. Launch ‘gpedit.msc’ from the ‘Run’ command
-    2. Open Computer Config -> Admin Templates -> Windows Components -> Remote Desktop Services -> RD Session Host -> Printer Redirection
-    3. Edit the setting: Use Remote Desktop Easy Print printer driver first
-    4. Change this to ‘Disabled’
+    - Launch ‘gpedit.msc’ from the ‘Run’ command
+    - Open Computer Config -> Admin Templates -> Windows Components -> Remote Desktop Services -> RD Session Host -> Printer Redirection
+    - Edit the setting: Use Remote Desktop Easy Print printer driver first
+    - Change this to ‘Disabled’
 
 - **_Another resource for RDP printing_**
     - https://www.farmhousenetworking.com/networking/remote-access/remote-desktop-network-printer-redirection/
@@ -83,7 +83,7 @@
 
 ### Registry
 
-- **_If the HD is detected as a USB drive"_**
+- **_If the HD is detected as a USB drive_**
     - Navigate in regedit to `HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control`
     - Change PortableOperatingSystem to 0
 
@@ -119,28 +119,27 @@
 ### Other
 
 - **_Scan PST_**
-    - Navigate to `C:\Program Files\Microsoft Office\root\Office16`
-    - run scanpst.exe
+    `C:\Program Files\Microsoft Office\root\Office16`
 
 - **_Fix Blurry Screen_**
     - Search for "Adjust ClearType Text"
 
 - **_To get a computer out of S Mode_**
-    1. Settings->Update&Security->Activation->Go to the Store
-    2. Select "Get" under "Switch out of S Mode"
+    - Settings->Update&Security->Activation->Go to the Store
+    - Select "Get" under "Switch out of S Mode"
 
 
 
 ---
 
 ### Remote access on Apple devices
-   - **_For iOS_**
-       1. Download OpenVPN Connect
-       2. Download the .ovpn file
-       3. Goto Downloads and open the .ovpn file in OpenVPN Connect
-       4. Enter the required fields
-       5. Turn on VPN
-       6. Files>...>Connect to Server>enter local address of the server
+- **_For iOS_**
+    - Download OpenVPN Connect
+    - Download the .ovpn file
+    - Goto Downloads and open the .ovpn file in OpenVPN Connect
+    - Enter the required fields
+    - Turn on VPN
+    - Files>...>Connect to Server>enter local address of the server
 
-   - **_For MacOS_**
-        - https://setapp.com/how-to/map-a-network-drive-on-mac
+- **_For MacOS_**
+    - https://setapp.com/how-to/map-a-network-drive-on-mac
