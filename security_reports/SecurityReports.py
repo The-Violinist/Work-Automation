@@ -40,7 +40,7 @@ def highlight(column_count, row_count, file):
         ws[cell].fill = PatternFill("solid", start_color="00FF9900")
     
     # Highlight all instanace of the correct Boolen value (as found in the 'files' list) and query status
-    for i in range(1,row_count):
+    for i in range(1,row_count + 1):
         cell = file[4] + str(i)
         true_false = str(ws[cell].value)
         if true_false.lower() == (file[5]).lower():
@@ -63,6 +63,8 @@ def center(column_count, row_count):
         length = 0
         for row in range(1, row_count + 1):
             this_cell = this_col + str(row)
+            if len(str(ws[this_cell].value)) > 26:
+                ws[this_cell] = (ws[this_cell].value)[:25]
             ws[this_cell].alignment = Alignment(horizontal="center")
             if ws[this_cell].value != None and len(str(ws[this_cell].value)) > length:
                 length = len(str(ws[this_cell].value))
@@ -107,15 +109,13 @@ def pdf_convert(files):
 ### MAIN ###
 # Change to the actual filenames of the input files
 add_fnames(files)
-if files == []:
+if files == []:                                                                     # End the program if there are no matching files
     sys.exit()
 
 for file in files:
-    # Load the workbook
-    wb = load_workbook(file[0])
+    wb = load_workbook(file[0])                                                     # Load the workbook
     ws = wb.active
-    # Calculate the number of rows and columns
-    column_count = ws.max_column
+    column_count = ws.max_column                                                    # Calculate the number of rows and columns
     row_count = ws.max_row
     highlight(column_count, row_count, file)
     widths = center(column_count, row_count)
@@ -123,3 +123,6 @@ for file in files:
     title(file, column_count)
     wb.save(file[1])
 pdf_convert(files)
+
+
+# After running pyinstaller, change Analysis->pathex to the location of the site-packages ("C:\Python310\Lib\site-packages" in my case)
