@@ -1,4 +1,4 @@
-from email.policy import strict
+# from email.policy import strict
 import PyPDF2
 
 pdf_in = open('MAV.pdf', 'rb')
