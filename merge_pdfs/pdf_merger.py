@@ -2,10 +2,12 @@ import PyPDF2
 from PyPDF2 import PdfFileMerger
 import os
 from win32com import client
+from datetime import date, timedelta
+
 
 # Dictionary of keywords for the pdf files
 f_key = {"app_use_bw": ["Application_Usage_Applications_(Host)_by_Bandwidth", "Application_Usage_Applications__Host__by_Bandwidth"],
-"app_use_hits": ["Application_Usage_Applications_(Host)_by_Hits", "Application_Usage_Applications__Host__by_Hits"],
+"app_use_hits": ["Application_Usage_Applications_(Host)_by_Hits", "Application_Usage_Applications__Host__by_Hits", "Application_Usage_Top_Hosts_by_Hits"],
 "block_sites": ["Blocked_Websites_Category", "Blocked_Websites_Client"],
 "botnets": ["Botnet_Detection_Activity_Trend", "BotNet Detection Details", "Blocked_Botnet_Sites"],
 "botnet_detect": ["Botnet_Detection_Botnet_Detection_by_Client", "Botnet_Detection_Botnet_Detection_by_Destination"],
@@ -23,7 +25,7 @@ f_key = {"app_use_bw": ["Application_Usage_Applications_(Host)_by_Bandwidth", "A
 "forward": "Forwarding Users",
 "MAV": "MAV.pdf",
 "365": ["o365Mail", "o365Apps", "Office365Usage"],
-"patch": "PatchManagement",
+"patch": "Patch",
 "server": "ServerWeekly",
 "take_control": ["Take Control", "TakeControl"],
 "web_protect": "Web Protection",
@@ -38,7 +40,7 @@ knudtsen = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"]
 bankcda = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1], f_key["take_control"][0], f_key["critical"], f_key["server"], f_key["patch"], f_key["MAV"], f_key["web_protect"], f_key["top_cli_host"][1], f_key["top_cli_user"][1], f_key["app_use_bw"][0], f_key["active_client"][1], f_key["pop_domain"][1], f_key["pop_domain"][0], f_key["block_sites"][0], f_key["block_sites"][1], f_key["botnets"][0], f_key["botnet_detect"][0], f_key["botnet_detect"][1], f_key["botnets"][2], f_key["AD"][3], f_key["AD"][2], f_key["AD"][0], f_key["AD"][1]]
 honi = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1], f_key["take_control"][0], f_key["critical"], f_key["server"], f_key["patch"], f_key["MAV"], f_key["web_protect"], f_key["top_cli_host"][1], f_key["top_cli_hits"], f_key["pop_domain"][1], f_key["pop_domain"][0], f_key["app_use_bw"][0], f_key["block_sites"][0], f_key["IPS"][0], f_key["IPS"][2], f_key["IPS"][3], f_key["IPS"][4], f_key["IPS"][5], f_key["IPS"][6], f_key["GAV"][1], f_key["botnets"][0], f_key["botnet_detect"][0], f_key["botnet_detect"][1], f_key["botnets"][2], f_key["sslvpn_a_d"][0], f_key["sslvpn_a_d"][1], f_key["TDR"], f_key["AD"][0], f_key["AD"][1], f_key["AD"][2], f_key["AD"][3]]
 mmco = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1], f_key["take_control"][0], f_key["critical"], f_key["server"], f_key["patch"], f_key["MAV"], f_key["web_protect"], f_key["top_cli_host"][1], f_key["top_cli_user"][1], f_key["app_use_bw"][0], f_key["active_client"][1], f_key["pop_domain"][1], f_key["pop_domain"][0], f_key["block_sites"][0], f_key["block_sites"][1], f_key["botnets"][0], f_key["botnet_detect"][0], f_key["botnet_detect"][1], f_key["botnets"][2], f_key["AD"][3], f_key["AD"][2], f_key["AD"][0], f_key["AD"][1]]
-integrated = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1], f_key["take_control"][0], f_key["critical"], f_key["server"], f_key["patch"], f_key["MAV"], f_key["web_protect"], f_key["top_cli_host"][0], f_key["top_cli_hits"], f_key["app_use_bw"][1], f_key["app_use_hits"][1], f_key["pop_domain"][1], f_key["pop_domain"][0],f_key["active_client"][0], f_key["active_client"][1], f_key["block_sites"][0], f_key["IPS"][1], f_key["GAV"][1], f_key["botnets"][0], f_key["botnet_detect"][0], f_key["botnet_detect"][1], f_key["botnets"][2], f_key["AD"][1], f_key["AD"][0], f_key["AD"][2], f_key["AD"][3], f_key["dist_group"], f_key["forward"]]
+integrated = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1], f_key["take_control"][0], f_key["critical"], f_key["server"], f_key["patch"], f_key["MAV"], f_key["web_protect"], f_key["top_cli_host"][0], f_key["top_cli_hits"], f_key["app_use_bw"][1], f_key["app_use_hits"][1], f_key["app_use_hits"][2], f_key["pop_domain"][1], f_key["pop_domain"][0],f_key["active_client"][0], f_key["active_client"][1], f_key["block_sites"][0], f_key["IPS"][1], f_key["GAV"][1], f_key["botnets"][0], f_key["botnet_detect"][0], f_key["botnet_detect"][1], f_key["botnets"][2], f_key["AD"][1], f_key["AD"][0], f_key["AD"][2], f_key["AD"][3], f_key["dist_group"], f_key["forward"]]
 northcon = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1], f_key["take_control"][0], f_key["critical"], f_key["server"], f_key["patch"], f_key["MAV"], f_key["web_protect"], f_key["top_cli_host"][1], f_key["top_cli_user"][1], f_key["app_use_bw"][0], f_key["active_client"][1], f_key["pop_domain"][1], f_key["pop_domain"][0], f_key["block_sites"][0], f_key["block_sites"][1], f_key["botnets"][0], f_key["botnet_detect"][0], f_key["botnet_detect"][1], f_key["botnets"][2], f_key["AD"][3], f_key["AD"][2], f_key["AD"][0], f_key["AD"][1]]
 bayshore = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1], f_key["take_control"][0], f_key["critical"], f_key["server"], f_key["patch"], f_key["MAV"], f_key["web_protect"], f_key["top_cli_host"][1], f_key["top_cli_user"][1], f_key["app_use_bw"][0], f_key["active_client"][1], f_key["pop_domain"][1], f_key["pop_domain"][0], f_key["block_sites"][0], f_key["block_sites"][1], f_key["botnets"][0], f_key["botnet_detect"][0], f_key["botnet_detect"][1], f_key["botnets"][2], f_key["AD"][3], f_key["AD"][2], f_key["AD"][0], f_key["AD"][1]]
 mpms = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1], f_key["take_control"][0], f_key["critical"], f_key["server"], f_key["patch"], f_key["MAV"], f_key["web_protect"], f_key["top_cli_host"][1], f_key["top_cli_user"][1], f_key["pop_domain"][0], f_key["pop_domain"][1], f_key["active_client"][0], f_key["active_client"][1], f_key["app_use_bw"][0], f_key["block_sites"][0], f_key["botnets"][0], f_key["botnet_detect"][0], f_key["botnets"][2], f_key["botnet_detect"][1], f_key["GAV"][0], f_key["IPS"][0], f_key["AD"][1], f_key["AD"][0], f_key["AD"][2], f_key["AD"][3]]
@@ -106,11 +108,24 @@ def convert_docx():
     doc.Close()
     word.Quit()
 
+def dates_for_report():
+    # Returns the day of the week as an integer
+    day_of_week = date.today().weekday()
+    # Add the day to a full week
+    day_delta_start = day_of_week + 7
+    day_delta_end = day_of_week + 1
+    starting = date.today() - timedelta(days=day_delta_start)
+    ending = date.today() - timedelta(days=day_delta_end)
+    start_date = starting.strftime("%Y-%m-%d")
+    end_date = ending.strftime("%m-%d")
+    date_range = start_date + "-" + end_date
+    return date_range
+
 # Merge all of the present files
 def merge_pdfs(pdfs_list):
-    output_name = input("Please enter the date range for this report in the following format:\nYYYY-MM-DD-MM-DD\n>")
+    date_range = dates_for_report()
     merger = PdfFileMerger(strict=False)                                        # Ignore bad white space
-    result = os.getcwd() + "\\" + output_name + " Weekly Security Report.pdf"   # Output file path
+    result = os.getcwd() + "\\" + date_range + " Weekly Security Report.pdf"   # Output file path
     for pdf in pdfs_list:
         print(f"Adding {pdf} to the merged pdf...")
         merger.append(pdf)                                                      # Add all files to the merger
