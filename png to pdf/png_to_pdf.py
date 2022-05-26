@@ -1,18 +1,19 @@
-from datetime import date
+from datetime import date, timedelta
 from img2pdf import convert
 from PIL import Image
 from os import listdir, remove
 
 def all_dir_paths():
-    today = date.today()
-    date_today = today.strftime("%Y-%m-%d")
-    dir_path = '\\\\FS01\\MSP-SecReview\\weekly\\test'
+    day_of_week = date.today().weekday()
+    date_monday = date.today() - timedelta(days=day_of_week)
+    str_date_monday = date_monday.strftime("%Y-%m-%d")
+    dir_path = '\\\\FS01\\MSP-SecReview\\weekly'
     dir_list = listdir(dir_path)
 
     paths = []
     for item in dir_list:
         if item[0].isdigit():
-            paths.append(dir_path + "\\" + item + "\\" + date_today)
+            paths.append(dir_path + "\\" + item + "\\" + str_date_monday)
     return paths
 
 def all_365_paths():
