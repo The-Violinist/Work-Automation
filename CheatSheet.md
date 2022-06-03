@@ -15,7 +15,8 @@
 - **_Repair Domain Connection_**
     - `Test-ComputerSecureChannel -Repair -Credential domain\user`
 
-
+- **_Get Public IP_**
+    - `Invoke-WebRequest ifconfig.me/ip`
 ---
 
 ### CMD
@@ -57,7 +58,8 @@
 - **_Elevate_**
     - `runas /user:machine_or_domain\user_name cmd`
 
-
+- **_Get Public IP_**
+    - `nslookup myip.opendns.com. resolver1.opendns.com`
 ---
 
 ### Printer
