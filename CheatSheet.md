@@ -60,6 +60,9 @@
 
 - **_Get Public IP_**
     - `nslookup myip.opendns.com. resolver1.opendns.com`
+
+- **_Get Printer List_**
+    - `wmic printer list brief`
 ---
 
 ### Printer
