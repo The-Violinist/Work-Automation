@@ -7,15 +7,21 @@ import re
 f_type = {
 "app_use_bw": ["Application_Usage_Applications_(Host)_by_Bandwidth", "Application_Usage_Applications__Host__by_Bandwidth"],
 "app_use_hits": ["Application_Usage_Applications_(Host)_by_Hits", "Application_Usage_Applications__Host__by_Hits", "Application_Usage_Top_Hosts_by_Hits"],
-"block_sites": ["Blocked_Websites_Category", "Blocked_Websites_Client"],
-"botnets": ["Botnet_Detection_Activity_Trend", "BotNet Detection Details", "Blocked_Botnet_Sites"],
-"botnet_detect": ["Botnet_Detection_Botnet_Detection_by_Client", "Botnet_Detection_Botnet_Detection_by_Destination"],
-"active_client": ["Most_Active_Clients_Clients_by_Bandwidth", "Most_Active_Clients_Clients_by_Hits"],
-"pop_domain": ["Most_Popular_Domains_Hits", "Most_Popular_Domains_Bytes"],
+"block_sites_cat": ["Blocked_Websites_Category"],
+"block_sites_cli": ["Blocked_Websites_Client"],
+"botnet_trend": ["Botnet_Detection_Activity_Trend"],
+"botnet_details": ["BotNet Detection Details"],
+"botnet_block": ["Blocked_Botnet_Sites"],
+"botnet_detect_cli": ["Botnet_Detection_Botnet_Detection_by_Client"],
+"botnet_detect_dest": ["Botnet_Detection_Botnet_Detection_by_Destination"],
+"active_client_bw": ["Most_Active_Clients_Clients_by_Bandwidth"],
+"active_client_hit": ["Most_Active_Clients_Clients_by_Hits"],
+"pop_domain_bytes": ["Most_Popular_Domains_Bytes"],
+"pop_domain_hits": ["Most_Popular_Domains_Hits"],
 "top_cli_user": ["Top_Clients_Users__Sent_and_Received__by_Bandwidth", "Top_Clients_Users_(Sent_and_Received)_by_Bandwidth"],
 "top_cli_host": ["Top_Clients_Hosts__Sent_and_Received__by_Bandwidth", "Top_Clients_Hosts_(Sent_and_Received)_by_Bandwidth"],
 "top_cli_hits": ["Top_Clients_Hosts_by_Hits"],
-"IPS": ["Intrusions_(IPS)_Activity_Trend", "Intrusions__IPS__Activity_Trend", "Intrusions__IPS__Protocol", "Intrusions__IPS__Signatures", "Intrusions__IPS__Source", "Intrusions__IPS__Threat_Level", "Intrusions Prevention Details"],
+"IPS": ["Intrusions_(IPS)_Activity_Trend", "Intrusions__IPS__Activity_Trend"],
 "GAV": ["Virus_(GAV)_Activity_Trend", "Virus_Activity_Trend"],
 #"MAV": ["MAV.pdf"],
 #"patch": ["Patch"],
@@ -193,14 +199,59 @@ def GAV(temp_file="GAV.txt"):
             break
     print(f"GAV report:\n{final_data}\n"+"-"*40)
 
+def botnet_trend(temp_file="botnet_trend.txt"):
+    final_data = []
+    # Read data into variable
+    with open(temp_file, "r") as read_file:
+        lines = read_file.readlines()
+    read_file.close()
+    os.remove(temp_file)
+    for line in lines:
+        src_ip = re.search('(Source IP blocked: \d+)', line)
+        dest_ip = re.search('(Destination IP blocked: \d+)', line)
+        if src_ip:
+            final_data.append(src_ip.group(1))
+        if dest_ip:
+            final_data.append(dest_ip.group(1))
+        if src_ip and dest_ip:
+            break
+    print(f"Botnet Activity Trend:\n{final_data}\n"+"-"*40)
+
+def botnet_dest(temp_file="botnet_detect_dest.txt"):
+    # Get the text for the last string before the needed data
+    text = "Hits (%)\n"
+    x = False
+    y = False
+    final_data = []
+    with open(temp_file, "r") as read_file:
+        lines = read_file.readlines()
+    read_file.close()
+    i = 0
+    for line in lines:
+        if x == True:
+            y = True
+        if line == text:
+            x = True
+        if y == True:
+            each_line = line.strip()
+            final_data.append(each_line)
+            i += 1
+            if i > 2:
+                break
+    print("Botnet Detection by Destination")
+    print(f"Destination: {final_data[0]} with {final_data[1]} hits @ {final_data[2]}%\n" + "-" * 40)
+
 ########################################################################################
 
 def reports():
     IPS()
     GAV()
+    botnet_trend()
+    botnet_dest()
 ### MAIN ###
 client_files = dir_list()
 paths_in_dict(client_files)
 create_temps()
 reports()
+
 ### END ###
