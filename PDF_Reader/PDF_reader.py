@@ -4,6 +4,7 @@ from PyPDF2 import PdfFileReader
 import os
 import re
 ### VARIABLES ###
+# Dictionary of keywords to search for files in the weekly directories
 f_type = {
 "app_use_bw": ["Application_Usage_Applications_(Host)_by_Bandwidth", "Application_Usage_Applications__Host__by_Bandwidth"],
 "app_use_hits": ["Application_Usage_Applications_(Host)_by_Hits", "Application_Usage_Applications__Host__by_Hits", "Application_Usage_Top_Hosts_by_Hits"],
@@ -34,44 +35,6 @@ clients = ["Intermax","Knudtsen","BankCDA","HONI","MMCO","Integrated Personnel",
 
 ### FUNCTIONS ###
 
-'''
-def gather_data(temp_file):
-    # Get the text for the last string before the needed data
-    text = f_type["app_use_bw"][0]
-    x = False
-    y = False
-    final_data = []
-    with open(temp_file, "r") as read_file:
-        lines = read_file.readlines()
-    read_file.close()
-    os.remove(temp_file)
-    for line in lines:
-        if x == True:
-            y = True
-        if line == text:
-            x = True
-        if y == True:
-            each_line = line.strip()
-            final_data.append(each_line)
-    return final_data
-
-def print_data():
-    raw_data = gather_data(temp_file)
-    data_fields = f_type["app_use_bw"][1]
-    x = 0
-    for item in data_fields:
-        if x == 0:
-            print(f"{raw_data[item]}: ", end='')
-        elif x == 1:
-            num_bytes = round((float(raw_data[item]) / 1024), 2)
-            print(f"{num_bytes} GB ", end='')
-        elif x == 2:
-            print(f"{raw_data[item]}%")
-        x += 1
-        if x == 3:
-            x = 0
-'''
-
 #############################
 # Gather files to work with #
 #############################
@@ -80,21 +43,21 @@ def print_data():
 def select_client():
     i = 1
     for item in clients:
-        print(f"{i}) {item}")
+        print(f"{i}) {item}")                                                   # Print out a list of clients to select from
         i += 1
     client = int(input("Please select the client by number:\n>"))
-    return client - 1
+    return client - 1                                                           # Return the client as an index
 
 # Create a list of all the weekly folder paths
 def all_dir_paths():
     # Get the subdirectory name based on date
-    day_of_week = date.today().weekday()
-    date_monday = date.today() - timedelta(days=day_of_week)
-    str_date_monday = date_monday.strftime("%Y-%m-%d")
+    day_of_week = date.today().weekday()                                        # Get today's day of the week as an index
+    date_monday = date.today() - timedelta(days=day_of_week)                    # Calculate the date of the Monday of this week
+    str_date_monday = date_monday.strftime("%Y-%m-%d")                          # Convert the complete date of Monday to a string
     # Parent for all client directories
-    # dir_path = '\\\\FS01\\MSP-SecReview\\weekly'
+    # dir_path = '\\\\FS01\\MSP-SecReview\\weekly'                                # Upper level directory for all client files
 
-    dir_path = 'C:\\Users\\darmstrong\\Desktop\\script_test'
+    dir_path = 'C:\\Users\\darmstrong\\Desktop\\script_test'                    # Test directory
 
     dir_list = listdir(dir_path)
     # Create a list of all the current week directories
@@ -109,18 +72,18 @@ def dir_list():
     all_files = []
     client = select_client()
     folders = all_dir_paths()
-    cli_dir_path = folders[client]
-    file_list = listdir(cli_dir_path)
+    cli_dir_path = folders[client]                                              # Concatenate a path to the specific weekly folder for that client
+    file_list = listdir(cli_dir_path)                                           # Create a list of all the files in that directory
     for item in file_list:
         path = cli_dir_path + "\\" + item
-        all_files.append(path)
+        all_files.append(path)                                                  # Append all file paths to the files list
     return all_files
 
 def paths_in_dict(cli_files):
-    for k in f_type:
-        for value in f_type[k]:
-            for item in cli_files:
-                if value in item:
+    for k in f_type:                                                            # Each key in the search word dictionary
+        for value in f_type[k]:                                                 # Each value for each key
+            for item in cli_files:                                              # Each file in the directory
+                if value in item:                                               # If the search word is in the file name, change the value in the dictionary to the filepath
                     f_type[k] = item
 ######################################################################################
 
@@ -153,13 +116,16 @@ def extract_data(in_file, out_file):
 
 # Create all txt files
 def create_temps():
+    temps = []
     for k in f_type:
-        in_file = f_type[k]
-        out_file = f"{k}.txt"
+        in_file = f_type[k]                                                 # Input file is the filepath which was added to the dictionary
+        out_file = f"{k}.txt"                                               # Output file is the dictionary key with txt file extension    
         try:
-            extract_data(in_file, out_file)
+            extract_data(in_file, out_file)                                 # If a filepath exists as a value in the dictionary, extract all text to a temp txt file
+            temps.append(out_file)
         except:
             pass
+    return temps
 #######################################################################################
 
 ################
@@ -226,6 +192,7 @@ def botnet_dest(temp_file="botnet_detect_dest.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
+    os.remove(temp_file)
     i = 0
     for line in lines:
         if x == True:
@@ -241,17 +208,52 @@ def botnet_dest(temp_file="botnet_detect_dest.txt"):
     print("Botnet Detection by Destination")
     print(f"Destination: {final_data[0]} with {final_data[1]} hits @ {final_data[2]}%\n" + "-" * 40)
 
+def block_botnet_sites(temp_file="botnet_block.txt"):
+    # Get the text for the last string before the needed data
+    text = "Hits (%)\n"
+    x = False
+    y = False
+    final_data = []
+    with open(temp_file, "r") as read_file:
+        lines = read_file.readlines()
+    read_file.close()
+    os.remove(temp_file)
+    for line in lines:
+        if y == True:
+            if line.__contains__("Total"):
+                break
+            each_line = line.strip()
+            final_data.append(each_line)
+        else:
+            if line == text:
+                x = True
+            if x == True:
+                y = True
+    total_sites = len(final_data) // 3
+    print("Blocked Botnet Sites")
+    i = 0
+    for site in range(total_sites):
+        print(f"Source: {final_data[0 + i]} with {final_data[1 + i]} hits @ {final_data[2 + i]}%")
+        i += 3
+    print("-" * 40)
+
 ########################################################################################
 
-def reports():
-    IPS()
-    GAV()
-    botnet_trend()
-    botnet_dest()
+def reports(temps):
+    if "IPS.txt" in temps:
+        IPS()
+    if "GAV.txt" in temps:
+        GAV()
+    if "botnet_trend.txt" in temps:
+        botnet_trend()
+    if "botnet_detect_dest.txt" in temps:
+        botnet_dest()
+    if "botnet_block.txt" in temps:
+        block_botnet_sites()
 ### MAIN ###
 client_files = dir_list()
 paths_in_dict(client_files)
-create_temps()
-reports()
+temps = create_temps()
+reports(temps)
 
 ### END ###
