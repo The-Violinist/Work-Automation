@@ -237,19 +237,190 @@ def block_botnet_sites(temp_file="botnet_block.txt"):
         i += 3
     print("-" * 40)
 
+def pop_domain_bytes(temp_file="pop_domain_bytes.txt"):
+    # Get the text for the last string before the needed data
+    text = "Hits (%)\n"
+    x = False
+    y = False
+    final_data = []
+    with open(temp_file, "r") as read_file:
+        lines = read_file.readlines()
+    read_file.close()
+    os.remove(temp_file)
+    for line in lines:
+        if y == True:
+            each_line = line.strip()
+            final_data.append(each_line)
+        else:
+            if line == text:
+                x = True
+            if x == True:
+                y = True
+    print("Popular Domains by Bytes")
+    i = 0
+    for domain in range(3):
+        print(f"Domain: {final_data[0 + i]} with {round((float(final_data[1 + i]) / 1024), 2)} GB @ {final_data[2 + i]}%")
+        i += 5
+    print("-" * 40)
+
+def pop_domain_hits(temp_file="pop_domain_hits.txt"):
+    # Get the text for the last string before the needed data
+    text = "Hits (%)\n"
+    x = False
+    y = False
+    final_data = []
+    with open(temp_file, "r") as read_file:
+        lines = read_file.readlines()
+    read_file.close()
+    os.remove(temp_file)
+    for line in lines:
+        if y == True:
+            each_line = line.strip()
+            final_data.append(each_line)
+        else:
+            if line == text:
+                x = True
+            if x == True:
+                y = True
+    print("Popular Domains by Hits")
+    i = 0
+    for domain in range(3):
+        hits = "{:,}".format(int(final_data[3 + i]))                                            # Format the hits integer to use commas
+        print(f"Domain: {final_data[0 + i]} with {hits} hits @ {final_data[4 + i]}%")           # Print in the format: Domain, hits, percent
+        i += 5                                                                                  # Increment the index for the next domain
+    print("-" * 40)
+
+def top_cli_host(temp_file="top_cli_host.txt"):
+    # Get the text for the last string before the needed data
+    text = "Bytes (%)"
+    x = False
+    y = False
+    final_data = []
+    with open(temp_file, "r") as read_file:
+        lines = read_file.readlines()
+    read_file.close()
+    os.remove(temp_file)
+    for line in lines:
+        if y == True:
+            each_line = line.strip()
+            final_data.append(each_line)
+        else:
+            if line.__contains__(text):
+                x = True
+            if x == True:
+                y = True
+    print("Top Client hosts by Bytes")
+    i = 0
+    for domain in range(3):
+        print(f"Domain: {final_data[0 + i]} with {round((float(final_data[3 + i]) / 1024), 2)} GB @ {final_data[4 + i]}%")
+        i += 5
+    print("-" * 40)
+
+def top_cli_user(temp_file="top_cli_user.txt"):                                     # Edit for variable num of entries
+    # Get the text for the last string before the needed data
+    text = "Bytes (%)"
+    x = False
+    y = False
+    final_data = []
+    with open(temp_file, "r") as read_file:
+        lines = read_file.readlines()
+    read_file.close()
+    os.remove(temp_file)
+    for line in lines:
+        if line.__contains__("Total:"):
+            break
+        if y == True:
+            each_line = line.strip()
+            final_data.append(each_line)
+        else:
+            if line.__contains__(text):
+                x = True
+            if x == True:
+                y = True
+    print("Top Clients Users by Bandwidth")
+    i = 0
+    for domain in range(1):
+        print(f"Domain: {final_data[0 + i]} with {round((float(final_data[3 + i]) / 1024), 2)} GB @ {final_data[4 + i]}%")
+        i += 5
+    print("-" * 40)
+
+def app_use_bw(temp_file="app_use_bw.txt"):
+    # Get the text for the last string before the needed data
+    text = "Hits (%)"
+    x = False
+    y = False
+    final_data = []
+    with open(temp_file, "r") as read_file:
+        lines = read_file.readlines()
+    read_file.close()
+    os.remove(temp_file)
+    for line in lines:
+        if y == True:
+            each_line = line.strip()
+            final_data.append(each_line)
+        else:
+            if line.__contains__(text):
+                x = True
+            if x == True:
+                y = True
+    print("Application Usage by Bandwidth")
+    i = 0
+    for domain in range(3):
+        print(f"{final_data[0 + i]} with {round((float(final_data[1 + i]) / 1024), 2)} GB @ {final_data[2 + i]}%")
+        i += 5
+    print("-" * 40)
+
+def block_sites_cat(temp_file="block_sites_cat.txt"):                               # Edit for variable num entries
+    # Get the text for the last string before the needed data
+    text = "Hits (%)"
+    x = False
+    y = False
+    final_data = []
+    with open(temp_file, "r") as read_file:
+        lines = read_file.readlines()
+    read_file.close()
+    os.remove(temp_file)
+    for line in lines:
+        if y == True:
+            each_line = line.strip()
+            final_data.append(each_line)
+        else:
+            if line.__contains__(text):
+                x = True
+            if x == True:
+                y = True
+    print("Blocked Sites by Category")
+    i = 0
+    for category in range(1):
+        print(f"Domain: {final_data[0 + i]} with {final_data[1 + i]} hits @ {final_data[2 + i]}%")           # Print in the format: Domain, hits, percent
+        i += 3                                                                                  # Increment the index for the next domain
+    print("-" * 40)
+
 ########################################################################################
 
 def reports(temps):
-    if "IPS.txt" in temps:
-        IPS()
-    if "GAV.txt" in temps:
-        GAV()
+    if "top_cli_host.txt" in temps:
+        top_cli_host()
+    if "top_cli_user.txt" in temps:
+        top_cli_user()
+    if "app_use_bw.txt" in temps:
+        app_use_bw()
+    if "pop_domain_bytes.txt" in temps:
+        pop_domain_bytes()
+    if "pop_domain_hits.txt" in temps:
+        pop_domain_hits()
     if "botnet_trend.txt" in temps:
         botnet_trend()
     if "botnet_detect_dest.txt" in temps:
         botnet_dest()
     if "botnet_block.txt" in temps:
         block_botnet_sites()
+    if "IPS.txt" in temps:
+        IPS()
+    if "GAV.txt" in temps:
+        GAV()
+    if "block_sites_cat.txt" in temps:
+        block_sites_cat()
 ### MAIN ###
 client_files = dir_list()
 paths_in_dict(client_files)
