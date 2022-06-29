@@ -181,7 +181,7 @@ def botnet_trend(temp_file="botnet_trend.txt"):
             final_data.append(dest_ip.group(1))
         if src_ip and dest_ip:
             break
-    print(f"Botnet Activity Trend:\n{final_data}\n"+"-"*40)
+    print(f"Botnet Activity Trend:\n{final_data[0]}\n{final_data[1]}\n"+"-"*40)
 
 def botnet_dest(temp_file="botnet_detect_dest.txt"):
     # Get the text for the last string before the needed data
@@ -229,7 +229,7 @@ def block_botnet_sites(temp_file="botnet_block.txt"):
                 x = True
             if x == True:
                 y = True
-    total_sites = len(final_data) / 3
+    total_sites = int(len(final_data) / 3)
     print("Blocked Botnet Sites")
     i = 0
     for site in range(total_sites):
@@ -322,7 +322,7 @@ def top_cli_host(temp_file="top_cli_host.txt"):
         i += 5
     print("-" * 40)
 
-def top_cli_user(temp_file="top_cli_user.txt"):                                     # Edit for variable num of entries
+def top_cli_user(temp_file="top_cli_user.txt"):
     # Get the text for the last string before the needed data
     text = "Bytes (%)"
     x = False
@@ -344,7 +344,7 @@ def top_cli_user(temp_file="top_cli_user.txt"):                                 
             if x == True:
                 y = True
     print("Top Clients Users by Bandwidth")
-    total_users = len(final_data) / 5
+    total_users = int(len(final_data) / 5)
     if total_users > 3:
         total_users = 3
     i = 0
@@ -377,11 +377,11 @@ def app_use_bw(temp_file="app_use_bw.txt"):
     print("Application Usage by Bandwidth")
     i = 0
     for domain in range(3):
-        print(f"{final_data[0 + i]} with {round((float(final_data[1 + i]) / 1024), 2)} GB @ {final_data[2 + i]}%")
+        print(f"{final_data[0 + i]} with {round((float(final_data[1 + i]) / 1024), 2)} GB at {final_data[2 + i]}%")
         i += 5
     print("-" * 40)
 
-def block_sites_cat(temp_file="block_sites_cat.txt"):                               # Edit for variable num entries
+def block_sites_cat(temp_file="block_sites_cat.txt"):
     # Get the text for the last string before the needed data
     text = "Hits (%)"
     x = False
@@ -404,9 +404,38 @@ def block_sites_cat(temp_file="block_sites_cat.txt"):                           
                 y = True
     print("Blocked Sites by Category")
     i = 0                                                                               # Incrementer for the rows of data
-    num_entries = lines / 3
+    num_entries = int(len(final_data) / 3)
     for entry in range(num_entries):
-        print(f"{final_data[0 + i]} with {final_data[1 + i]} hits @ {final_data[2 + i]}%")           # Print in the format: Domain, hits, percent
+        print(f"{final_data[0 + i]} with {final_data[1 + i]} hits at {final_data[2 + i]}%")           # Print in the format: Domain, hits, percent
+        i += 3                                                                                  # Increment the index for the next domain
+    print("-" * 40)
+
+def block_sites_cli(temp_file="block_sites_cli.txt"):
+    # Get the text for the last string before the needed data
+    text = "Hits (%)"
+    x = False
+    y = False
+    final_data = []
+    with open(temp_file, "r") as read_file:
+        lines = read_file.readlines()
+    read_file.close()
+    os.remove(temp_file)
+    for line in lines:
+        if line.__contains__("Total:"):
+            break
+        if y == True:
+            each_line = line.strip()
+            final_data.append(each_line)
+        else:
+            if line.__contains__(text):
+                x = True
+            if x == True:
+                y = True
+    print("Blocked Sites by Client")
+    i = 0                                                                               # Incrementer for the rows of data
+    num_entries = int(len(final_data) / 3)
+    for entry in range(num_entries):
+        print(f"{final_data[0 + i]} with {final_data[1 + i]} hits at {final_data[2 + i]}%")           # Print in the format: Domain, hits, percent
         i += 3                                                                                  # Increment the index for the next domain
     print("-" * 40)
 
@@ -466,6 +495,11 @@ def reports(temps):
     if "block_sites_cat.txt" in temps:
         try:
             block_sites_cat()
+        except:
+            pass
+    if "block_sites_cli.txt" in temps:
+        try:
+            block_sites_cli()
         except:
             pass
 ### MAIN ###
