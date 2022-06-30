@@ -261,7 +261,7 @@ def pop_domain_bytes(temp_file="pop_domain_bytes.txt"):
     print("Popular Domains by Bytes")
     i = 0
     for domain in range(3):
-        print(f"{final_data[0 + i]} with {round((float(final_data[1 + i]) / 1024), 2)} GB @ {final_data[2 + i]}%")
+        print(f"{final_data[0 + i]} – {round((float(final_data[1 + i]) / 1024), 2)} GB at {final_data[2 + i]}%")
         i += 5
     print("-" * 40)
 
@@ -290,7 +290,7 @@ def pop_domain_hits(temp_file="pop_domain_hits.txt"):
     i = 0
     for domain in range(3):
         hits = "{:,}".format(int(final_data[3 + i]))                                            # Format the hits integer to use commas
-        print(f"{final_data[0 + i]} with {hits} hits @ {final_data[4 + i]}%")           # Print in the format: Domain, hits, percent
+        print(f"{final_data[0 + i]} – {hits} hits at {final_data[4 + i]}%")           # Print in the format: Domain, hits, percent
         i += 5                                                                                  # Increment the index for the next domain
     print("-" * 40)
 
@@ -318,7 +318,7 @@ def top_cli_host(temp_file="top_cli_host.txt"):
     print("Top Client hosts by Bytes")
     i = 0
     for domain in range(3):
-        print(f"{final_data[0 + i]} with {round((float(final_data[3 + i]) / 1024), 2)} GB @ {final_data[4 + i]}%")
+        print(f"{final_data[0 + i]} – {round((float(final_data[3 + i]) / 1024), 2)} GB at {final_data[4 + i]}%")
         i += 5
     print("-" * 40)
 
@@ -349,7 +349,7 @@ def top_cli_user(temp_file="top_cli_user.txt"):
         total_users = 3
     i = 0
     for user in range(total_users):
-        print(f"{final_data[0 + i]} with {round((float(final_data[3 + i]) / 1024), 2)} GB @ {final_data[4 + i]}%")
+        print(f"{final_data[0 + i]} – {round((float(final_data[3 + i]) / 1024), 2)} GB at {final_data[4 + i]}%")
         i += 5
     print("-" * 40)
 
