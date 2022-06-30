@@ -377,7 +377,7 @@ def app_use_bw(temp_file="app_use_bw.txt"):
     print("Application Usage by Bandwidth")
     i = 0
     for domain in range(3):
-        print(f"{final_data[0 + i]} with {round((float(final_data[1 + i]) / 1024), 2)} GB at {final_data[2 + i]}%")
+        print(f"{final_data[0 + i]} – {round((float(final_data[1 + i]) / 1024), 2)} GB at {final_data[2 + i]}%")
         i += 5
     print("-" * 40)
 
@@ -405,8 +405,11 @@ def block_sites_cat(temp_file="block_sites_cat.txt"):
     print("Blocked Sites by Category")
     i = 0                                                                               # Incrementer for the rows of data
     num_entries = int(len(final_data) / 3)
+    if num_entries > 3:
+        num_entries = 3
     for entry in range(num_entries):
-        print(f"{final_data[0 + i]} with {final_data[1 + i]} hits at {final_data[2 + i]}%")           # Print in the format: Domain, hits, percent
+        hits = "{:,}".format(int(final_data[1 + i]))                                            # Format the hits integer to use commas
+        print(f"{final_data[0 + i]} – {hits} hits at {final_data[2 + i]}%")           # Print in the format: Domain, hits, percent
         i += 3                                                                                  # Increment the index for the next domain
     print("-" * 40)
 
@@ -434,8 +437,11 @@ def block_sites_cli(temp_file="block_sites_cli.txt"):
     print("Blocked Sites by Client")
     i = 0                                                                               # Incrementer for the rows of data
     num_entries = int(len(final_data) / 3)
+    if num_entries > 3:
+        num_entries = 3
     for entry in range(num_entries):
-        print(f"{final_data[0 + i]} with {final_data[1 + i]} hits at {final_data[2 + i]}%")           # Print in the format: Domain, hits, percent
+        hits = "{:,}".format(int(final_data[1 + i]))                                            # Format the hits integer to use commas
+        print(f"{final_data[0 + i]} – {hits} hits at {final_data[2 + i]}%")           # Print in the format: Domain, hits, percent
         i += 3                                                                                  # Increment the index for the next domain
     print("-" * 40)
 
