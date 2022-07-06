@@ -86,7 +86,7 @@
 
 ---
 
-### Registry
+### Registry/Group Policy
 
 - **_If the HD is detected as a USB drive_**
     - Navigate in regedit to `HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control`
