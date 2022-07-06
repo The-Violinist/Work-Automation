@@ -90,7 +90,8 @@
 
 - **_If the HD is detected as a USB drive_**
     - Navigate in regedit to `HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control`
-    - Change PortableOperatingSystem to 0
+    - If PortableOperatingSystem is present in the Control folder:
+        - Change PortableOperatingSystem value to 0
 
 - **_Turn on/off USB access_**
     - Navigate in gpedit to `Computer Configuration\Administrative Templates\System\Removable Storage Access`
