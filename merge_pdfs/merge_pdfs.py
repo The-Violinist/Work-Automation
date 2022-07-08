@@ -157,8 +157,8 @@ def merge_pdfs(pdfs_list, out_path):                                            
     print("Finished")
 
 ### MAIN ###
-client_selection = select_client()
-pdfs = dir_list(client_selection)
-keys = client_list[client_selection][1]
-final_files = file_list(keys, pdfs[0])
-merge_pdfs(final_files, pdfs[1])
+client_selection = select_client()                                              # Select the client directory
+pdfs = dir_list(client_selection)                                               # Create a list of all the files in that directory and convert Cover Sheet
+keys = client_list[client_selection][1]                                         # Grab keys based off of client selection
+final_files = file_list(keys, pdfs[0])                                          # Create list of the files to merge
+merge_pdfs(final_files, pdfs[1])                                                # Merge files
