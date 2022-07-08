@@ -1,9 +1,19 @@
+# Takes a directory of files of weekly reports from Watchguard, Solarwinds, and AD and compiles them into a single PDF
+
+#############
+# LIBRARIES #
+#############
 import PyPDF2
 from PyPDF2 import PdfFileMerger
 import os
+from os import listdir
 from win32com import client
 from datetime import date, timedelta
+# import time
 
+##########################
+# DICTIONARIES AND LISTS #
+##########################
 
 # Dictionary of keywords for the pdf files
 f_key = {"app_use_sum": "Application_Control_Application_Usage_Summary",
@@ -54,59 +64,44 @@ mpms = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1],
 pffm = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1], f_key["take_control"][0], f_key["take_control"][1], f_key["critical"], f_key["server"], f_key["patch"], f_key["MAV"], f_key["web_protect"][0], f_key["web_protect"][1], f_key["top_cli_host"][1], f_key["top_cli_host"][0], f_key["active_client"][0], f_key["pop_domain"][1], f_key["pop_domain"][0], f_key["app_use_bw"][0], f_key["app_use_bw"][1], f_key["block_sites"][0], f_key["block_sites"][1], f_key["botnets"][0], f_key["botnet_detect"][0], f_key["botnets"][2], f_key["botnet_detect"][1], f_key["IPS"][0], f_key["IPS"][1], f_key["GAV"][0], f_key["GAV"][1], f_key["AD"][0], f_key["AD"][1], f_key["AD"][2], f_key["AD"][3]]
 # pffm = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1], f_key["take_control"][0], f_key["take_control"][1], f_key["critical"], f_key["server"], f_key["patch"], f_key["MAV"], f_key["web_protect"][0], f_key["web_protect"][1], f_key["top_cli_host"][1], f_key["top_cli_host"][0], f_key["active_client"][0], f_key["pop_domain"][1], f_key["pop_domain"][0], f_key["app_use_bw"][0], f_key["app_use_bw"][1], f_key["block_sites"][0], f_key["block_sites"][1], f_key["botnets"][0], f_key["botnet_detect"][0], f_key["botnets"][2], f_key["botnet_detect"][1], f_key["IPS"][0], f_key["IPS"][1], f_key["GAV"][0], f_key["GAV"][1], f_key["RED"][1], f_key["RED"][0], f_key["DLP"][0], f_key["DLP"][2], f_key["DLP"][3], f_key["DLP"][1], f_key["DLP"][4], f_key["AD"][0], f_key["AD"][1], f_key["AD"][2], f_key["AD"][3]]
 
-# client_list = {"Intermax": intermax, "Knudtsen": knudtsen, "BankCDA": bankcda, "HONI": honi, "MMCO": mmco, "Integrated Personnel": integrated, "Northcon": northcon, "Bay Shore": bayshore, "MPMS": mpms, "PFFM": pffm}
-
 client_list = [["Intermax", intermax], ["Knudtsen", knudtsen], ["BankCDA", bankcda], ["HONI", honi], ["MMCO", mmco], ["Integrated Personnel", integrated], ["Northcon", northcon], ["Bay Shore", bayshore], ["MPMS", mpms], ["PFFM", pffm]]
 
-def select_client(client_list):
+#############
+# FUNCTIONS #
+#############
+
+# Select the client for the merged report
+def select_client():
     i = 1
-    for client in client_list:
-        print(f"{i}) {client[0]}")
+    for item in client_list:
+        print(f"{i}) {item[0]}")                                                # Print out a list of clients to select from
         i += 1
-    client_choice = int(input("Please select a client by number:\n>")) - 1
-    return client_list[client_choice][1]
-        
-# Rotate the MAV pdf, if needed
-def rotate():
-    print("Rotating the MAV pdf...")
-    pdf_in = open('MAV.pdf', 'rb')
-    pdf_reader = PyPDF2.PdfFileReader(pdf_in,strict=False)
-    pdf_writer = PyPDF2.PdfFileWriter()
+    client = int(input("Please select the client by number:\n>"))
+    return client - 1                                                           # Return the client as an index
 
-    for pagenum in range(pdf_reader.numPages):
-        page = pdf_reader.getPage(pagenum)
-        page.rotateClockwise(90)
-        pdf_writer.addPage(page)
+# Create a list of all the weekly folder paths
+def all_dir_paths():
+    # Get the subdirectory name based on date
+    day_of_week = date.today().weekday()                                        # Get today's day of the week as an index
+    date_monday = date.today() - timedelta(days=day_of_week)                    # Calculate the date of the Monday of this week
+    str_date_monday = date_monday.strftime("%Y-%m-%d")                          # Convert the complete date of Monday to a string
+    # Parent for all client directories
+    # dir_path = '\\\\FS01\\MSP-SecReview\\weekly'                                # Upper level directory for all client files
 
-    pdf_out = open('mav_rotated.pdf', 'wb')
-    pdf_writer.write(pdf_out)
-    pdf_out.close()
-    pdf_in.close()
+    dir_path = 'C:\\Users\\darmstrong\\Desktop\\script_test'                    # Test directory
 
-# Create list of file paths for the pdfs
-def pdf_paths():                                                                # Create list of file paths for the pdfs
-    pdfs = os.listdir()                                                         # Get list of all files in the directory
-    environment = os.getcwd() + "\\"                                            # Get local directory path
-    i = 0
-    for item in pdfs:
-        pdfs[i] = environment + item                                            # Change the list entries to their full file path
-        i += 1
-    return pdfs
+    dir_list = listdir(dir_path)
+    paths = []                                                                  # Create a list of all the current week directories
+    for item in dir_list:
+        if item[0].isdigit():
+            paths.append(dir_path + "\\" + item + "\\" + str_date_monday)       # Add each file to the list as a full filepath
+    return paths
 
-# Create the final list of filtered file paths: Include full path if there is a match present
-def file_list(client_keys, pdfs):
-    file_paths = []
-    for search_word in client_keys:
-        for item in pdfs:                                                       # For each item in the pdfs file list,
-            if search_word in item:                                             # Check to see if there is a match with the given entry in files
-                file_paths.append(item)                                         # Add the filepath to the items to merge
-    return file_paths
-
-def convert_docx():
+# Convert the cover sheet to a pdf
+def convert_docx(folder_path):
     wdFormatPDF = 17
-    environment = os.getcwd() + "\\"                                            # Get local directory path
-    file_in = environment + "_CoverSheet.docx"
-    file_out = environment + "CoverSheet.pdf"
+    file_in = folder_path + "\\" + "_CoverSheet.docx"                           # Path to the input docx file
+    file_out = folder_path + "\\" + "CoverSheet.pdf"                            # Path to the output pdf file
     inputFile = os.path.abspath(file_in)
     outputFile = os.path.abspath(file_out)
     word = client.Dispatch('Word.Application')
@@ -115,34 +110,55 @@ def convert_docx():
     doc.Close()
     word.Quit()
 
+# Create a list of all the files in the specific client weekly directory
+def dir_list(client_selection):
+    all_files = []
+    folders = all_dir_paths()
+    cli_dir_path = folders[client_selection]                                    # Concatenate a path to the specific weekly folder for the selected client
+    print("Converting CoverSheet.docx")
+    convert_docx(cli_dir_path)                                                  # Convert the 
+    file_list = listdir(cli_dir_path)                                           # Create a list of all the files in that directory
+    for item in file_list:
+        path = cli_dir_path + "\\" + item
+        all_files.append(path)                                                  # Append all file paths to the files list
+    return all_files, cli_dir_path
+
+# Creates a list of the files to be used in the merged report. Find files from dir_list based on f_key keywords
+def file_list(client_keys, pdfs):
+    file_paths = []
+    for search_word in client_keys:
+        for item in pdfs:                                                       # For each item in the pdfs file list,
+            if search_word in item:                                             # Check to see if there is a match with the given entry in files
+                file_paths.append(item)                                         # Add the filepath to the items to merge
+    return file_paths
+
+# Creates a string of the date range to be used for the report filename
 def dates_for_report():
-    # Returns the day of the week as an integer
-    day_of_week = date.today().weekday()
-    # Add the day to a full week
-    day_delta_start = day_of_week + 7
-    day_delta_end = day_of_week + 1
-    starting = date.today() - timedelta(days=day_delta_start)
-    ending = date.today() - timedelta(days=day_delta_end)
-    start_date = starting.strftime("%Y-%m-%d")
-    end_date = ending.strftime("%m-%d")
-    date_range = start_date + "-" + end_date
+    day_of_week = date.today().weekday()                                        # Returns the day of the week as an integer
+    day_delta_start = day_of_week + 7                                           # Find the starting day of the report as a delta
+    day_delta_end = day_of_week + 1                                             # Find the ending day of the report as a delta
+    starting = date.today() - timedelta(days=day_delta_start)                   # Grab full date start
+    ending = date.today() - timedelta(days=day_delta_end)                       # Grab full date end
+    start_date = starting.strftime("%Y-%m-%d")                                  # Extract only the starting yyyy-mm-dd
+    end_date = ending.strftime("%m-%d")                                         # Extract only the ending mm-dd
+    date_range = start_date + "-" + end_date                                    # Concatenate the start and end
     return date_range
 
 # Merge all of the present files
-def merge_pdfs(pdfs_list):
-    date_range = dates_for_report()
+def merge_pdfs(pdfs_list, out_path):                                            # Arguments: 1) Complete list of pdfs for specific client; 2) Path to that client's weekly folder
+    date_range = dates_for_report()                                             # Get the date for the security report
     merger = PdfFileMerger(strict=False)                                        # Ignore bad white space
-    result = os.getcwd() + "\\" + date_range + " Weekly Security Report.pdf"   # Output file path
+    result = out_path + "\\" + date_range + " Weekly Security Report.pdf"       # Output file path
     for pdf in pdfs_list:
         print(f"Adding {pdf} to the merged pdf...")
         merger.append(pdf)                                                      # Add all files to the merger
-    print("Saving the merged pdf...")
     merger.write(result)                                                        # Create the merged pdf
     merger.close()
+    print("Finished")
 
 ### MAIN ###
-convert_docx()
-pdfs = pdf_paths()
-keys = select_client(client_list)
-final_files = file_list(keys, pdfs)
-merge_pdfs(final_files)
+client_selection = select_client()
+pdfs = dir_list(client_selection)
+keys = client_list[client_selection][1]
+final_files = file_list(keys, pdfs[0])
+merge_pdfs(final_files, pdfs[1])
