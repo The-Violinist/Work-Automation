@@ -24,14 +24,10 @@ f_type = {
 "top_cli_hits": ["Top_Clients_Hosts_by_Hits"],
 "IPS": ["Intrusions_(IPS)_Activity_Trend", "Intrusions__IPS__Activity_Trend"],
 "GAV": ["Virus_(GAV)_Activity_Trend", "Virus_Activity_Trend"],
-#"MAV": ["MAV.pdf"],
-#"patch": ["Patch"],
-#"take_control": ["Take Control", "TakeControl"],
-#"web_protect": ["Web Protection","WebProtection"],
 "proxy": ["Proxy_Traffic_Destination_by_Bandwidth", "Proxy_Traffic_Destination_by_Hits"]
 }
 
-clients = ["Intermax","Knudtsen","BankCDA","HONI","MMCO","Integrated Personnel","Northcon","Bay Shore","MPMS","PFFM"]
+clients = ["Intermax","Knudtsen","BankCDA","HONI","MMCO","Integrated Personnel","Northcon","Bay Shore","PFFM"]
 
 ### FUNCTIONS ###
 
