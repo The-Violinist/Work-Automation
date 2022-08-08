@@ -17,6 +17,9 @@
 
 - **_Get Public IP_**
     - `Invoke-WebRequest ifconfig.me/ip`
+
+- **_Get AD Password Requirements_**
+    - `Get-ADDefaultDomainPasswordPolicy`
 ---
 
 ### CMD
