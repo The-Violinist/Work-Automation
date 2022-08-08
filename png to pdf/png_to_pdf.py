@@ -26,14 +26,14 @@ def all_365_paths():
     for item in all_paths:
         client_dir = listdir(item)
         # Find all png files and add file paths to paths_365
-        if "o365Mail.PNG" in client_dir:
-            mail_path = (item + "\\" + client_dir[(client_dir.index("o365Mail.PNG"))])
+        if "o365Mail.png" in client_dir:
+            mail_path = (item + "\\" + client_dir[(client_dir.index("o365Mail.png"))])
             paths_365.append(mail_path)
-        if "o365Apps.PNG" in client_dir:
-            apps_path = (item + "\\" + client_dir[(client_dir.index("o365Apps.PNG"))])
+        if "o365Apps.png" in client_dir:
+            apps_path = (item + "\\" + client_dir[(client_dir.index("o365Apps.png"))])
             paths_365.append(apps_path)
-        if "o365Apps_o365Mail.PNG" in client_dir:
-            mail_apps_path = (item + "\\" + client_dir[(client_dir.index("o365Apps_o365Mail.PNG"))])
+        if "o365Apps_o365Mail.png" in client_dir:
+            mail_apps_path = (item + "\\" + client_dir[(client_dir.index("o365Apps_o365Mail.png"))])
             paths_365.append(mail_apps_path)        
     return paths_365
 
