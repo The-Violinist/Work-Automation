@@ -1,14 +1,10 @@
-# Takes a directory of files of weekly reports from Watchguard, Solarwinds, and AD and compiles them into a single PDF
-# Generic file for use in the Public user folder
-#############
-# LIBRARIES #
-#############
 import PyPDF2
 from PyPDF2 import PdfFileMerger
 import os
 from os import listdir
 from win32com import client
 from datetime import date, timedelta
+import shutil
 # import time
 
 ##########################
@@ -60,11 +56,10 @@ northcon = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"]
 # northcon = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1], f_key["take_control"][0], f_key["take_control"][1], f_key["critical"], f_key["server"], f_key["patch"], f_key["MAV"], f_key["top_cli_host"][1], f_key["top_cli_host"][0], f_key["top_cli_hits"], f_key["app_cont"], f_key["app_use_bw"][0], f_key["app_use_bw"][1], f_key["block_sites"][0], f_key["IPS"][0], f_key["IPS"][1], f_key["IPS"][2], f_key["IPS"][3], f_key["IPS"][4], f_key["IPS"][5], f_key["IPS"][6], f_key["GAV"][0], f_key["GAV"][1], f_key["RED"][1], f_key["RED"][0], f_key["APT"][0], f_key["APT"][1], f_key["proxy"][0], f_key["proxy"][1], f_key["botnets"][0], f_key["botnet_detect"][0], f_key["botnet_detect"][1], f_key["botnets"][2], f_key["sslvpn_a_d"][0], f_key["sslvpn_a_d"][1], f_key["TDR"][0], f_key["TDR"][1], f_key["AD"][2], f_key["AD"][0], f_key["AD"][3], f_key["AD"][1]]
 bayshore = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1], f_key["take_control"][0], f_key["take_control"][1], f_key["critical"], f_key["server"], f_key["patch"], f_key["MAV"], f_key["web_protect"][0], f_key["web_protect"][1], f_key["top_cli_host"][1], f_key["top_cli_host"][0], f_key["top_cli_user"][1], f_key["top_cli_user"][0], f_key["active_client"][0], f_key["app_use_bw"][0], f_key["app_use_bw"][1], f_key["pop_domain"][1], f_key["pop_domain"][0], f_key["block_sites"][0], f_key["block_sites"][1], f_key["botnets"][0], f_key["botnet_detect"][0], f_key["botnet_detect"][1], f_key["botnets"][2], f_key["IPS"][0], f_key["IPS"][1], f_key["GAV"][0], f_key["GAV"][1], f_key["sslvpn_a_d"][0], f_key["sslvpn_a_d"][1], f_key["TDR"][0], f_key["TDR"][1], f_key["AD"][0], f_key["AD"][1], f_key["AD"][2], f_key["AD"][3]]
 # bayshore = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1], f_key["take_control"][0], f_key["take_control"][1], f_key["critical"], f_key["server"], f_key["patch"], f_key["MAV"], f_key["web_protect"][0], f_key["web_protect"][1], f_key["top_cli_host"][1], f_key["top_cli_host"][0], f_key["top_cli_user"][1], f_key["top_cli_user"][0], f_key["active_client"][0], f_key["app_use_bw"][0], f_key["app_use_bw"][1], f_key["pop_domain"][1], f_key["pop_domain"][0], f_key["block_sites"][0], f_key["block_sites"][1], f_key["botnets"][0], f_key["botnet_detect"][0], f_key["botnet_detect"][1], f_key["botnets"][2], f_key["IPS"][0], f_key["IPS"][1], f_key["GAV"][0], f_key["GAV"][1], f_key["RED"][0], f_key["RED"][1], f_key["APT"][0], f_key["APT"][1], f_key["sslvpn_a_d"][0], f_key["sslvpn_a_d"][1], f_key["TDR"][0], f_key["TDR"][1], f_key["AD"][0], f_key["AD"][1], f_key["AD"][2], f_key["AD"][3]]
-mpms = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1], f_key["take_control"][0], f_key["take_control"][1], f_key["critical"], f_key["server"], f_key["patch"], f_key["MAV"], f_key["web_protect"][0], f_key["web_protect"][1], f_key["top_cli_host"][1], f_key["top_cli_host"][0], f_key["top_cli_user"][1], f_key["top_cli_user"][0], f_key["pop_domain"][0], f_key["pop_domain"][1], f_key["active_client"][0], f_key["active_client"][1], f_key["app_use_bw"][0], f_key["app_use_bw"][1], f_key["block_sites"][0], f_key["block_sites"][1], f_key["botnets"][0], f_key["botnet_detect"][0], f_key["botnets"][2], f_key["botnet_detect"][1], f_key["GAV"][0], f_key["GAV"][1], f_key["IPS"][0], f_key["IPS"][1], f_key["AD"][1], f_key["AD"][0], f_key["AD"][2], f_key["AD"][3]]
 pffm = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1], f_key["take_control"][0], f_key["take_control"][1], f_key["critical"], f_key["server"], f_key["patch"], f_key["MAV"], f_key["web_protect"][0], f_key["web_protect"][1], f_key["top_cli_host"][1], f_key["top_cli_host"][0], f_key["active_client"][0], f_key["pop_domain"][1], f_key["pop_domain"][0], f_key["app_use_bw"][0], f_key["app_use_bw"][1], f_key["block_sites"][0], f_key["block_sites"][1], f_key["botnets"][0], f_key["botnet_detect"][0], f_key["botnets"][2], f_key["botnet_detect"][1], f_key["IPS"][0], f_key["IPS"][1], f_key["GAV"][0], f_key["GAV"][1], f_key["AD"][0], f_key["AD"][1], f_key["AD"][2], f_key["AD"][3]]
 # pffm = [f_key["cover_sheet"], f_key["backup"], f_key["365"][0], f_key["365"][1], f_key["take_control"][0], f_key["take_control"][1], f_key["critical"], f_key["server"], f_key["patch"], f_key["MAV"], f_key["web_protect"][0], f_key["web_protect"][1], f_key["top_cli_host"][1], f_key["top_cli_host"][0], f_key["active_client"][0], f_key["pop_domain"][1], f_key["pop_domain"][0], f_key["app_use_bw"][0], f_key["app_use_bw"][1], f_key["block_sites"][0], f_key["block_sites"][1], f_key["botnets"][0], f_key["botnet_detect"][0], f_key["botnets"][2], f_key["botnet_detect"][1], f_key["IPS"][0], f_key["IPS"][1], f_key["GAV"][0], f_key["GAV"][1], f_key["RED"][1], f_key["RED"][0], f_key["DLP"][0], f_key["DLP"][2], f_key["DLP"][3], f_key["DLP"][1], f_key["DLP"][4], f_key["AD"][0], f_key["AD"][1], f_key["AD"][2], f_key["AD"][3]]
 
-client_list = [["Intermax", intermax], ["Knudtsen", knudtsen], ["BankCDA", bankcda], ["HONI", honi], ["MMCO", mmco], ["Integrated Personnel", integrated], ["Northcon", northcon], ["Bay Shore", bayshore], ["MPMS", mpms], ["PFFM", pffm]]
+client_list = [["Intermax", intermax], ["Knudtsen", knudtsen], ["BankCDA", bankcda], ["HONI", honi], ["MMCO", mmco], ["Integrated Personnel", integrated], ["Northcon", northcon], ["Bay Shore", bayshore], ["PFFM", pffm]]
 
 #############
 # FUNCTIONS #
@@ -86,9 +81,9 @@ def all_dir_paths():
     date_monday = date.today() - timedelta(days=day_of_week)                    # Calculate the date of the Monday of this week
     str_date_monday = date_monday.strftime("%Y-%m-%d")                          # Convert the complete date of Monday to a string
 
-    dir_path = 'C:\\Users\\Public\\merge_reports'                    # Test directory
-
+    dir_path = '\\\\FS01\\MSP-SecReview\\weekly'                                # Upper level directory for all client files
     dir_list = listdir(dir_path)
+
     paths = []                                                                  # Create a list of all the current week directories
     for item in dir_list:
         if item[0].isdigit():
@@ -113,6 +108,7 @@ def dir_list(client_selection):
     all_files = []
     folders = all_dir_paths()
     cli_dir_path = folders[client_selection]                                    # Concatenate a path to the specific weekly folder for the selected client
+    print(cli_dir_path)
     print("Converting CoverSheet.docx")
     convert_docx(cli_dir_path)                                                  # Convert the 
     file_list = listdir(cli_dir_path)                                           # Create a list of all the files in that directory
@@ -143,13 +139,12 @@ def dates_for_report():
     return date_range
 
 # Merge all of the present files
-def merge_pdfs(pdfs_list, out_path):                                            # Arguments: 1) Complete list of pdfs for specific client; 2) Path to that client's weekly folder
-    # f = open('C:\\Users\\Public\\merge_reports\\Merged_files.txt', 'a')
+def merge_pdfs(pdfs_list, client_selection):                                    # Arguments: 1) Complete list of pdfs for specific client; 2) Path to that client's weekly folder
     f = open('Merged_files.txt', 'a')
-
     date_range = dates_for_report()                                             # Get the date for the security report
     merger = PdfFileMerger(strict=False)                                        # Ignore bad white space
-    result = out_path + "\\" + date_range + " Weekly Security Report.pdf"       # Output file path
+    result = date_range + " Weekly Security Report.pdf"                         # Output file path
+
     for pdf in pdfs_list:
         # print(f"Adding {pdf} to the merged pdf...")
         f.write(f"{pdf}\n")
@@ -158,9 +153,13 @@ def merge_pdfs(pdfs_list, out_path):                                            
     merger.close()
     print("Finished")
     f.close()
+    folders = all_dir_paths()
+    dest_dir = folders[client_selection]                                        # Concatenate a path to the specific weekly folder for the selected client
+    dest = dest_dir + "\\" + result
+    shutil.move(result, dest)
 ### MAIN ###
 client_selection = select_client()                                              # Select the client directory
 pdfs = dir_list(client_selection)                                               # Create a list of all the files in that directory and convert Cover Sheet
 keys = client_list[client_selection][1]                                         # Grab keys based off of client selection
 final_files = file_list(keys, pdfs[0])                                          # Create list of the files to merge
-merge_pdfs(final_files, pdfs[1])                                                # Merge files
+merge_pdfs(final_files, client_selection)                                       # Merge files
