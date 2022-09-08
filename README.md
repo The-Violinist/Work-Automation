@@ -8,7 +8,7 @@ The following programs are the most deveoloped and have been the most useful in 
 
 - merge_pdfs
     - By far my favorite! This takes my weekly analysis (docx file) and converts it to PDF then merges it with all of the relevent weekly automatically generated PDF files in the specified order for each client.
-- png_to_pdf
+- [png_to_pdf](https://github.com/The-Violinist/Work-Automation/tree/main/png_to_pdf)
     - As part of the analysis, there are screenshots from the Microsoft Partner Center which get saved as PNG files. This program searches for them in the weekly folders for each client and converts them to PDF.
 - popular_domains
     - Extracts URLs from PDF files and runs them thru nslookup. Any benign URL is added to a safelist and is not presented to the user on subsequent reports.
