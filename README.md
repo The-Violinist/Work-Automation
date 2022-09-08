@@ -15,4 +15,4 @@ The following programs are the most deveoloped and have been the most useful in 
 - [ADreports](https://github.com/The-Violinist/Work-Automation/tree/main/ADreports)
     - Reads xlsx files exported from servers (Inactive users, computers, sslvpn users, admin users). The files are then formatted and converted to PDF.
 - [wg_reports](https://github.com/The-Violinist/Work-Automation/tree/main/wg_reports)
-    - Parses data extracted from automated WatchGuard reports and returns it in a format which can be cut/pasted into the weekly analysis.
+    - Parses data extracted from automated WatchGuard reports and returns it in a format which can be cut/pasted into the weekly analysis. Currently, it is not able to handle a number of exceptions very well. It is also a bit sprawling...
