@@ -1,5 +1,7 @@
 # Commenting needed!
 
+# -*- coding: utf-8 -*-
+
 from datetime import date, timedelta
 from os import listdir, remove
 from PyPDF2 import PdfFileReader
@@ -40,10 +42,8 @@ f_type = {
     "top_cli_hits": ["Top_Clients_Hosts_by_Hits"],
     "IPS": ["Intrusions_(IPS)_Activity_Trend", "Intrusions__IPS__Activity_Trend"],
     "GAV": ["Virus_(GAV)_Activity_Trend", "Virus_Activity_Trend"],
-    "proxy": [
-        "Proxy_Traffic_Destination_by_Bandwidth",
-        "Proxy_Traffic_Destination_by_Hits",
-    ],
+    "proxy_bw": ["Proxy_Traffic_Destination_by_Bandwidth"],
+    "proxy_hits": ["Proxy_Traffic_Destination_by_Hits"],
 }
 
 clients = [
@@ -114,7 +114,7 @@ def dir_list():
     for item in file_list:
         path = cli_dir_path + "\\" + item
         all_files.append(path)  # Append all file paths to the files list
-    return all_files
+    return all_files, clients[client]
 
 
 def paths_in_dict(cli_files):
@@ -139,14 +139,14 @@ def extract_data(in_file, out_file):
     PDF_read = PdfFileReader(temp)
     num_pages = PDF_read.getNumPages()
 
-    f = open(out_file, "a")
+    fw = open(out_file, "a")
 
     # Extract text and write to text file
     for page in range(num_pages):
         numbered_page = PDF_read.getPage(page)
         page_text = numbered_page.extractText()
-        f.write(page_text)
-    f.close()
+        fw.write(page_text)
+    fw.close()
 
     # Remove empty lines
     with open(out_file, "r") as filehandle:
@@ -200,7 +200,7 @@ def IPS(temp_file="IPS.txt"):
             final_data.append(int_prev.group(1))
         if int_det and int_prev:
             break
-    print(f"\nIPS report:\n\n{final_data}\n" + "-" * 40)
+    f.write(f"\nIPS report:\n{final_data}\n" + "-" * 40)
 
 
 def GAV(temp_file="GAV.txt"):
@@ -216,7 +216,7 @@ def GAV(temp_file="GAV.txt"):
             final_data.append(vir_det.group(1))
         if vir_det:
             break
-    print(f"\nGAV report:\n\n{final_data}\n" + "-" * 40)
+    f.write(f"\nGAV report:\n{final_data}\n" + "-" * 40)
 
 
 def botnet_trend(temp_file="botnet_trend.txt"):
@@ -235,7 +235,7 @@ def botnet_trend(temp_file="botnet_trend.txt"):
             final_data.append(dest_ip.group(1))
         if src_ip and dest_ip:
             break
-    print(f"\nBotnet Activity Trend:\n\n{final_data[0]}\n{final_data[1]}\n" + "-" * 40)
+    f.write(f"\nBotnet Activity Trend:\n{final_data[0]}\n{final_data[1]}\n" + "-" * 40)
 
 
 def botnet_dest(temp_file="botnet_detect_dest.txt"):
@@ -260,14 +260,14 @@ def botnet_dest(temp_file="botnet_detect_dest.txt"):
             if x == True:
                 y = True
     total_sites = int(len(final_data) / 3)
-    print("\nBotnet Detection by Destination\n")
+    f.write("\nBotnet Detection by Destination\n")
     i = 0
     for site in range(total_sites):
-        print(
-            f"{final_data[0 + i]} with {final_data[1 + i]} hits at {final_data[2 + i]}%"
+        f.write(
+            f"{final_data[0 + i]}: {final_data[1 + i]} hits at {final_data[2 + i]}%\n"
         )
         i += 3
-    print("-" * 40)
+    f.write("-" * 40)
 
 
 def botnet_cli(temp_file="botnet_detect_cli.txt"):
@@ -292,14 +292,14 @@ def botnet_cli(temp_file="botnet_detect_cli.txt"):
             if x == True:
                 y = True
     total_sites = int(len(final_data) / 3)
-    print("\nBotnet Detection by Client\n")
+    f.write("\nBotnet Detection by Client\n")
     i = 0
     for site in range(total_sites):
-        print(
-            f"{final_data[0 + i]} with {final_data[1 + i]} hits at {final_data[2 + i]}%"
+        f.write(
+            f"{final_data[0 + i]}: {final_data[1 + i]} hits at {final_data[2 + i]}%\n"
         )
         i += 3
-    print("-" * 40)
+    f.write("-" * 40)
 
 
 def block_botnet_sites(temp_file="botnet_block.txt"):
@@ -324,14 +324,14 @@ def block_botnet_sites(temp_file="botnet_block.txt"):
             if x == True:
                 y = True
     total_sites = int(len(final_data) / 3)
-    print("\nBlocked Botnet Sites\n")
+    f.write("\nBlocked Botnet Sites\n")
     i = 0
     for site in range(total_sites):
-        print(
-            f"{final_data[0 + i]} with {final_data[1 + i]} hits at {final_data[2 + i]}%"
+        f.write(
+            f"{final_data[0 + i]}: {final_data[1 + i]} hits at {final_data[2 + i]}%\n"
         )
         i += 3
-    print("-" * 40)
+    f.write("-" * 40)
 
 
 def pop_domain_bytes(temp_file="pop_domain_bytes.txt"):
@@ -355,20 +355,20 @@ def pop_domain_bytes(temp_file="pop_domain_bytes.txt"):
                 x = True
             if x == True:
                 y = True
-    print("\nPopular Domains by Bytes\n")
+    f.write("\nPopular Domains by Bytes\n")
     i = 0
     for domain in range(3):
         if final_data[i + 3].isdigit():
-            print(
-                f"{final_data[i]} – {round((float(final_data[i + 1]) / 1024), 2)} GB at {final_data[i + 2]}%"
+            f.write(
+                f"{final_data[i]}: {round((float(final_data[i + 1]) / 1024), 2)} GB at {final_data[i + 2]}%\n"
             )
             i += 5
         else:
-            print(
-                f"{final_data[i]}{final_data[i + 1]} – {round((float(final_data[i + 2]) / 1024), 2)} GB at {final_data[i + 3]}%"
+            f.write(
+                f"{final_data[i]}{final_data[i + 1]}: {round((float(final_data[i + 2]) / 1024), 2)} GB at {final_data[i + 3]}%\n"
             )
             i += 6
-    print("-" * 40)
+    f.write("-" * 40)
 
 
 def pop_domain_hits(temp_file="pop_domain_hits.txt"):
@@ -392,26 +392,106 @@ def pop_domain_hits(temp_file="pop_domain_hits.txt"):
                 x = True
             if x == True:
                 y = True
-    print("\nPopular Domains by Hits\n")
+    f.write("\nPopular Domains by Hits\n")
     i = 0
     for domain in range(3):
         if final_data[i + 3].isdigit():
             hits = "{:,}".format(
                 int(final_data[i + 3])
             )  # Format the hits integer to use commas
-            print(
-                f"{final_data[i]} – {hits} hits at {final_data[i + 4]}%"
+            f.write(
+                f"{final_data[i]}: {hits} hits at {final_data[i + 4]}%\n"
             )  # Print in the format: Domain, hits, percent
             i += 5  # Increment the index for the next domain
         else:
             hits = "{:,}".format(
                 int(final_data[i + 4])
             )  # Format the hits integer to use commas
-            print(
-                f"{final_data[i]}{final_data[i + 1]} – {hits} hits at {final_data[i + 5]}%"
+            f.write(
+                f"{final_data[i]}{final_data[i + 1]}: {hits} hits at {final_data[i + 5]}%\n"
             )  # Print in the format: Domain, hits, percent
             i += 6  # Increment the index for the next domain
-    print("-" * 40)
+    f.write("-" * 40)
+
+
+def proxy_bw(temp_file="proxy_bw.txt"):
+    # Get the text for the last string before the needed data
+    text = "Hits (%)"
+    x = False
+    y = False
+    final_data = []
+    with open(temp_file, "r") as read_file:
+        lines = read_file.readlines()
+    read_file.close()
+    os.remove(temp_file)
+    for line in lines:
+        if line.__contains__("Page 1"):
+            break
+        if y == True:
+            each_line = line.strip()
+            final_data.append(each_line)
+        else:
+            if line.__contains__(text):
+                x = True
+            if x == True:
+                y = True
+    f.write("\nProxy Traffic by Bandwidth\n")
+    i = 0
+    for domain in range(3):
+        if final_data[i + 3].isdigit():
+            f.write(
+                f"{final_data[i]}: {round((float(final_data[i + 1]) / 1024), 2)} GB at {final_data[i + 2]}%\n"
+            )
+            i += 5
+        else:
+            f.write(
+                f"{final_data[i]}{final_data[i + 1]}: {round((float(final_data[i + 2]) / 1024), 2)} GB at {final_data[i + 3]}%\n"
+            )
+            i += 6
+    f.write("-" * 40)
+
+
+def proxy_hits(temp_file="proxy_hits.txt"):
+    # Get the text for the last string before the needed data
+    text = "Hits (%)"
+    x = False
+    y = False
+    final_data = []
+    with open(temp_file, "r") as read_file:
+        lines = read_file.readlines()
+    read_file.close()
+    os.remove(temp_file)
+    for line in lines:
+        if line.__contains__("Page 1"):
+            break
+        if y == True:
+            each_line = line.strip()
+            final_data.append(each_line)
+        else:
+            if line.__contains__(text):
+                x = True
+            if x == True:
+                y = True
+    f.write("\nProxy Traffic by Hits\n")
+    i = 0
+    for domain in range(3):
+        if final_data[i + 3].isdigit():
+            hits = "{:,}".format(
+                int(final_data[i + 3])
+            )  # Format the hits integer to use commas
+            f.write(
+                f"{final_data[i]}: {hits} hits at {final_data[i + 4]}%\n"
+            )  # Print in the format: Domain, hits, percent
+            i += 5  # Increment the index for the next domain
+        else:
+            hits = "{:,}".format(
+                int(final_data[i + 4])
+            )  # Format the hits integer to use commas
+            f.write(
+                f"{final_data[i]}{final_data[i + 1]}: {hits} hits at {final_data[i + 5]}%\n"
+            )  # Print in the format: Domain, hits, percent
+            i += 6  # Increment the index for the next domain
+    f.write("-" * 40)
 
 
 def top_cli_host(temp_file="top_cli_host.txt"):
@@ -438,32 +518,32 @@ def top_cli_host(temp_file="top_cli_host.txt"):
                 x = True
             if x == True:
                 y = True
-    print("\nTop Client hosts by Bytes\n")
+    f.write("\nTop Client hosts by Bytes\n")
     i = 0
     if indexIncrementer == 5:
         for host in range(3):
-            print(
-                f"{final_data[i]} – {round((float(final_data[i + 3]) / 1024), 2)} GB at {final_data[i + 4]}%"
+            f.write(
+                f"{final_data[i]}: {round((float(final_data[i + 3]) / 1024), 2)} GB at {final_data[i + 4]}%\n"
             )
             i += indexIncrementer
     else:
         for host in range(3):
             if float(final_data[i + 5]) < 100:
-                print(
-                    f"{final_data[i + 1]} ({final_data[i]}) – {round((float(final_data[i + 4]) / 1024), 2)} GB at {final_data[i + 5]}%"
+                f.write(
+                    f"{final_data[i + 1]} ({final_data[i]}): {round((float(final_data[i + 4]) / 1024), 2)} GB at {final_data[i + 5]}%\n"
                 )
                 i += indexIncrementer
             elif final_data[i + 1][0].isdigit():
-                print(
-                    f"{final_data[i + 1]}{final_data[i + 2]} ({final_data[i]}) – {round((float(final_data[i + 5]) / 1024), 2)} GB at {final_data[i + 6]}%"
+                f.write(
+                    f"{final_data[i + 1]}{final_data[i + 2]} ({final_data[i]}): {round((float(final_data[i + 5]) / 1024), 2)} GB at {final_data[i + 6]}%\n"
                 )
                 i += indexIncrementer + 1
             else:
-                print(
-                    f"{final_data[i + 2]} ({final_data[i]}{final_data[i + 1]}) – {round((float(final_data[i + 5]) / 1024), 2)} GB at {final_data[i + 6]}%"
+                f.write(
+                    f"{final_data[i + 2]} ({final_data[i]}{final_data[i + 1]}): {round((float(final_data[i + 5]) / 1024), 2)} GB at {final_data[i + 6]}%\n"
                 )
                 i += indexIncrementer + 1
-    print("-" * 40)
+    f.write("-" * 40)
 
 
 def top_cli_user(temp_file="top_cli_user.txt"):
@@ -487,23 +567,23 @@ def top_cli_user(temp_file="top_cli_user.txt"):
                 x = True
             if x == True:
                 y = True
-    print("\nTop Clients Users by Bandwidth\n")
+    f.write("\nTop Clients Users by Bandwidth\n")
     total_users = int(len(final_data) / 5)
     if total_users > 3:
         total_users = 3
     i = 0
     for user in range(total_users):
         if final_data[i + 1][0].isalpha():
-            print(
-                f"{final_data[i]}{final_data[i + 1]} – {round((float(final_data[i + 4]) / 1024), 2)} GB at {final_data[i + 5]}%"
+            f.write(
+                f"{final_data[i]}{final_data[i + 1]}: {round((float(final_data[i + 4]) / 1024), 2)} GB at {final_data[i + 5]}%\n"
             )
             i += 6
         else:
-            print(
-                f"{final_data[i]} – {round((float(final_data[i + 3]) / 1024), 2)} GB at {final_data[i + 4]}%"
+            f.write(
+                f"{final_data[i]}: {round((float(final_data[i + 3]) / 1024), 2)} GB at {final_data[i + 4]}%\n"
             )
             i += 5
-    print("-" * 40)
+    f.write("-" * 40)
 
 
 def top_cli_hits(temp_file="top_cli_hits.txt"):
@@ -530,7 +610,7 @@ def top_cli_hits(temp_file="top_cli_hits.txt"):
                 x = True
             if x == True:
                 y = True
-    print("\nTop Clients Hosts by Hits\n")
+    f.write("\nTop Clients Hosts by Hits\n")
     i = 0
     if indexIncrement == 4:
         for host in range(3):
@@ -540,9 +620,9 @@ def top_cli_hits(temp_file="top_cli_hits.txt"):
                         int(final_data[i + 2])
                     )  # Format the hits integer to use commas
                 else:
-                    hits = f"{round((float(final_data[i + 2]) / 1000000), 2)} million"
-                print(
-                    f"{final_data[i + 1]} ({final_data[i]}) – {hits} hits at {final_data[i + 3]}%"
+                    hits = f"{round((float(final_data[i + 2]) / 1000000), 2)} million\n"
+                f.write(
+                    f"{final_data[i + 1]} ({final_data[i]}): {hits} hits at {final_data[i + 3]}%\n"
                 )  # Print in the format: IP (hostname), hits, percent
                 i += 4  # Increment the index for the next domain
             else:
@@ -551,23 +631,22 @@ def top_cli_hits(temp_file="top_cli_hits.txt"):
                         int(final_data[i + 3])
                     )  # Format the hits integer to use commas
                 else:
-                    hits = f"{round((float(final_data[i + 3]) / 1000000), 2)} million"
-                print(
-                    f"{final_data[i + 2]} ({final_data[i]}{final_data[i + 1]}) – {hits} hits at {final_data[i + 4]}%"
+                    hits = f"{round((float(final_data[i + 3]) / 1000000), 2)} million\n"
+                f.write(
+                    f"{final_data[i + 2]} ({final_data[i]}{final_data[i + 1]}): {hits} hits at {final_data[i + 4]}%\n"
                 )  # Print in the format: IP (hostname), hits, percent
                 i += 5  # Increment the index for the next domain
-
     else:
         for host in range(3):
             hits = "{:,}".format(
                 int(final_data[i + 1])
             )  # Format the hits integer to use commas
-            print(
-                f"{final_data[i]} – {hits} hits at {final_data[i + 2]}%"
+            f.write(
+                f"{final_data[i]}: {hits} hits at {final_data[i + 2]}%\n"
             )  # Print in the format: IP (hostname), hits, percent
             i += 3  # Increment the index for the next domain
 
-    print("-" * 40)
+    f.write("-" * 40)
 
 
 def active_cli_bw(temp_file="active_client_bw.txt"):
@@ -596,27 +675,27 @@ def active_cli_bw(temp_file="active_client_bw.txt"):
                 x = True
             if x == True:
                 y = True
-    print("\nMost Active Clients by Bandwidth\n")
+    f.write("\nMost Active Clients by Bandwidth\n")
     i = 0
     if indexIncrement == 5:
         for host in range(3):
             if final_data[i + 4].isdigit():
-                print(
-                    f"{final_data[i + 2]} ({final_data[i + 1]}) – {round((float(final_data[i + 3]) / 1024), 2)} GB"
+                f.write(
+                    f"{final_data[i + 2]} ({final_data[i + 1]}): {round((float(final_data[i + 3]) / 1024), 2)} GB\n"
                 )
                 i += 5
             else:
-                print(
-                    f"{final_data[i + 3]} ({final_data[i + 1]}{final_data[i + 2]}) – {round((float(final_data[i + 4]) / 1024), 2)} GB"
+                f.write(
+                    f"{final_data[i + 3]} ({final_data[i + 1]}{final_data[i + 2]}): {round((float(final_data[i + 4]) / 1024), 2)} GB\n"
                 )
                 i += 6
     else:
         for host in range(3):
-            print(
-                f"{final_data[i + 1]} – {round((float(final_data[i + 2]) / 1024), 2)} GB"
+            f.write(
+                f"{final_data[i + 1]}: {round((float(final_data[i + 2]) / 1024), 2)} GB\n"
             )
             i += 4
-    print("-" * 40)
+    f.write("-" * 40)
 
 
 def active_cli_hits(temp_file="active_client_hit.txt"):
@@ -646,7 +725,7 @@ def active_cli_hits(temp_file="active_client_hit.txt"):
                     x = True
                 if x == True:
                     y = True
-    print("\nMost Active Clients by Hits\n")
+    f.write("\nMost Active Clients by Hits\n")
     i = 0
     if indexIncrement == 5:
         for host in range(3):
@@ -654,16 +733,16 @@ def active_cli_hits(temp_file="active_client_hit.txt"):
                 hits_num = "{:,}".format(
                     int(final_data[i + 4])
                 )  # Format the hits integer to use commas
-                print(
-                    f"{final_data[i + 2]} ({final_data[i + 1]}) – {hits_num} hits"
+                f.write(
+                    f"{final_data[i + 2]} ({final_data[i + 1]}): {hits_num} hits\n"
                 )  # Print in the format: Domain, hits, percent
                 i += 5  # Increment the index for the next domain
             else:
                 hits_num = "{:,}".format(
                     int(final_data[i + 5])
                 )  # Format the hits integer to use commas
-                print(
-                    f"{final_data[i + 3]} ({final_data[i + 1]}{final_data[i + 2]}) – {hits_num} hits"
+                f.write(
+                    f"{final_data[i + 3]} ({final_data[i + 1]}{final_data[i + 2]}): {hits_num} hits\n"
                 )  # Print in the format: Domain, hits, percent
                 i += 6  # Increment the index for the next domain
     else:
@@ -671,11 +750,11 @@ def active_cli_hits(temp_file="active_client_hit.txt"):
             hits_num = "{:,}".format(
                 int(final_data[i + 3])
             )  # Format the hits integer to use commas
-            print(
-                f"{final_data[i + 1]} – {hits_num} hits"
+            f.write(
+                f"{final_data[i + 1]} – {hits_num} hits\n"
             )  # Print in the format: Domain, hits, percent
             i += 4  # Increment the index for the next domain
-    print("-" * 40)
+    f.write("-" * 40)
 
 
 def app_use_bw(temp_file="app_use_bw.txt"):
@@ -699,20 +778,20 @@ def app_use_bw(temp_file="app_use_bw.txt"):
                 x = True
             if x == True:
                 y = True
-    print("\nApplication Usage by Bandwidth\n")
+    f.write("\nApplication Usage by Bandwidth\n")
     i = 0
     for app in range(3):
         try:
-            print(
-                f"{final_data[i]} – {round((float(final_data[i + 1]) / 1024), 2)} GB at {final_data[i + 2]}%"
+            f.write(
+                f"{final_data[i]}: {round((float(final_data[i + 1]) / 1024), 2)} GB at {final_data[i + 2]}%\n"
             )
             i += 5
         except:
-            print(
-                f"{final_data[i]} {final_data[i + 1]} – {round((float(final_data[i + 2]) / 1024), 2)} GB at {final_data[i + 3]}%"
+            f.write(
+                f"{final_data[i]} {final_data[i + 1]}: {round((float(final_data[i + 2]) / 1024), 2)} GB at {final_data[i + 3]}%\n"
             )
             i += 6
-    print("-" * 40)
+    f.write("-" * 40)
 
 
 def app_use_hits(temp_file="app_use_hits.txt"):
@@ -736,7 +815,7 @@ def app_use_hits(temp_file="app_use_hits.txt"):
                 x = True
             if x == True:
                 y = True
-    print("\nApplication Usage by Hits\n")
+    f.write("\nApplication Usage by Hits\n")
     i = 0
     for app in range(3):
         if final_data[i + 3].isdigit():
@@ -745,9 +824,9 @@ def app_use_hits(temp_file="app_use_hits.txt"):
                     int(final_data[i + 3])
                 )  # Format the hits integer to use commas
             else:
-                hits = f"{round((float(final_data[i + 3]) / 1000000), 2)} million"
-            print(
-                f"{final_data[i]} – {hits} hits at {final_data[i + 4]}%"
+                hits = f"{round((float(final_data[i + 3]) / 1000000), 2)} million\n"
+            f.write(
+                f"{final_data[i]}: {hits} hits at {final_data[i + 4]}%\n"
             )  # Print in the format: app, hits, percent
             i += 5  # Increment the index for the next app
         else:
@@ -756,12 +835,12 @@ def app_use_hits(temp_file="app_use_hits.txt"):
                     int(final_data[i + 4])
                 )  # Format the hits integer to use commas
             else:
-                hits = f"{round((float(final_data[i + 4]) / 1000000), 2)} million"
-            print(
-                f"{final_data[i]}{final_data[i + 1]} – {hits} hits at {final_data[i + 5]}%"
+                hits = f"{round((float(final_data[i + 4]) / 1000000), 2)} million\n"
+            f.write(
+                f"{final_data[i]}{final_data[i + 1]}: {hits} hits at {final_data[i + 5]}%\n"
             )  # Print in the format: app, hits, percent
             i += 6  # Increment the index for the next app
-    print("-" * 40)
+    f.write("-" * 40)
 
 
 def block_sites_cat(temp_file="block_sites_cat.txt"):
@@ -785,7 +864,7 @@ def block_sites_cat(temp_file="block_sites_cat.txt"):
                 x = True
             if x == True:
                 y = True
-    print("\nBlocked Sites by Category\n")
+    f.write("\nBlocked Sites by Category\n")
     i = 0  # Incrementer for the rows of data
     num_entries = int(len(final_data) / 3)
     if num_entries > 3:
@@ -795,19 +874,19 @@ def block_sites_cat(temp_file="block_sites_cat.txt"):
             hits = "{:,}".format(
                 int(final_data[1 + i])
             )  # Format the hits integer to use commas
-            print(
-                f"{final_data[0 + i]} – {hits} hits at {final_data[2 + i]}%"
+            f.write(
+                f"{final_data[0 + i]}: {hits} hits at {final_data[2 + i]}%\n"
             )  # Print in the format: Domain, hits, percent
             i += 3  # Increment the index for the next domain
         else:
             hits = "{:,}".format(
                 int(final_data[i + 2])
             )  # Format the hits integer to use commas
-            print(
-                f"{final_data[i]}{final_data[i + 1]} – {hits} hits at {final_data[i + 3]}%"
+            f.write(
+                f"{final_data[i]}{final_data[i + 1]}: {hits} hits at {final_data[i + 3]}%\n"
             )  # Print in the format: Domain, hits, percent
             i += 4  # Increment the index for the next domain
-    print("-" * 40)
+    f.write("-" * 40)
 
 
 def block_sites_cli(temp_file="block_sites_cli.txt"):
@@ -831,7 +910,7 @@ def block_sites_cli(temp_file="block_sites_cli.txt"):
                 x = True
             if x == True:
                 y = True
-    print("\nBlocked Sites by Client\n")
+    f.write("\nBlocked Sites by Client\n")
     i = 0  # Incrementer for the rows of data
     num_entries = int(len(final_data) / 3)
     if num_entries > 3:
@@ -840,17 +919,21 @@ def block_sites_cli(temp_file="block_sites_cli.txt"):
         hits = "{:,}".format(
             int(final_data[1 + i])
         )  # Format the hits integer to use commas
-        print(
-            f"{final_data[0 + i]} – {hits} hits at {final_data[2 + i]}%"
+        f.write(
+            f"{final_data[0 + i]}: {hits} hits at {final_data[2 + i]}%\n"
         )  # Print in the format: Domain, hits, percent
         i += 3  # Increment the index for the next domain
-    print("-" * 40)
+    f.write("-" * 40)
 
 
 ########################################################################################
 
 
 def reports(temps):
+    if "proxy_bw.txt" in temps:
+        proxy_bw()
+    if "proxy_hits.txt" in temps:
+        proxy_hits()
     if "top_cli_host.txt" in temps:
         top_cli_host()
     if "top_cli_user.txt" in temps:
@@ -889,8 +972,9 @@ def reports(temps):
 
 ### MAIN ###
 client_files = dir_list()
-paths_in_dict(client_files)
+f = open(f"{client_files[1]}_WG_data.txt", "a")
+paths_in_dict(client_files[0])
 temps = create_temps()
 reports(temps)
-
+f.close()
 ### END ###
