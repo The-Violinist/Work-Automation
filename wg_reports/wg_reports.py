@@ -27,8 +27,8 @@ f_type = {
     "botnet_block": ["Blocked_Botnet_Sites"],
     "botnet_detect_cli": ["Botnet_Detection_Botnet_Detection_by_Client"],
     "botnet_detect_dest": ["Botnet_Detection_Botnet_Detection_by_Destination"],
-    "active_client_bw": ["Most_Active_Clients_Clients_by_Bandwidth"],
-    "active_client_hit": ["Most_Active_Clients_Clients_by_Hits"],
+    # "active_client_bw": ["Most_Active_Clients_Clients_by_Bandwidth"],
+    # "active_client_hit": ["Most_Active_Clients_Clients_by_Hits"],
     "pop_domain_bytes": ["Most_Popular_Domains_Bytes"],
     "pop_domain_hits": ["Most_Popular_Domains_Hits"],
     "top_cli_user": [
@@ -437,15 +437,15 @@ def proxy_bw(temp_file="proxy_bw.txt"):
                 y = True
     f.write("\nProxy Traffic by Bandwidth\n")
     i = 0
-    for domain in range(3):
+    for domain in range(1):
         if final_data[i + 3].isdigit():
             f.write(
-                f"{final_data[i]}: {round((float(final_data[i + 1]) / 1024), 2)} GB at {final_data[i + 2]}%\n"
+                f"Destination by Bandwidth: {final_data[i]} with {round((float(final_data[i + 1]) / 1024), 2)} GB at {final_data[i + 2]}%\n"
             )
             i += 5
         else:
             f.write(
-                f"{final_data[i]}{final_data[i + 1]}: {round((float(final_data[i + 2]) / 1024), 2)} GB at {final_data[i + 3]}%\n"
+                f"Destination by Bandwidth: {final_data[i]}{final_data[i + 1]} with {round((float(final_data[i + 2]) / 1024), 2)} GB at {final_data[i + 3]}%\n"
             )
             i += 6
     f.write("-" * 40)
@@ -474,13 +474,13 @@ def proxy_hits(temp_file="proxy_hits.txt"):
                 y = True
     f.write("\nProxy Traffic by Hits\n")
     i = 0
-    for domain in range(3):
+    for domain in range(1):
         if final_data[i + 3].isdigit():
             hits = "{:,}".format(
                 int(final_data[i + 3])
             )  # Format the hits integer to use commas
             f.write(
-                f"{final_data[i]}: {hits} hits at {final_data[i + 4]}%\n"
+                f"Destination by Hits: {final_data[i]} with {hits} hits at {final_data[i + 4]}%\n"
             )  # Print in the format: Domain, hits, percent
             i += 5  # Increment the index for the next domain
         else:
@@ -488,7 +488,7 @@ def proxy_hits(temp_file="proxy_hits.txt"):
                 int(final_data[i + 4])
             )  # Format the hits integer to use commas
             f.write(
-                f"{final_data[i]}{final_data[i + 1]}: {hits} hits at {final_data[i + 5]}%\n"
+                f"Destination by Hits: {final_data[i]}{final_data[i + 1]} with {hits} hits at {final_data[i + 5]}%\n"
             )  # Print in the format: Domain, hits, percent
             i += 6  # Increment the index for the next domain
     f.write("-" * 40)
@@ -620,7 +620,7 @@ def top_cli_hits(temp_file="top_cli_hits.txt"):
                         int(final_data[i + 2])
                     )  # Format the hits integer to use commas
                 else:
-                    hits = f"{round((float(final_data[i + 2]) / 1000000), 2)} million\n"
+                    hits = f"{round((float(final_data[i + 2]) / 1000000), 2)} million"
                 f.write(
                     f"{final_data[i + 1]} ({final_data[i]}): {hits} hits at {final_data[i + 3]}%\n"
                 )  # Print in the format: IP (hostname), hits, percent
@@ -631,7 +631,7 @@ def top_cli_hits(temp_file="top_cli_hits.txt"):
                         int(final_data[i + 3])
                     )  # Format the hits integer to use commas
                 else:
-                    hits = f"{round((float(final_data[i + 3]) / 1000000), 2)} million\n"
+                    hits = f"{round((float(final_data[i + 3]) / 1000000), 2)} million"
                 f.write(
                     f"{final_data[i + 2]} ({final_data[i]}{final_data[i + 1]}): {hits} hits at {final_data[i + 4]}%\n"
                 )  # Print in the format: IP (hostname), hits, percent
@@ -824,7 +824,7 @@ def app_use_hits(temp_file="app_use_hits.txt"):
                     int(final_data[i + 3])
                 )  # Format the hits integer to use commas
             else:
-                hits = f"{round((float(final_data[i + 3]) / 1000000), 2)} million\n"
+                hits = f"{round((float(final_data[i + 3]) / 1000000), 2)} million"
             f.write(
                 f"{final_data[i]}: {hits} hits at {final_data[i + 4]}%\n"
             )  # Print in the format: app, hits, percent
@@ -835,7 +835,7 @@ def app_use_hits(temp_file="app_use_hits.txt"):
                     int(final_data[i + 4])
                 )  # Format the hits integer to use commas
             else:
-                hits = f"{round((float(final_data[i + 4]) / 1000000), 2)} million\n"
+                hits = f"{round((float(final_data[i + 4]) / 1000000), 2)} million"
             f.write(
                 f"{final_data[i]}{final_data[i + 1]}: {hits} hits at {final_data[i + 5]}%\n"
             )  # Print in the format: app, hits, percent
@@ -930,28 +930,28 @@ def block_sites_cli(temp_file="block_sites_cli.txt"):
 
 
 def reports(temps):
-    if "proxy_bw.txt" in temps:
-        proxy_bw()
-    if "proxy_hits.txt" in temps:
-        proxy_hits()
     if "top_cli_host.txt" in temps:
         top_cli_host()
     if "top_cli_user.txt" in temps:
         top_cli_user()
     if "top_cli_hits.txt" in temps:
         top_cli_hits()
-    if "active_client_bw.txt" in temps:
-        active_cli_bw()
-    if "active_client_hit.txt" in temps:
-        active_cli_hits()
     if "app_use_bw.txt" in temps:
         app_use_bw()
     if "app_use_hits.txt" in temps:
         app_use_hits()
+    if "block_sites_cat.txt" in temps:
+        block_sites_cat()
+    if "block_sites_cli.txt" in temps:
+        block_sites_cli()
     if "pop_domain_bytes.txt" in temps:
         pop_domain_bytes()
     if "pop_domain_hits.txt" in temps:
         pop_domain_hits()
+    if "proxy_bw.txt" in temps:
+        proxy_bw()
+    if "proxy_hits.txt" in temps:
+        proxy_hits()
     if "botnet_trend.txt" in temps:
         botnet_trend()
     if "botnet_detect_dest.txt" in temps:
@@ -964,10 +964,13 @@ def reports(temps):
         IPS()
     if "GAV.txt" in temps:
         GAV()
-    if "block_sites_cat.txt" in temps:
-        block_sites_cat()
-    if "block_sites_cli.txt" in temps:
-        block_sites_cli()
+
+
+### Not currently used
+# if "active_client_bw.txt" in temps:
+#     active_cli_bw()
+# if "active_client_hit.txt" in temps:
+#     active_cli_hits()
 
 
 ### MAIN ###
