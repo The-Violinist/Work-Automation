@@ -27,8 +27,8 @@ f_type = {
     "botnet_block": ["Blocked_Botnet_Sites"],
     "botnet_detect_cli": ["Botnet_Detection_Botnet_Detection_by_Client"],
     "botnet_detect_dest": ["Botnet_Detection_Botnet_Detection_by_Destination"],
-    # "active_client_bw": ["Most_Active_Clients_Clients_by_Bandwidth"],
-    # "active_client_hit": ["Most_Active_Clients_Clients_by_Hits"],
+    "active_client_bw": ["Most_Active_Clients_Clients_by_Bandwidth"],
+    "active_client_hit": ["Most_Active_Clients_Clients_by_Hits"],
     "pop_domain_bytes": ["Most_Popular_Domains_Bytes"],
     "pop_domain_hits": ["Most_Popular_Domains_Hits"],
     "top_cli_user": [
@@ -964,13 +964,10 @@ def reports(temps):
         IPS()
     if "GAV.txt" in temps:
         GAV()
-
-
-### Not currently used
-# if "active_client_bw.txt" in temps:
-#     active_cli_bw()
-# if "active_client_hit.txt" in temps:
-#     active_cli_hits()
+    if "active_client_bw.txt" in temps:
+        active_cli_bw()
+    if "active_client_hit.txt" in temps:
+        active_cli_hits()
 
 
 ### MAIN ###
