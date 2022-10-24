@@ -1,12 +1,9 @@
-from typing import final
 import dns
 import dns.resolver
 from datetime import date, timedelta
-from os import listdir, remove
+from os import listdir, remove, system
 from PyPDF2 import PdfFileReader
 import re
-
-# import os
 
 ### VARIABLES ###
 # Dictionary of keywords to search for files in the weekly directories
@@ -55,8 +52,8 @@ def all_dir_paths():
     )  # Convert the complete date of Monday to a string
     # Parent for all client directories
     dir_path = (
-        # "\\\\FS01\\MSP-SecReview\\weekly"  # Upper level directory for all client files
-        "C:\\Users\\darmstrong\\Desktop\\script_test"
+        "\\\\FS01\\MSP-SecReview\\weekly"  # Upper level directory for all client files
+        # "C:\\Users\\darmstrong\\Desktop\\script_test"
     )
 
     # dir_path = 'C:\\Users\\darmstrong\\Desktop\\script_test'                    # Test directory
@@ -156,7 +153,7 @@ def pop_domains(ip_list, temp_file):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    # remove(temp_file)
+    remove(temp_file)
     for line in lines:
         if line.__contains__("Total:"):
             break
@@ -170,15 +167,23 @@ def pop_domains(ip_list, temp_file):
                 y = True
     i = 0
     for domain in range(50):
+        fRead = open("test.txt", "r")
         if final_data[i + 3].isdigit():
-            ip_list.append(f"{final_data[i]}")
+            if f"{final_data[i]}" not in fRead.read():
+                ip_list.append(f"{final_data[i]}")
             i += 5
         elif final_data[i + 4].isdigit():
-            ip_list.append(f"{final_data[i]}{final_data[i + 1]}")
+            if f"{final_data[i]}{final_data[i + 1]}" not in fRead.read():
+                ip_list.append(f"{final_data[i]}{final_data[i + 1]}")
             i += 6
         else:
-            ip_list.append(f"{final_data[i]}{final_data[i + 1]}{final_data[i + 2]}")
+            if (
+                f"{final_data[i]}{final_data[i + 1]}{final_data[i + 2]}"
+                not in fRead.read()
+            ):
+                ip_list.append(f"{final_data[i]}{final_data[i + 1]}{final_data[i + 2]}")
             i += 7
+        fRead.close()
         if domain == 49:
             break
         if (
@@ -250,15 +255,19 @@ site_dict = {}
 urls = url_list()
 add_urls_to_dict(urls, site_dict)
 
-fRead = open("test.txt", "r")
 fWrite = open("test.txt", "a")
 
 for k, v in site_dict.items():
-    fRead = open("test.txt", "r")
-    if f"{k}\n" in fRead.read():
-        continue
-    else:
-        fWrite.write(f"{k}\n")
-    fRead.close()
+    print(k, v)
+    while True:
+        response = input("Please enter a selection:\n1) Safe\n2)Malicious\n>")
+        if response == "1":
+            fWrite.write(f"{k}\n")
+            break
+        elif response == "2":
+            break
+        else:
+            print('Please enter either "1" or "2"')
+    system("cls")
 fWrite.close()
 ### END ###
