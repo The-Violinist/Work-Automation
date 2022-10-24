@@ -1,162 +1,264 @@
-from PyPDF2 import PdfFileReader
-import re
+from typing import final
 import dns
 import dns.resolver
-import os
+from datetime import date, timedelta
+from os import listdir, remove
+from PyPDF2 import PdfFileReader
+import re
+
+# import os
 
 ### VARIABLES ###
-client_list = [['Intermax','0002.txt', '0002'],['Knudtsen','0005.txt', '0005'],['BankCDA','0007.txt', '0007'],['HONI','0021.txt', '0021'],['MMCO','0030.txt', '0030'],['Integrated Personnel','0038.txt', '0038'],['Northcon','0046.txt', '0046'],['Bayshore','0050.txt', '0050'],['MPMS','0073.txt', '0073'],['PFFM','0100.txt', '0100']]
+# Dictionary of keywords to search for files in the weekly directories
+f_type = {
+    "pop_domain_bytes": ["Most_Popular_Domains_Bytes"],
+    "pop_domain_hits": ["Most_Popular_Domains_Hits"],
+}
+
+clients = [
+    "Intermax",
+    "Knudtsen",
+    "BankCDA",
+    "HONI",
+    "MMCO",
+    "Integrated Personnel",
+    "Northcon",
+    "Bay Shore",
+    "PFFM",
+]
 
 ### FUNCTIONS ###
-def select_client(client_list):
+
+#############################
+# Gather files to work with #
+#############################
+
+# Select which client
+def select_client():
     i = 1
-    for item in client_list:
-        print(f'{i}) {item[0]}')
+    for item in clients:
+        print(f"{i}) {item}")  # Print out a list of clients to select from
         i += 1
-    client_choice = int(input("Please enter a client selection by number:\n>")) - 1
-    return client_list[client_choice][1], client_list[client_choice][2]
-
-# Get list of files to choose from
-def pdf_paths():                                                                # Create list of file paths for the pdfs
-    files = os.listdir()                                                         # Get list of all files in the directory
-    environment = os.getcwd() + "\\"                                            # Get local directory path
-    pdfs = []
-    for item in files:
-        possible_pdf = environment + item                                            # Change the list entries to their full file path
-        if possible_pdf[-3:] == "pdf":
-            pdfs.append(possible_pdf)
-    return pdfs
-
-# Create list with IPs
-def find_IPs(ip_list):
-    ip_pattern = re.compile(r'(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})')
-    rfile = open("temp_nslookup.txt", "r")
-    Lines = rfile.readlines()
-    for line in Lines:
-        each_line = line.strip()
-        if ip_pattern.search(each_line) and not each_line.__contains__(client_num):
-            ip_list.append(each_line)
-    rfile.close()
-
-# Create list with URLs
-def create_URL_list(url_list, client_name):
-    url_is = re.compile(r'[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$')
-    url_not = re.compile(r'[0-9]([-.\w]*[0-9])*((0-9)*)*(\/?)([0-9\.\?\,\'\/\\\+&amp;%\$#_]*)?$')
-
-    rfile = open("temp_nslookup.txt", "r")
-    Lines = rfile.readlines()
-    for line in Lines:
-        each_line = line.strip()
-        if url_is.search(each_line) and not url_not.search(each_line) and not each_line.__contains__("cloudbackup") and not each_line.__contains__("zoom") and not each_line.__contains__("us-west") and not each_line.__contains__("gvt1") and not each_line.__contains__("cloudfront") and not each_line.__contains__("office") and not each_line.__contains__("logicnow") and not each_line.__contains__("n-able") and not each_line.__contains__("bitdefender") and not each_line.__contains__("google") and not each_line.endswith("...") and each_line != "Hits" and each_line != "MB" and not each_line.startswith("Domain") and each_line != "From:" and each_line != "To:" and not each_line.__contains__("microsoft") and not each_line.__contains__("breck") and not each_line.__contains__("windowsupdate") and not each_line.__contains__("quickbooks") and not each_line.__contains__("adobe") and not each_line.__contains__("verisign") and not each_line.__contains__("ocsp") and not each_line.startswith("Most") and not each_line.__contains__(client_name):
-        #if url.search(each_line):
-            url_list.append(each_line)
-    rfile.close()
+    client = int(input("Please select the client by number:\n>"))
+    return client - 1  # Return the client as an index
 
 
-# Take a given URL and run nslookup
-def get_ip(site, site_ips, site_dict):
-    result = dns.resolver.resolve(site, 'A')
-    for ipval in result:
-        site_ips.append(ipval.to_text())
-    site_dict[site] = site_ips
+# Create a list of all the weekly folder paths
+def all_dir_paths():
+    # Get the subdirectory name based on date
+    day_of_week = date.today().weekday()  # Get today's day of the week as an index
+    date_monday = date.today() - timedelta(
+        days=day_of_week
+    )  # Calculate the date of the Monday of this week
+    str_date_monday = date_monday.strftime(
+        "%Y-%m-%d"
+    )  # Convert the complete date of Monday to a string
+    # Parent for all client directories
+    dir_path = (
+        # "\\\\FS01\\MSP-SecReview\\weekly"  # Upper level directory for all client files
+        "C:\\Users\\darmstrong\\Desktop\\script_test"
+    )
 
-# run nslookup and add all IP address to the dictionary
-def add_URLs_to_dict(url_list, site_dict):
-    for site in url_list:
-        site_ips = []
-        try:
-            get_ip(site, site_ips, site_dict)
-        except:
-            continue
+    # dir_path = 'C:\\Users\\darmstrong\\Desktop\\script_test'                    # Test directory
 
-# Add IP address to the dictionary
-def add_IPs_to_dict(ip_list, site_dict):
-    ip_list = set(ip_list)
-    ip_list = list(ip_list)
-    i = 1
-    for address in ip_list:
-        site_dict[f"IP {i}"] = address
-        i += 1
+    dir_list = listdir(dir_path)
+    # Create a list of all the current week directories
+    paths = []
+    for item in dir_list:
+        if item[0].isdigit():
+            paths.append(dir_path + "\\" + item + "\\" + str_date_monday)
+    return paths
 
-def run_per_pdf(in_file, client_file, client_name):
-    site_dict = {}
-    ip_list = []
-    url_list = []
 
-    temp = open(in_file, 'rb')
+# Create a list of all the files in the specific client weekly directory
+def dir_list():
+    all_files = []
+    client = select_client()
+    folders = all_dir_paths()
+    cli_dir_path = folders[
+        client
+    ]  # Concatenate a path to the specific weekly folder for that client
+    file_list = listdir(
+        cli_dir_path
+    )  # Create a list of all the files in that directory
+    for item in file_list:
+        path = cli_dir_path + "\\" + item
+        all_files.append(path)  # Append all file paths to the files list
+    return all_files, clients[client]
+
+
+def paths_in_dict(cli_files):
+    for k in f_type:  # Each key in the search word dictionary
+        for value in f_type[k]:  # Each value for each key
+            for item in cli_files:  # Each file in the directory
+                if (
+                    value in item
+                ):  # If the search word is in the file name, change the value in the dictionary to the filepath
+                    f_type[k] = item
+
+
+######################################################################################
+
+########################
+# Extract Data to TXTs #
+########################
+
+# Extract data from PDFs
+def extract_data(in_file, out_file):
+    temp = open(in_file, "rb")
     PDF_read = PdfFileReader(temp)
     num_pages = PDF_read.getNumPages()
 
-    f = open("temp_nslookup.txt", "a")
+    fw = open(out_file, "a")
 
     # Extract text and write to text file
     for page in range(num_pages):
         numbered_page = PDF_read.getPage(page)
         page_text = numbered_page.extractText()
-        f.write(page_text)
-    f.close()
+        fw.write(page_text)
+    fw.close()
 
     # Remove empty lines
-    with open("temp_nslookup.txt", "r") as filehandle:
+    with open(out_file, "r") as filehandle:
         lines = filehandle.readlines()
-    with open("temp_nslookup.txt", 'w') as filehandle:
+    with open(out_file, "w") as filehandle:
         lines = filter(lambda x: x.strip(), lines)
         filehandle.writelines(lines)
     filehandle.close()
-    find_IPs(ip_list)
-    create_URL_list(url_list, client_name)
-    add_URLs_to_dict(url_list, site_dict)
-    add_IPs_to_dict(ip_list, site_dict)
 
-    os.remove("temp_nslookup.txt")
 
-    f = open(client_file, "r")
-    fwrite = open(client_file, "a")
+# Create all txt files
+def create_temps():
+    temps = []
+    for k in f_type:
+        in_file = f_type[
+            k
+        ]  # Input file is the filepath which was added to the dictionary
+        out_file = (
+            f"{k}.txt"  # Output file is the dictionary key with txt file extension
+        )
+        try:
+            extract_data(
+                in_file, out_file
+            )  # If a filepath exists as a value in the dictionary, extract all text to a temp txt file
+            temps.append(out_file)
+        except:
+            pass
+    return temps
 
-    for key, value in site_dict.items():
-        with open(client_file) as f:
-            if key.startswith('IP') and value in f.read():
-                continue
-            elif key in f.read():
-                continue
-            else:
-                print(f'{key}: {value}')
-                if "IP" in key:
-                    fwrite.write(f'{value}\n')
+
+def pop_domains(ip_list, temp_file):
+    # Get the text for the last string before the needed data
+    text = "Hits (%)"
+    x = False
+    y = False
+    final_data = []
+    with open(temp_file, "r") as read_file:
+        lines = read_file.readlines()
+    read_file.close()
+    # remove(temp_file)
+    for line in lines:
+        if line.__contains__("Total:"):
+            break
+        if y == True:
+            each_line = line.strip()
+            final_data.append(each_line)
+        else:
+            if line.__contains__(text):
+                x = True
+            if x == True:
+                y = True
+    i = 0
+    for domain in range(50):
+        if final_data[i + 3].isdigit():
+            ip_list.append(f"{final_data[i]}")
+            i += 5
+        elif final_data[i + 4].isdigit():
+            ip_list.append(f"{final_data[i]}{final_data[i + 1]}")
+            i += 6
+        else:
+            ip_list.append(f"{final_data[i]}{final_data[i + 1]}{final_data[i + 2]}")
+            i += 7
+        if domain == 49:
+            break
+        if (
+            final_data[i + 3].isdigit()
+            or final_data[i + 4].isdigit()
+            or final_data[i + 5].isdigit()
+        ):
+            continue
+        else:
+            while True:
+                if final_data[i].__contains__(text):
+                    i += 1
+                    break
                 else:
-                    fwrite.write(f'{key}\n')
-    f.close()
-    fwrite.close()
+                    i += 1
 
-def main_loop(file_paths, client_name):
-    while True:
-        i = 1
-        for item in file_paths:
-            print(f"{i}) {item}")
-            i += 1
-        chosen_file = input("Please select which file you would like to parse (press enter to exit):\n")
-        if chosen_file == "":
-            quit()
-        # try:
-        chosen_file = int(chosen_file)
-        if chosen_file in range(1, i):
-            run_per_pdf(file_paths[chosen_file - 1], client_file, client_name)
-        elif chosen_file > i-1:
-            print("That is not one of the options.")
-        # except:
-        #     print("Please enter only numbers.")
+
+def url_list():
+    ip_list = []
+    client_files = dir_list()
+    paths_in_dict(client_files[0])
+    temps = create_temps()
+    if "pop_domain_bytes.txt" in temps:
+        pop_domains(ip_list, "pop_domain_bytes.txt")
+    if "pop_domain_hits.txt" in temps:
+        pop_domains(ip_list, "pop_domain_hits.txt")
+    return ip_list
+
+
+########################################################################################
+
+################
+# Analyze Data #
+################
+
+# Take a given URL and run nslookup
+def get_ip(site, site_ips, site_dict):
+    result = dns.resolver.resolve(site, "A")
+    for ipval in result:
+        site_ips.append(ipval.to_text())
+    site_dict[site] = site_ips
+
+
+def is_ip(site):
+    match_obj = re.search(r"^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})", site)
+    if match_obj is None:
+        return False
+    else:
+        for value in match_obj.groups():
+            if int(value) > 255:
+                return False
+        site_dict[site] = [site]
+    return site
+
+
+# run get_ip and add all IP address to the dictionary
+def add_urls_to_dict(url_list, site_dict):
+    for site in url_list:
+        if is_ip(site) == False:
+            try:
+                site_ips = []
+                get_ip(site, site_ips, site_dict)
+            except:
+                continue
+
 
 ### MAIN ###
-# Query user for the client to work with
-client = select_client(client_list)
-client_file = client[0]
-client_num = client[1]
+site_dict = {}
+urls = url_list()
+add_urls_to_dict(urls, site_dict)
 
-# Create list of pdf files to choose from
-file_paths = pdf_paths()
+fRead = open("test.txt", "r")
+fWrite = open("test.txt", "a")
 
-# Run the main loop
-main_loop(file_paths, client_num)
-
-
+for k, v in site_dict.items():
+    fRead = open("test.txt", "r")
+    if f"{k}\n" in fRead.read():
+        continue
+    else:
+        fWrite.write(f"{k}\n")
+    fRead.close()
+fWrite.close()
 ### END ###
