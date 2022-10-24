@@ -144,8 +144,61 @@ def create_temps():
     return temps
 
 
+def dom_check(this_domain, safe_domains):
+    t_f = False
+    for domain in safe_domains:
+        if domain in this_domain:
+            t_f = True
+            break
+    return t_f
+
+
 def pop_domains(ip_list, temp_file):
     # Get the text for the last string before the needed data
+    safe_domains = [
+        "microsoft.com",
+        "windowsupdate.com",
+        "google.com",
+        "pandora.com",
+        "p-cdn.us",
+        "logicnow.us",
+        "lencr.org",
+        "cloudbackup.management",
+        "n-able.com",
+        "gvt1.com",
+        "windows.com",
+        "windows.net",
+        "dell.com",
+        "office.net",
+        "office.com",
+        "akamaized.net",
+        "citrix.com",
+        "fbcdn.net",
+        "cloudfront.net",
+        "googleapis.com",
+        "adobe.com",
+        "systemmonitor.us",
+        "nflxvideo.net",
+        "amazonaws.com",
+        "quickbooks.com",
+        "icloud.com",
+        "facebook.com",
+        "amazon.com",
+        ".live.com",
+        ".logicnow.com",
+        "roku.com",
+        "sharepoint.com",
+        "intuit.com",
+        "akamaihd.net",
+        "hulustream.com",
+        ".zoom.us",
+        "googlevideo.com",
+        ".dailywire.com",
+        ".azure.net",
+        "bitdefender.net",
+        ".outlook.com",
+        "apple.com",
+    ]
     text = "Hits (%)"
     x = False
     y = False
@@ -167,21 +220,24 @@ def pop_domains(ip_list, temp_file):
                 y = True
     i = 0
     for domain in range(50):
-        fRead = open("test.txt", "r")
+        fRead = open("safe_domains.txt", "r")
         if final_data[i + 3].isdigit():
-            if f"{final_data[i]}" not in fRead.read():
-                ip_list.append(f"{final_data[i]}")
+            this_data = final_data[i]
+            in_domains = dom_check(this_data, safe_domains)
+            if (in_domains == False) and (this_data not in fRead.read()):
+                ip_list.append(this_data)
             i += 5
         elif final_data[i + 4].isdigit():
-            if f"{final_data[i]}{final_data[i + 1]}" not in fRead.read():
-                ip_list.append(f"{final_data[i]}{final_data[i + 1]}")
+            this_data = f"{final_data[i]}{final_data[i + 1]}"
+            in_domains = dom_check(this_data, safe_domains)
+            if (in_domains == False) and (this_data not in fRead.read()):
+                ip_list.append(this_data)
             i += 6
         else:
-            if (
-                f"{final_data[i]}{final_data[i + 1]}{final_data[i + 2]}"
-                not in fRead.read()
-            ):
-                ip_list.append(f"{final_data[i]}{final_data[i + 1]}{final_data[i + 2]}")
+            this_data = f"{final_data[i]}{final_data[i + 1]}{final_data[i + 2]}"
+            in_domains = dom_check(this_data, safe_domains)
+            if (in_domains == False) and (this_data not in fRead.read()):
+                ip_list.append(this_data)
             i += 7
         fRead.close()
         if domain == 49:
@@ -255,12 +311,15 @@ site_dict = {}
 urls = url_list()
 add_urls_to_dict(urls, site_dict)
 
-fWrite = open("test.txt", "a")
+fWrite = open("safe_domains.txt", "a")
 
 for k, v in site_dict.items():
+    system("cls")
     print(k, v)
     while True:
-        response = input("Please enter a selection:\n1) Safe\n2)Malicious\n>")
+        response = input(
+            "Please enter a selection:\n1) Safe (add to safe list)\n2) Malicious (don't add to safe list)\n>"
+        )
         if response == "1":
             fWrite.write(f"{k}\n")
             break
@@ -268,6 +327,5 @@ for k, v in site_dict.items():
             break
         else:
             print('Please enter either "1" or "2"')
-    system("cls")
 fWrite.close()
 ### END ###
