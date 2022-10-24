@@ -10,7 +10,7 @@ def all_dir_paths():
     date_monday = date.today() - timedelta(days=day_of_week)
     str_date_monday = date_monday.strftime("%Y-%m-%d")
     # Parent for all client directories
-    dir_path = '\\\\FS01\\MSP-SecReview\\weekly'
+    dir_path = "\\\\FS01\\MSP-SecReview\\weekly"
     dir_list = listdir(dir_path)
     # Create a list of all the current week directories
     paths = []
@@ -18,6 +18,7 @@ def all_dir_paths():
         if item[0].isdigit():
             paths.append(dir_path + "\\" + item + "\\" + str_date_monday)
     return paths
+
 
 # Create a list of paths to all the png files
 def all_365_paths():
@@ -27,20 +28,18 @@ def all_365_paths():
         client_dir = listdir(item)
         # Find all png files and add file paths to paths_365
         if "o365Mail.png" in client_dir:
-            mail_path = (item + "\\" + client_dir[(client_dir.index("o365Mail.png"))])
+            mail_path = item + "\\" + client_dir[(client_dir.index("o365Mail.png"))]
             paths_365.append(mail_path)
         if "o365Apps.png" in client_dir:
-            apps_path = (item + "\\" + client_dir[(client_dir.index("o365Apps.png"))])
+            apps_path = item + "\\" + client_dir[(client_dir.index("o365Apps.png"))]
             paths_365.append(apps_path)
-        if "o365Apps_o365Mail.png" in client_dir:
-            mail_apps_path = (item + "\\" + client_dir[(client_dir.index("o365Apps_o365Mail.png"))])
-            paths_365.append(mail_apps_path)        
     return paths_365
+
 
 # Convert the png files to pdf
 def convert_image(in_path):
     # Create name for output file
-    pdf_path = (in_path[:-3] + "pdf")
+    pdf_path = in_path[:-3] + "pdf"
     # Open image
     image = Image.open(in_path)
     # Convert into chunks using img2pdf
@@ -52,6 +51,11 @@ def convert_image(in_path):
     file.close()
     remove(in_path)
 
+
 paths_365 = all_365_paths()
 for item in paths_365:
     convert_image(item)
+
+# pyinstaller.exe --onefile png_to_pdf.py
+# spec file pathex: "C:\Python310\Lib\site-packages"
+# pyinstaller.exe --onefile -i"pdf.ico" png_to_pdf.spec
