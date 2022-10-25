@@ -159,8 +159,5 @@ siloh-aka.plutotv.net
 events.launchdarkly.com
 aaaaaaaaaaaaaaaaaaaaaacndns4aaaaaaaayaaaa.1d17052651aa4f56a13e4460ce50234f.emt.cf.ww.aiv-cdn.net
 audio.buzzsprout.com
-updates.logitech.com
-crl4.digicert.com
 cdn.prosystemfx.com
-247preview.foxnews.com
-prod.vodvideo.cbsnews.com
+aenetworks-iceroadtruckers-1-us-pi.roku.wurl.com
