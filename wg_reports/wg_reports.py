@@ -305,7 +305,7 @@ def botnet_cli(temp_file="botnet_detect_cli.txt"):
 def block_botnet_sites(temp_file="botnet_block.txt"):
     # Get the text for the last string before the needed data
     text = "Hits (%)"
-    x = False
+    # x = False
     y = False
     final_data = []
     with open(temp_file, "r") as read_file:
@@ -320,17 +320,28 @@ def block_botnet_sites(temp_file="botnet_block.txt"):
             final_data.append(each_line)
         else:
             if line.__contains__(text):
-                x = True
-            if x == True:
+                #     x = True
+                # if x == True:
                 y = True
     total_sites = int(len(final_data) / 3)
     f.write("\nBlocked Botnet Sites\n")
     i = 0
-    for site in range(total_sites):
-        f.write(
-            f"{final_data[0 + i]}: {final_data[1 + i]} hits at {final_data[2 + i]}%\n"
-        )
-        i += 3
+    # for site in range(total_sites):
+    #     f.write(
+    #         f"{final_data[0 + i]}: {final_data[1 + i]} hits at {final_data[2 + i]}%\n"
+    #     )
+    while i < len(final_data):
+        if final_data[i + 1].isdigit():
+            f.write(f"{final_data[i]}\n")
+            i += 3
+        else:
+            while True:
+                if final_data[i].__contains__(text):
+                    i += 1
+                    break
+                else:
+                    i += 1
+
     f.write("-" * 40)
 
 
