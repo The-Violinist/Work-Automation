@@ -332,7 +332,18 @@ def block_botnet_sites(temp_file="botnet_block.txt"):
     #     )
     while i < len(final_data):
         if final_data[i + 1].isdigit():
-            f.write(f"{final_data[i]}\n")
+
+            fhandle = open("Botnet_Sites.txt", "r")
+            test = f"{final_data[i]} ("
+            if test in fhandle.read():
+                fhandle = open("Botnet_Sites.txt", "r")
+                lines = fhandle.readlines()
+                for line in lines:
+                    if test in line:
+                        f.write(f"{line.rstrip()}\n")
+                        break
+            else:
+                f.write(f"{final_data[i]}\n")
             i += 3
         else:
             while True:
