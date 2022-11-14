@@ -5,7 +5,6 @@
 from datetime import date, timedelta
 from os import listdir, remove
 from PyPDF2 import PdfFileReader
-import os
 import re
 
 ### VARIABLES ###
@@ -190,7 +189,7 @@ def IPS(temp_file="IPS.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     for line in lines:
         int_det = re.search("(Intrusions detected: \d+),", line)
         int_prev = re.search("(Intrusions prevented: \d+)", line)
@@ -209,7 +208,7 @@ def GAV(temp_file="GAV.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     for line in lines:
         vir_det = re.search("(Virus detected: \d+)", line)
         if vir_det:
@@ -225,17 +224,20 @@ def botnet_trend(temp_file="botnet_trend.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     for line in lines:
-        src_ip = re.search("(Source IP blocked: \d+)", line)
-        dest_ip = re.search("(Destination IP blocked: \d+)", line)
+        src_ip = re.search("Source IP blocked: (\d+)", line)
+        dest_ip = re.search("Destination IP blocked: (\d+)", line)
         if src_ip:
             final_data.append(src_ip.group(1))
         if dest_ip:
             final_data.append(dest_ip.group(1))
         if src_ip and dest_ip:
             break
-    f.write(f"\nBotnet Activity Trend:\n{final_data[0]}\n{final_data[1]}\n" + "-" * 40)
+    f.write(
+        f"\nBotnet Activity Trend:\n{str(int(final_data[0]) + int(final_data[1]))} blocked attempts ({final_data[0]} Source and {final_data[1]} Destination hits)\n"
+        + "-" * 40
+    )
 
 
 def botnet_dest(temp_file="botnet_detect_dest.txt"):
@@ -247,7 +249,7 @@ def botnet_dest(temp_file="botnet_detect_dest.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     for line in lines:
         if line.__contains__("Total:"):
             break
@@ -279,7 +281,7 @@ def botnet_cli(temp_file="botnet_detect_cli.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     for line in lines:
         if line.__contains__("Total:"):
             break
@@ -311,7 +313,7 @@ def block_botnet_sites(temp_file="botnet_block.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     for line in lines:
         if line.__contains__("Total:"):
             break
@@ -365,7 +367,7 @@ def pop_domain_bytes(temp_file="pop_domain_bytes.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     for line in lines:
         if line.__contains__("Total:"):
             break
@@ -402,7 +404,7 @@ def pop_domain_hits(temp_file="pop_domain_hits.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     for line in lines:
         if line.__contains__("Total:"):
             break
@@ -445,7 +447,7 @@ def proxy_bw(temp_file="proxy_bw.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     for line in lines:
         if line.__contains__("Page 1"):
             break
@@ -482,7 +484,7 @@ def proxy_hits(temp_file="proxy_hits.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     for line in lines:
         if line.__contains__("Page 1"):
             break
@@ -525,7 +527,7 @@ def top_cli_host(temp_file="top_cli_host.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     indexIncrementer = 5
     for line in lines:
         if line.__contains__("Hostname"):
@@ -577,7 +579,7 @@ def top_cli_user(temp_file="top_cli_user.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     for line in lines:
         if line.__contains__("Total:"):
             break
@@ -617,7 +619,7 @@ def top_cli_hits(temp_file="top_cli_hits.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     indexIncrement = 3
     for line in lines:
         if line.__contains__("Hostname"):
@@ -680,7 +682,7 @@ def active_cli_bw(temp_file="active_client_bw.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     indexIncrement = 4
     for line in lines:
         if line.__contains__("Host"):
@@ -729,7 +731,7 @@ def active_cli_hits(temp_file="active_client_hit.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     indexIncrement = 4
     for line in lines:
         if line.__contains__("Host"):
@@ -788,7 +790,7 @@ def app_use_bw(temp_file="app_use_bw.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     for line in lines:
         if line.__contains__("Total:"):
             break
@@ -825,7 +827,7 @@ def app_use_hits(temp_file="app_use_hits.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     for line in lines:
         if line.__contains__("Total:"):
             break
@@ -874,7 +876,7 @@ def block_sites_cat(temp_file="block_sites_cat.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     for line in lines:
         if line.__contains__("Total:"):
             break
@@ -920,7 +922,7 @@ def block_sites_cli(temp_file="block_sites_cli.txt"):
     with open(temp_file, "r") as read_file:
         lines = read_file.readlines()
     read_file.close()
-    os.remove(temp_file)
+    remove(temp_file)
     for line in lines:
         if line.__contains__("Total:"):
             break
