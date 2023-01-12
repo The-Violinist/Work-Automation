@@ -64,6 +64,10 @@
 - **_Get Public IP_**
     - `nslookup myip.opendns.com. resolver1.opendns.com`
 
+- **_Retrieve Wifi Password_**
+    - If unsure of the SSID: `netsh wlan show profiles`
+    - `netsh wlan show profile name="SSID_Name" key=clear`
+
 - **_Get Printer List_**
     - `wmic printer list brief`
 ---
