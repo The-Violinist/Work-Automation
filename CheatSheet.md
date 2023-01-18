@@ -31,8 +31,7 @@
 
 - **_Connectivity issues_**
     - `ipconfig /flushdns`
-    - `ipconfig /release`
-    - `ipconfig /renew`
+    - `ipconfig /release && ipconfig /renew`
 
 - **_Update Office_**
     - `"C:\Program Files\Common Files\microsoft shared\ClickToRun\OfficeC2RClient.exe" /update user forceappshutdown=true`
