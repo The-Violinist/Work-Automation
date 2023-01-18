@@ -112,20 +112,6 @@
     - Create a new key called `Explorer`
     - Create a new DWORD (32 bit) called `DisableSearchBoxSuggestions` and set its value to 1
 
-
-
----
-
-### Web
-
-- **_Watchguard download:_**
-    - https://cdn.watchguard.com/SoftwareCenter/Files/MUVPN_SSL/12_7_2/WG-MVPN-SSL_12_7_2.exe
-
-- **_Adobe Downloads_**
-    - https://get.adobe.com/reader/
-
-
-
 ---
 
 ### Other
