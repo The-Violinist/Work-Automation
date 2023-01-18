@@ -29,9 +29,16 @@
 - **_Add RDP user_**
     - `net localgroup "Remote Desktop Users" User_Name /add`
 
+- **_Find and Shutdown Process_**
+    - `tasklist | findstr /I "KEYWORD"`
+    - `taskkill /f /pid pid_num_from_last_command`
+
 - **_Connectivity issues_**
     - `ipconfig /flushdns`
     - `ipconfig /release && ipconfig /renew`
+
+- **_Elevate_**
+    - `runas /user:machine_or_domain\user_name cmd`
 
 - **_Update Office_**
     - `"C:\Program Files\Common Files\microsoft shared\ClickToRun\OfficeC2RClient.exe" /update user forceappshutdown=true`
@@ -44,9 +51,6 @@
 
 - **_Checking hash_**
     - `certutil -hashfile file_path encryption_type`
-
-- **_Elevate_**
-    - `runas /user:machine_or_domain\user_name cmd`
 
 - **_Get Printer List_**
     - `wmic printer list brief`
