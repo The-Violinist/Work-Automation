@@ -3,25 +3,6 @@
 
 
 ---
-
-### Powershell
-
-- **_Synchronization service_**
-    - `Start-ADSyncSyncCycle -PolicyType Delta`
-
-- **_Domain Join_**
-    - `Add-Computer -DomainName domain_name -Credential domain\user`
-
-- **_Repair Domain Connection_**
-    - `Test-ComputerSecureChannel -Repair -Credential domain\user`
-
-- **_Get Public IP_**
-    - `Invoke-WebRequest ifconfig.me/ip`
-
-- **_Get AD Password Requirements_**
-    - `Get-ADDefaultDomainPasswordPolicy`
----
-
 ### CMD
 
 - **_General Windows errors_**
@@ -34,6 +15,13 @@
 - **_Add to Admins_**
     - `net localgroup administrators user_name /add`
 
+- **_Get Public IP_**
+    - `nslookup myip.opendns.com. resolver1.opendns.com` or
+    - `curl http://ipecho.net/plain`
+
+- **_Retrieve Wifi Password_**
+    - If unsure of the SSID: `netsh wlan show profiles` then use that SSID in the following command:
+    - `netsh wlan show profile name="SSID_Name" key=clear`
 - **_Enable RDP_**
     - `reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f`
     - `netsh advfirewall firewall set rule group="remote desktop" new enable=Yes`
@@ -61,15 +49,26 @@
 - **_Elevate_**
     - `runas /user:machine_or_domain\user_name cmd`
 
-- **_Get Public IP_**
-    - `nslookup myip.opendns.com. resolver1.opendns.com`
-
-- **_Retrieve Wifi Password_**
-    - If unsure of the SSID: `netsh wlan show profiles`
-    - `netsh wlan show profile name="SSID_Name" key=clear`
-
 - **_Get Printer List_**
     - `wmic printer list brief`
+---
+
+### Powershell
+
+- **_Synchronization service_**
+    - `Start-ADSyncSyncCycle -PolicyType Delta`
+
+- **_Domain Join_**
+    - `Add-Computer -DomainName domain_name -Credential domain\user`
+
+- **_Repair Domain Connection_**
+    - `Test-ComputerSecureChannel -Repair -Credential domain\user`
+
+- **_Get Public IP_**
+    - `Invoke-WebRequest ifconfig.me/ip`
+
+- **_Get AD Password Requirements_**
+    - `Get-ADDefaultDomainPasswordPolicy`
 ---
 
 ### Printer
