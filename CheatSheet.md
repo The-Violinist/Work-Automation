@@ -29,6 +29,9 @@
 - **_Add RDP user_**
     - `net localgroup "Remote Desktop Users" User_Name /add`
 
+- **_Restart a service_**
+    - In this instance, I am using the N-Able Take Control service
+    - `net stop "BASupportExpressStandaloneService_LOGICnow" && net start "BASupportExpressStandaloneService_LOGICnow"`
 - **_Find and Shutdown Process_**
     - `tasklist | findstr /I "KEYWORD"`
     - `taskkill /f /pid pid_num_from_last_command`
