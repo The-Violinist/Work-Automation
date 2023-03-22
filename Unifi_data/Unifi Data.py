@@ -99,6 +99,9 @@ all_sites = {
     "152": "0152-Hotel Ruby-Ponderay",
     "148": "0148-Hotel Ruby-Spokane",
     "150": "0150-Montvale Hotel",
+    "153": "0153-1640, LLC",
+    "154": "0154 -WIS",
+    "157": "0157-YESPOC",
 }
 
 
@@ -470,9 +473,8 @@ def unifi_devices():
 ########
 # MAIN #
 ########
-print("NOTE: input will not appear on screen.")
-username = getpass("Enter Unifi username:\n>")
-password = getpass("Enter Unifi password:\n>")
+username = input("Enter Unifi username:\n>")
+password = input("Enter Unifi password:\n>")
 
 # Loop until the user decides to quit
 while True:
