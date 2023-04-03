@@ -19,13 +19,18 @@ f_key = {
     "app_use_bw": [
         "Application_Usage_Applications_(Host)_by_Bandwidth",
         "Application_Usage_Applications__Host__by_Bandwidth",
+        "ALL_Application_Usage_Applications__User__by_Bandwidth",
     ],
     "app_use_hits": [
         "Application_Usage_Applications_(Host)_by_Hits",
         "Application_Usage_Applications__Host__by_Hits",
         "Application_Usage_Top_Hosts_by_Hits",
     ],
-    "block_sites": ["Blocked_Websites_Category", "Blocked_Websites_Client"],
+    "block_sites": [
+        "Blocked_Websites_Category",
+        "Blocked_Websites_Client",
+        "ALL_Blocked_Websites_Category",
+    ],
     "botnets": [
         "Botnet_Detection_Activity_Trend",
         "BotNet Detection Details",
@@ -44,12 +49,20 @@ f_key = {
         "Intrusions__IPS__Threat_Level",
         "Intrusions Prevention Details",
         "IPS Details.pdf",
+        "ALL_Intrusions__IPS__Activity_Trend",
     ],
     "active_client": [
         "Most_Active_Clients_Clients_by_Bandwidth",
         "Most_Active_Clients_Clients_by_Hits",
+        "ALL_Most_Active_Clients_Clients_by_Bandwidth",
+        "ALL_Most_Active_Clients_Clients_by_Hits",
     ],
-    "pop_domain": ["Most_Popular_Domains_Hits", "Most_Popular_Domains_Bytes"],
+    "pop_domain": [
+        "Most_Popular_Domains_Hits",
+        "Most_Popular_Domains_Bytes",
+        "ALL_Most_Popular_Domains_Bytes",
+        "ALL_Most_Popular_Domains_Hits",
+    ],
     "top_cli_user": [
         "Top_Clients_Users__Sent_and_Received__by_Bandwidth",
         "Top_Clients_Users_(Sent_and_Received)_by_Bandwidth",
@@ -71,7 +84,7 @@ f_key = {
     "dist_group": ["Distribution Group Members", "DistributionGroupMembers"],
     "forward": ["Forwarding Users", "forwardingusers"],
     "MAV": "MAV.pdf",
-    "365": ["o365Mail", "o365Apps", "Office365Usage"],
+    "365": ["o365Mail", "o365Apps"],
     "patch": "Patch",
     "server": "ServerWeekly",
     "take_control": ["Take Control", "TakeControl"],
@@ -95,6 +108,7 @@ f_key = {
         "DLP__Sender_Source",
         "DLP Details",
     ],
+    "SO Review": ["Weekly Service"],
 }
 
 intermax = [
@@ -171,7 +185,7 @@ knudtsen = [
     f_key["AD"][1],
 ]
 bankcda = [
-    f_key["cover_sheet"],
+    # f_key["cover_sheet"],
     f_key["backup"],
     f_key["365"][0],
     f_key["365"][1],
@@ -183,25 +197,15 @@ bankcda = [
     f_key["MAV"],
     f_key["web_protect"][0],
     f_key["web_protect"][1],
-    f_key["top_cli_host"][1],
-    f_key["top_cli_host"][0],
-    f_key["top_cli_user"][1],
-    f_key["top_cli_user"][0],
-    f_key["app_use_bw"][0],
-    f_key["app_use_bw"][1],
-    f_key["active_client"][1],
-    f_key["pop_domain"][1],
-    f_key["pop_domain"][0],
-    f_key["block_sites"][0],
-    f_key["block_sites"][1],
-    f_key["botnets"][0],
-    f_key["botnet_detect"][0],
-    f_key["botnet_detect"][1],
-    f_key["botnets"][2],
-    f_key["AD"][3],
-    f_key["AD"][2],
-    f_key["AD"][0],
-    f_key["AD"][1],
+    f_key["active_client"][2],
+    f_key["active_client"][3],
+    f_key["pop_domain"][2],
+    f_key["pop_domain"][3],
+    f_key["app_use_bw"][2],
+    f_key["block_sites"][2],
+    f_key["IPS"][8],
+    f_key["TDR"][0],
+    f_key["SO Review"][0],
 ]
 honi = [
     f_key["cover_sheet"],
