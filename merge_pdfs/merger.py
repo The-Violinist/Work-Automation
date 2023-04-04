@@ -444,6 +444,8 @@ pffm = [
     f_key["IPS"][1],
     f_key["GAV"][0],
     f_key["GAV"][1],
+    f_key["sslvpn_a_d"][0],
+    f_key["sslvpn_a_d"][1],
     f_key["AD"][0],
     f_key["AD"][1],
     f_key["AD"][2],
