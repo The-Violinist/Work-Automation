@@ -111,6 +111,7 @@ f_key = {
     "SO Review": ["Weekly Service"],
 }
 
+# Order of documents for merging final reports
 intermax = [
     f_key["cover_sheet"],
     f_key["backup"],
@@ -283,6 +284,8 @@ mmco = [
     f_key["botnet_detect"][1],
     f_key["botnets"][2],
     f_key["TDR"][2],
+    f_key["sslvpn_a_d"][0],
+    f_key["sslvpn_a_d"][1],
     f_key["AD"][3],
     f_key["AD"][2],
     f_key["AD"][0],
@@ -322,6 +325,8 @@ integrated = [
     f_key["botnet_detect"][0],
     f_key["botnet_detect"][1],
     f_key["botnets"][2],
+    f_key["sslvpn_a_d"][0],
+    f_key["sslvpn_a_d"][1],
     f_key["AD"][1],
     f_key["AD"][0],
     f_key["AD"][2],
@@ -452,6 +457,7 @@ pffm = [
     f_key["AD"][3],
 ]
 
+# List of clients
 client_list = [
     ["Intermax", intermax],
     ["Knudtsen", knudtsen],
