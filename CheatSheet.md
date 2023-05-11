@@ -61,6 +61,10 @@
 - **_Logoff a user_**
     - Get session ID `query session`
     - Logoff the user `logoff <session ID>`
+
+- **_Find Service belonging to port_**
+    - Get process ID: `netstat -aon | findstr "<port number>"`
+    - Use the process ID found: `tasklist /fi "PID eq <ID>`
 ---
 
 ### Powershell
