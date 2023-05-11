@@ -57,6 +57,10 @@
 
 - **_Get Printer List_**
     - `wmic printer list brief`
+
+- **_Logoff a user_**
+    - Get session ID `query session`
+    - Logoff the user `logoff <session ID>`
 ---
 
 ### Powershell
