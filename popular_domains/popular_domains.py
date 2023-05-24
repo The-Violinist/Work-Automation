@@ -21,6 +21,7 @@ clients = [
     "Integrated Personnel",
     "Northcon",
     "Bay Shore",
+    "Schweitzer",
     "PFFM",
 ]
 
