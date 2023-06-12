@@ -27,7 +27,8 @@
     - `netsh advfirewall firewall set rule group="remote desktop" new enable=Yes`
 
 - **_Add RDP user_**
-    - `net localgroup "Remote Desktop Users" User_Name /add`
+    If unsure of membership in group: `net localgroup "remote desktop users"`
+    - `net localgroup "Remote Desktop Users" Domain\User_Name /add`
 
 - **_Restart a service_**
     - In this instance, I am using the N-Able Take Control service
