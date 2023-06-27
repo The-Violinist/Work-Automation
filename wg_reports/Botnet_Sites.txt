@@ -1,0 +1,183 @@
+43.249.193.140 (High Risk): Suspected Scanners and Windows Exploits activity. Location: Beijing, CN.
+173.239.5.6 (High Risk): Suspected Proxy, Windows Exploits, BotNet, and Phishing activity. Location: NY, USA.
+179.43.163.105 (High Risk): Suspected Spam Sources, Scanners, and Windows Exploits activity. Location: Zurich, CH.
+173.239.8.164 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activities. Location: NY, USA.
+183.232.231.173 (High Risk): Suspected Port Scanning and Brute Force activities. Location: Guangdong, CN.
+208.138.25.30 (High Risk): Suspected Port Scanning, Windows Exploits, and DDoS attack activities. Location: Kingston, JM.
+103.224.212.219 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activities. Location: Victoria, AU.
+74.206.228.78 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activities. Location: NY, USA.
+209.202.252.105 (High Risk): Suspected Proxy, Windows Expoloits, and Phishing activity. Location: MA, USA.
+46.19.141.122 (High Risk): Suspected Spam sources, Scanners, and Windows Exploits activities. Location: Zurich, CH.
+156.234.168.84 (High Risk): Susptected Scanners and Windows Exploits activity. Location: Aberdeen, HK.
+185.216.71.192 (High Risk): Suspected Spam Sources. Location: Noord-Holland, NL.
+154.19.203.15 (High Risk): Suspected Scanners and Windows Exploits activitiy. Location: NY, USA.
+204.11.56.48 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activity. Location: British Virgin Islands.
+45.95.55.138 (High Risk): Suspected BotNets activity. Location: Rheinland, DE.
+185.132.53.101 (High Risk): Suspected Scanners, Brute Force, and Windows Exploits activity. Location: Singapore, SG.
+209.99.40.222 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activity. Location: UAE.
+64.44.102.23 (High Risk): Suspected Scanners, Botnets, and Windows Exploits activity. Location: NV, USA.
+63.141.242.43 (High Risk): Suspected Proxy, Windows Exploits, and Phishing activities. Location: MO, USA.
+63.141.242.44 (High Risk): Suspected Botnet and Phishing activities. Location: MO, USA.
+63.141.242.45 (High Risk): Suspected Proxy, Botnet, and Phishing activities. Location: MO, USA.
+63.141.242.46 (High Risk): Suspected Windows Exploits and Phishing activities. Location: MO, USA.
+81.17.18.194 (High Risk): Suspected Proxy and Phishing activities. Zurich, CH.
+81.17.18.195 (High Risk): Suspected BotNets and Phishing activities. Location: Zurich, CH.
+81.17.18.196 (High Risk): Suspected Proxy and Phishing activities. Location: Zurich, CH.
+81.17.18.197 (High Risk): Suspected Proxy, Windows Exploits, Botnet, and Phishing activities. Location: Zurich, CH.
+81.17.18.198 (High Risk): Suspected Botnet and Phishing activities. Location: Zurich, CH.
+81.17.29.146 (High Risk): Suspected BotNets and Phishing activity. Location: Zurich, CH.
+81.17.29.147 (High Risk): Suspected Botnet and Phishing activities. Location: Zurich, CH.
+81.17.29.148 (High Risk): Suspected Proxy, Windows Exploits, Botnet, and Phishing activities. Location: Zurich, CH.
+81.17.29.149 (High Risk): Suspected Phishing activity. Location: Zurich, CH.
+81.17.29.150 (High Risk): Suspected Windows Exploits, Botnet, and Phishing activities. Location: Zurich, CH.
+192.187.111.220 (High Risk): Suspected Proxy, Botnet, and Phishing activities. Location: MO, USA.
+192.187.111.222 (High Risk): Suspected Proxy, Botnet, and Phishing activities. Location: MO, USA.
+192.187.111.221 (High Risk): Suspected Windows Exploits, Botnet, and Phishing activities. Location: MO, USA.
+192.187.111.219 (High Risk): Suspected Proxy, Botnet, and Phishing activities. Location: MO, USA.
+34.98.99.30 (High Risk): Suspected Proxy, Windows Exploits, Botnet, and Phishing activities. Location: MO, USA.
+208.100.26.245 (High Risk): Suspected Proxy, Windows Exploits, Botnet, and Phishing activities. Location: IL, USA.
+116.202.118.107 (Low Risk): 1 suspected instance to date of port scanning. Location: Bayern, DE.
+151.236.63.243 (High Risk): Suspected Scanners and Windows Exploits activity. Location: Maidenhead, GB.
+43.138.50.103 (High Risk): Suspected Scanners and Windows Exploits activity. Location: Beijing, CN.
+68.105.28.11 (Low Risk): Low risk of fraudulent activity. Some activity reported but not confirmed. IP address is owned and operated by Cox Communications Inc. Location: GA, USA.
+176.37.23.16 (High Risk): Suspected Windows Exploits and BotNets activities. Location: Kyiv Misto, UA.
+34.75.20.192 (High Risk): Suspected Phishing activities. Location: SC, USA.
+115.231.219.55 (High Risk): Suspected Scanners activity. Location: Yunnan, CN.
+51.83.137.127 (High Risk): Suspected Web Attacks, Scanners, and Windows Exploits activities. Location: Warsaw, PL.
+69.114.29.94 (High Risk): Supsected Windows Exploits activity. Location: NY, USA.
+67.195.197.25 (High Risk): Suspected Proxy and Phishing activities. Location: NY, USA.
+173.239.83.164 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activities. Location: NY, USA.
+103.224.182.242 (High Risk): Suspected Proxy, Windows Exploits, BotNets and Phishing activities. Location: Vicoria, AU.
+121.1.38.228 (High Risk): Susptected Scanners activity. Location: Ilocos Region, PH.
+106.10.248.150 (High Risk): Suspected Phishing activity. Location: Singapore, SG.
+64.225.91.73 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activities. Location: GA, USA.
+69.16.230.42 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activities. Location: MI, USA.
+174.138.191.235 (High Risk): Suspected Phishing activity. Location: NJ, USA.
+46.8.8.100 (High Risk): Suspected Proxy, Windows Exploits, BotNets and Phishing activities. Location: Prague, CZ.
+103.224.182.210 (High Risk): Suspected Proxy, BotNets and Phishing activities. Location: Victoria, AU.
+165.160.15.20 (High Risk): Suspected Phishing activity. Location: DE, USA.
+47.246.136.168 (Low Risk): Low risk of suspected fraud. The IP address is owned and operated by Alibaba (US) Technology Co., Ltd. The device at the IP address is a commercial server, which could be proxying traffic from another geographical location. Location: CA, USA.
+50.56.4.238 (High Risk): Very high risk of fraudulant activity. IP addess is operated by Rackspace Hosting which activity is very risk of criminals engaged in fraudulent activitu. The device is a commercial server which could be proxying traffic from another geopgraphical location. Location: IL, USA.
+165.160.13.20 (Low Risk): Some potential fraudulent activity (reported hacking). The IP address is wolend by Corporation Service Co. The device is operating a public proxy, which could be proxying traffic from another geographical location. Location: DE, USA.
+47.246.137.238 (Low Risk): Low risk of Fraudulent activity. The IP address is owned and operated by Alibaba (US) Technology Co., Ltd. Device is a commercial server. Location: VA, USA.
+203.119.214.17 (Very Low Risk): Low risk of fraudulent activity. IP address is owned by Hangzhou Alibaba Advertising Co., Ltd. However, the device is a commercial server which may be proxying traffic from another geographical location. Location: Zhejiang, CN.
+203.119.205.153 (Low Risk): There is no negative data for this IP at this time. However, it is owned and operated by Hangzhou Alibaba Advertising Co. Location: Zhejiang, CN.
+203.119.205.154 (Very Low Risk): Low risk of fraudulent activity. IP address is owned by Hangzhou Alibaba Advertising Co., Ltd. However, the device is a commercial server which may be proxying traffic from another geographical location. Location: Zhejiang, CN. 
+203.119.217.116 (Very Low Risk): Low risk of fraudulent activity. IP address is owned by Hangzhou Alibaba Advertising Co., Ltd. However, the device is a commercial server which may be proxying traffic from another geographical location. Location: Zhejiang, CN.
+203.119.206.64 (Very Low Risk): Low risk of fraudulent activity. IP address is owned by Hangzhou Alibaba Advertising Co., Ltd. However, the device is a commercial server which may be proxying traffic from another geographical location. Location: Zhejiang, CN.
+203.119.211.219 (Very Low Risk): Low risk of fraudulent activity. IP address is owned by Hangzhou Alibaba Advertising Co., Ltd. However, the device is a commercial server which may be proxying traffic from another geographical location. Location: Zhejiang, CN.
+23.82.12.29 (High Risk): Suspected Proxy, Windows Exploits, and Phishing activities. Location: VA, USA.
+23.82.12.32 (High Risk): Suspected Prosy, Windows Exploits, and Phishing activities. Location: VA, USA.
+216.245.197.42  (High Risk): Susptected Proxy and Phishing activity.  Location:  TX, USA.
+104.247.81.53 (High Risk): Suspected Proxy, Windows Exploits, BotNet, and Phishing activity.  Location:  Canada.
+176.111.174.136 (High Risk): Suspected Scanners and Windows Exploits activity. Location: Moscow, RU.
+185.65.134.165 (High Risk): Suspected Spam Sources. Location: Noord-Holland, NL.
+69.114.29.94 (High Risk):  Suspected Windows Exploits activity.  Location:  NY, USA.
+88.211.77.59 (High Risk):  Supsected Scanners and Windows Exploits activities.  Location:  Salfor, United Kingdom.
+194.169.175.151 (High Risk):  Suspected Spam Sources, Scanners, and BotNets activities.  Location:  Istanbul, Turkey.
+154.83.17.58 (High Risk): Suspected Scanners, Web Attacks, and Windows Exploits.  Location: Hong Kong.
+154.221.22.253 (High Risk): Suspected Windows Exploits.  Location: Hong Kong.
+79.137.196.94 (High Risk): Suspected Windows Exploits.  Loction:  Netherlands.
+173.208.96.45 (High Risk): Suspected Proxy, Windows Exploits, and Phishing activity. Location: NJ, USA.
+43.251.17.160 (High Risk): Suspected Scanner activity. Location: Hong Konk, HK
+77.88.55.80 (High Risk): Suspected Scanners, and Spam Sources activity.  Location: Russia Federation.
+85.94.194.169 (Very Low Risk):  IP is owned by SEEWEB s.r.l.  Device is a commercial server and may be proxying traffic from another geographical location.  Location:  Italy.
+124.108.115.100 (High Risk): Suspected Phishing activity.  Location:  Tiawan.
+46.166.184.102 (High Risk): Suspected Proxy and Phishing activities.  Location:  Noord-Brabant, Netherlands.
+185.206.180.121 (High Risk): Suspected Proxy and Phishing activities.  Location:  Hessen, Germany.
+212.32.237.101 (High Risk): Suspected Proxy and Phishing activities.  Location:  Noord-Holland, Netherlands
+69.16.175.10 (High Risk): Suspected Scanners, Spamming, and Phishing activities. Location: VA, USA.
+212.32.237.90 (High Risk): Suspected Windows Exploits, BotNets, and Phishing activities.  Location:  Noord-Holland, Netherlands.
+74.6.136.150 (High Risk): Suspected Phishing activity.  Location:  NY, USA.
+23.82.12.31 (High Risk): Suspected Proxy and Phishing activities.  Location:  VA, USA.
+67.227.226.240 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activities.  Location:  MI, USA.
+61.183.41.68 (High Risk): Suspected Web Attacks.  Location: China.
+213.227.149.208 (High Risk): Supsected Phishing activity.  Location:  Noord-Holland, Netherlands.
+216.245.213.76 (High Risk): Suspected Phishing activities. Location: TX, USA.
+64.185.227.156 (Medium Risk):  Suspected Scanner activity.  Location:  NY, USA.
+104.247.81.54 (High Risk):  Suspected Proxy and Phishing activities.  Location:  Ontario, Canada.
+104.247.82.174 (High Risk):  Supsected Proxy and Phishing activities.  Location:  Ontario, Canada.
+179.43.176.48 (High Risk):  Suspected Scanners and Windows Exploits activities.  Location:  Zuerich, Switzerland.
+185.132.53.119 (High Risk): Suspected Scanners, Windows Exploits, and BotNets.  Location:  Hong Kong.
+162.210.196.167 (High Risk): Suspected Proxy and Phishing activities.  Location:  VA, USA.
+192.0.78.17 (Low Risk): IP is owned by Automattic, Inc.  The IP is operating a public proxy.  Location:  CA, USA.
+104.237.62.211 (Medium Risk):  IP address is operated by WebNX, Inc.  The device is a commercial server and may be proxying traffic from another geographic location.  Location:  UT, USA.
+150.95.255.38 (High Risk):  Suspected Proxy, Windows Exploits, BotNets and Phishing activity.  Location:  Tokyo, Japan.
+68.65.122.50 (High Risk): Suspecte Phishing activity.  Location:  CA, USA.
+47.91.170.222 (Hight Risk):  Suspected Proxy, BotNets, and Phishing activities.  Location:  Hong Kong.
+8.25.82.230 (Low Risk): There is no negative data for this IP at this time. However, it is owned and operated by Zhejiang Taobao Network Co., Ltd. and appears to be run through a proxy server. Location: LA, USA.
+8.25.82.229 (Low Risk): There is no negative data for this IP at this time. However, it is owned and operated by Zhejiang Taobao Network Co., Ltd. and appears to be run through a proxy server. Location: LA, USA.
+208.185.195.92 (Low Risk):  No suspected fraudulent activity.
+45.12.253.180 (High Risk): Suspected Spam Sources, Scanners, Windows Exploits, and BotNets activities.  Location:  Zuid-Holland, Netherlands.
+37.44.238.144 (High Risk): Suspected Spam Sources, Scanners, and Windows Exploits.  Location Paris, France.
+45.227.253.74 (High Risk): Suspected Scanners and Windows Exploits.  Location: Panama.
+63.143.32.84 (High Risk): Suspected Phishing activity. Location: TX, USA.
+162.250.6.132 (Medium Risk): Suspected Webapp Attack activity. Mitre ATT&CK T1219. Location: IL, USA.
+198.54.117.218 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activities. Location: CA, USA.
+63.143.32.88 (High Risk): Suspected Phishing activity. Location: TX, USA.
+198.54.117.210 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activities. Location: CA, USA.
+198.54.117.215 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activities. Location: CA, USA.
+185.65.134.164 (High Risk): Suspected Spam Sources and Windows Exploits activities.  Location:  Noord-Holland, Netherlands.
+212.32.237.91 (High Risk): Suspected Proxy, Windows Exploits, and Phishing activities.  Location:  Noord-Holland, Netherlands
+212.32.237.92 (High Risk): Suspected BotNets and Phishing activities.  Location:  Noord-Holland, Netherlands.
+103.224.182.241 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activities. Location: Victoria, AU.
+185.213.155.169 (High Risk): Suspected Spam Sources, Proxy, and Windows Exploits activity. Location: Hessen, DE.
+121.62.61.2 (High Risk): Suspected Windows Exploits activity. Location: Yunnan, CN.
+66.175.58.9 (High Risk): Suspected Spam Sources, Windows Exploits, and Phishing activity. Location:  CA, USA.
+162.210.195.111 (High Risk): Suspected Phishing activities. Location: DC, USA.
+37.139.129.69 (High Risk): Suspected Windows Exploits activities. Location: Zuid-Holland, NL.
+198.54.117.212 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activities.  Location:  CA, USA.
+198.54.117.217 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activities.  Location:  CA, USA.
+85.214.61.200 (High Risk): Suspected Scanners, Internet Attacks, and Windows Exploits.  Location:  Germany.
+198.54.117.211 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activities.  Location:  CA, USA.
+198.54.117.216 (High Risk): Suspected Proxy, Windows Exploits, BotNets, and Phishing activities.  Location:  CA, USA.
+156.96.150.253 (High Risk): Suspected Scanners and Web Exploits activities.  Location:  CA, USA.
+45.81.243.34 (High Risk): Suspected Spam Sources, Scanners and Windows Exploits.  Location:  GA, USA.
+154.9.24.101 (High Risk): Suspected Windows Exploits.  Location:  VA, USA.
+103.186.117.37 (High Risk): Suspected Windows Exploits.  Location:  Kuala Iumpur, Malaysia.
+160.153.0.196 (High Risk): Suspected Phishing activity. Location: Noord-Holland, NL.
+92.63.197.153 (High Risk): Suspected Scanners and Windows Exploits.  Location:  Noord-Holland, Netherlands.
+109.206.243.58 (High Risk): Suspected Windows Exploits.  Location:  Zuid-Holland, Netherlands.
+62.204.41.126 (High Risk): Suspected Windows Exploits and Phishing.  Location:  Moskva, Russian Federation.
+103.103.200.165 (High Risk): Suspected Web Attacks and  Scanner.  Location:  China.
+94.229.72.125 (High Risk): Suspected Proxy and Phishing activity.  Location:  West Midlands, UK.
+34.28.71.76 (High Risk): Suspected scanners.  Location:  IA, USA.
+211.20.202.130 (High Risk): Suspected Port Scans, Probes, Brute Force attacks, and Windows Exploits.  Location :  Tainan, Taiwan.
+46.118.174.136 (High Risk): Suspected Windows Exploits and Port Scanning.  Location:  Kyiv, Ukraine.
+94.229.72.117 (High Risk): Suspected Proxy and Phishing activity. Location: West Midlands, UK.
+81.161.229.181 (High Risk): Suspected Spam Sources, Scanners and Windows Exploits activity.  Location:  Netherlands.
+8.25.82.225 (Low Risk): There is no negative data for this IP at this time. However, it is owned and operated by Zhejiang Taobao Network Co., Ltd. and appears to be run through a proxy server. Location: LA, USA.
+8.25.82.226 (Low Risk): There is no negative data for this IP at this time. However, it is owned and operated by Zhejiang Taobao Network Co., Ltd. and appears to be run through a proxy server. Location: LA, USA.
+8.25.82.227 (Low Risk): There is no negative data for this IP at this time. However, it is owned and operated by Zhejiang Taobao Network Co., Ltd. and appears to be run through a proxy server. Location: LA, USA.
+198.98.58.200 (High Risk):  Suspected Spam Sources, Scanners and Windows Exploits activity.  Location:  NY, USA.
+172.245.110.158 (High Risk):  Suspected Spam Sources, Scanners, Windows Exploits, and Phishing activity.  Location:  NY, USA.
+43.153.121.60 (High Risk):  Suspected Spam Sources, Scanners, and Windows Exploits activity.  Location:  CA, USA.
+172.176.244.157 (High Risk):  Suspected Scanners and Windows Exploits activity.  Location:  VA, USA.
+198.98.58.200 (High Risk):  Suspected Spam Sources and Windows Exploits activity.  Location:  NY, USA.
+157.255.135.76 (High Risk):  Suspected Windows Exploits and Phishing activities.  Location: China.
+113.194.51.229 (High Risk):  Suspected Windows Exploits and Phishing activities.  Location:  China.
+113.207.69.126 (High Risk):  Suspected Windows Exploits and Phishing activities.  Location:  China.
+113.194.51.135 (High Risk):  Suspected Windows Exploits and Phishing activities.  Location:  China.
+61.243.158.194 (High Risk):  Suspected Proxy, Windows Exploits, and Phishing activities.  Location:  China.
+116.136.170.235 (High Risk):  Suspected Spam Sources, Windows Exploits, and Phishing activities.  Location: China.
+116.172.74.131 (High Risk):  Suspected Proxy, Windows Exploits, and Phishing activies.  Location:  China.
+45.158.22.85 (High Risk):  Suspected BotNet and Web Attacks activity.  Location:  Canada.
+45.142.107.167 (High Risk):  Suspected: Scanners activity.  Location: Germany.
+204.44.92.108 (High Risk):  Suspected Botnet, Scanners, Windows Exploits, and Web Attacks activity.  Location:  CA, USA.
+61.243.158.204 (High Risk):  Suspected Proxy, Windows Exploits, and Phishing activities.  Location:  China.
+61.54.7.111 (High Risk):  Suspected Proxy, Windows Exploits, and Phishing activities.  Location:  China.
+61.243.158.244 (High Risk):   Suspected Proxy, Windows Exploits, and Phishing activities.  Location:  China.
+61.54.7.129 (High Risk):  Suspected Proxy, Windows Exploits, and Phishing activites.  Location:  China.
+162.254.207.56 (High Risk): Suspected Phishing activity. Location: Hong Kong, HK.
+162.254.207.51 (High Risk): Suspected Phishing activity. Location: Hong Kong, HK.
+162.254.207.59 (High Risk): Suspected Phishing activity. Location: Hong Kong, HK.
+23.224.111.126 (High Risk): Scanners and Windows Exploits activity. Location: CA, USA.
+95.214.27.201 (High Risk): Suspected Windows exploits, Brute-Force, Scanning, and Web app attack activites. Location: Zuid-Holland, NL.
+34.158.253.218 (High Risk): Suspected port scanning activity. Location: CA, USA.
+162.254.207.62 (High Risk): Suspected Phishing activity. Location: Hong Kong, HK.
+45.128.232.186 (High Risk):  Suspected Scanners and Windows Exploits activities.  Location:  Sofiay-Grad, Bulgaria.
+103.118.30.166 (High Risk): Suspected Scanners and Windows Exploits activities.  Location:  Ho Chi Minh, Vietnam.
+193.42.32.101 (High Risk):  Suspected Scanners, Windows Exploits, Web Attacks, and BotNets activities.  Location:  Bulgaria.
+194.180.48.108 (High Risk):  Suspected Scanners and Windows Exploits activities.  Location:  Zuid-Holland, Netherlands.
+45.6.96.7 (High Risk):  Suspected Windows Exploits and Phishing activities.  Location:  Sao Paulo, Brazil.
+213.227.173.134 (Low Risk): Minimal suspected port scanning activity. Location: VA, USA.
