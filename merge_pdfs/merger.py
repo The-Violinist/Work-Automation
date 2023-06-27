@@ -110,7 +110,7 @@ f_key = {
         "DLP__Sender_Source",
         "DLP Details",
     ],
-    "SO Review": ["Weekly Service"],
+    "SO Review": ["Weekly Service", "WeeklyServiceOrderReview"],
 }
 
 # Order of documents for merging final reports
@@ -157,7 +157,7 @@ intermax = [
     f_key["AD"][3],
 ]
 knudtsen = [
-    f_key["cover_sheet"],
+    # f_key["cover_sheet"],
     f_key["backup"],
     f_key["365"][0],
     f_key["365"][1],
@@ -173,15 +173,12 @@ knudtsen = [
     f_key["top_cli_host"][0],
     f_key["top_cli_hits"],
     f_key["app_use_bw"][1],
-    f_key["app_use_hits"][1],
     f_key["app_use_bw"][3],
-    f_key["app_use_hits"][3],
     f_key["active_client"][1],
     f_key["active_client"][0],
     f_key["pop_domain"][1],
     f_key["pop_domain"][0],
     f_key["block_sites"][0],
-    f_key["block_sites"][1],
     f_key["botnets"][0],
     f_key["botnet_detect"][0],
     f_key["botnet_detect"][1],
@@ -190,7 +187,9 @@ knudtsen = [
     f_key["GAV"][1],
     f_key["sslvpn_a_d"][0],
     f_key["sslvpn_a_d"][1],
+    f_key["TDR"][0],
     f_key["SO Review"][0],
+    f_key["SO Review"][1],
     f_key["AD"][3],
     f_key["AD"][2],
     f_key["AD"][0],
@@ -220,6 +219,7 @@ bankcda = [
     f_key["sslvpn_a_d"][1],
     f_key["TDR"][0],
     f_key["SO Review"][0],
+    f_key["SO Review"][1],
 ]
 honi = [
     f_key["cover_sheet"],
@@ -433,7 +433,7 @@ bayshore = [
     f_key["AD"][3],
 ]
 schweitzer = [
-    f_key["cover_sheet"],
+    # f_key["cover_sheet"],
     f_key["backup"],
     f_key["365"][0],
     f_key["365"][1],
