@@ -49,6 +49,7 @@ clients = [
     "Intermax",
     "Knudtsen",
     "BankCDA",
+    "CDA Honda",
     "HONI",
     "MMCO",
     "Integrated Personnel",
@@ -56,6 +57,7 @@ clients = [
     "Bay Shore",
     "Schweitzer",
     "PFFM",
+    "Spokane ABRA",
 ]
 
 ### FUNCTIONS ###
@@ -800,14 +802,19 @@ def app_use_bw(temp_file="app_use_bw.txt"):
     for line in lines:
         if line.__contains__("Total:"):
             break
+        if line.__contains__("WatchGuard Technologies"):
+            y = False
         if y == True:
             each_line = line.strip()
             final_data.append(each_line)
-        else:
-            if line.__contains__(text):
-                x = True
-            if x == True:
-                y = True
+        if line.__contains__(text):
+            y = True
+
+        # else:
+        #     if line.__contains__(text):
+        #         x = True
+        # if x == True:
+        #     y = True
     f.write("\nApplication Usage by Bandwidth\n")
     i = 0
     for app in range(3):
@@ -837,14 +844,13 @@ def app_use_hits(temp_file="app_use_hits.txt"):
     for line in lines:
         if line.__contains__("Total:"):
             break
+        if line.__contains__("WatchGuard Technologies"):
+            y = False
         if y == True:
             each_line = line.strip()
             final_data.append(each_line)
-        else:
-            if line.__contains__(text):
-                x = True
-            if x == True:
-                y = True
+        if line.__contains__(text):
+            y = True
     f.write("\nApplication Usage by Hits\n")
     i = 0
     for app in range(3):

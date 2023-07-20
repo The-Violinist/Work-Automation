@@ -181,3 +181,4 @@
 194.180.48.108 (High Risk):  Suspected Scanners and Windows Exploits activities.  Location:  Zuid-Holland, Netherlands.
 45.6.96.7 (High Risk):  Suspected Windows Exploits and Phishing activities.  Location:  Sao Paulo, Brazil.
 213.227.173.134 (Low Risk): Minimal suspected port scanning activity. Location: VA, USA.
+150.138.78.166 (High Risk): Suspected Windows Exploits activities. Location: Shandong, CN.
