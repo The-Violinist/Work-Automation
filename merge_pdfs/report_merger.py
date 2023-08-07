@@ -513,13 +513,12 @@ pffm = [
     f_key["MAV"],
     f_key["web_protect"][0],
     f_key["web_protect"][1],
-    f_key["top_cli_user"][1],
-    f_key["top_cli_user"][0],
+    f_key["top_cli_host"][1],
+    f_key["top_cli_host"][0],
     f_key["active_client"][0],
     f_key["pop_domain"][1],
     f_key["pop_domain"][0],
-    f_key["app_use_bw"][0],
-    f_key["app_use_bw"][1],
+    f_key["app_use_bw"][3],
     f_key["block_sites"][0],
     f_key["block_sites"][1],
     f_key["botnets"][0],
@@ -700,7 +699,7 @@ def merge_pdfs(
     for pdf in pdfs_list:
         # print(f"Adding {pdf} to the merged pdf...")
         f.write(f"{pdf}\n")
-        merger.append(pdf)  # Add all files to the merger
+        merger.append(pdf, import_bookmarks=False)  # Add all files to the merger
     merger.write(result)  # Create the merged pdf
     merger.close()
     print("Finished")
