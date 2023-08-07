@@ -16,6 +16,7 @@ clients = [
     "Intermax",
     "Knudtsen",
     "BankCDA",
+    "CDA Honda",
     "HONI",
     "MMCO",
     "Integrated Personnel",
@@ -23,6 +24,7 @@ clients = [
     "Bay Shore",
     "Schweitzer",
     "PFFM",
+    "ABRA Spokane",
 ]
 
 ### FUNCTIONS ###
