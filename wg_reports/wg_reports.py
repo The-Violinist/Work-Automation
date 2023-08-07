@@ -10,9 +10,12 @@ import re
 ### VARIABLES ###
 # Dictionary of keywords to search for files in the weekly directories
 f_type = {
-    "app_use_bw": [
+    "app_use_bw_host": [
         "Application_Usage_Applications_(Host)_by_Bandwidth",
         "Application_Usage_Applications__Host__by_Bandwidth",
+    ],
+    "app_use_bw_user": [
+        "Application_Usage_Applications__User__by_Bandwidth",
     ],
     "app_use_hits": [
         "Application_Usage_Applications_(Host)_by_Hits",
@@ -246,7 +249,6 @@ def botnet_trend(temp_file="botnet_trend.txt"):
 def botnet_dest(temp_file="botnet_detect_dest.txt"):
     # Get the text for the last string before the needed data
     text = "Hits (%)"
-    x = False
     y = False
     final_data = []
     with open(temp_file, "r") as read_file:
@@ -259,11 +261,8 @@ def botnet_dest(temp_file="botnet_detect_dest.txt"):
         if y == True:
             each_line = line.strip()
             final_data.append(each_line)
-        else:
-            if line.__contains__(text):
-                x = True
-            if x == True:
-                y = True
+        if line.__contains__(text):
+            y = True
     total_sites = int(len(final_data) / 3)
     f.write("\nBotnet Detection by Destination\n")
     i = 0
@@ -278,7 +277,6 @@ def botnet_dest(temp_file="botnet_detect_dest.txt"):
 def botnet_cli(temp_file="botnet_detect_cli.txt"):
     # Get the text for the last string before the needed data
     text = "Hits (%)"
-    x = False
     y = False
     final_data = []
     with open(temp_file, "r") as read_file:
@@ -288,14 +286,13 @@ def botnet_cli(temp_file="botnet_detect_cli.txt"):
     for line in lines:
         if line.__contains__("Total:"):
             break
+        if line.__contains__("WatchGuard Technologies"):
+            y = False
         if y == True:
             each_line = line.strip()
             final_data.append(each_line)
-        else:
-            if line.__contains__(text):
-                x = True
-            if x == True:
-                y = True
+        if line.__contains__(text):
+            y = True
     total_sites = int(len(final_data) / 3)
     f.write("\nBotnet Detection by Client\n")
     i = 0
@@ -319,7 +316,6 @@ def botnet_cli(temp_file="botnet_detect_cli.txt"):
 def block_botnet_sites(temp_file="botnet_block.txt"):
     # Get the text for the last string before the needed data
     text = "Hits (%)"
-    # x = False
     y = False
     final_data = []
     with open(temp_file, "r") as read_file:
@@ -329,20 +325,18 @@ def block_botnet_sites(temp_file="botnet_block.txt"):
     for line in lines:
         if line.__contains__("Total:"):
             break
+        if line.__contains__("WatchGuard Technologies"):
+            y = False
         if y == True:
             each_line = line.strip()
             final_data.append(each_line)
-        else:
-            if line.__contains__(text):
-                #     x = True
-                # if x == True:
-                y = True
+        if line.__contains__(text):
+            y = True
     total_sites = int(len(final_data) / 3)
     f.write("\nBlocked Botnet Sites\n")
     i = 0
     while i < len(final_data):
         if final_data[i + 1].isdigit():
-
             fhandle = open("Botnet_Sites.txt", "r")
             test = f"{final_data[i]} ("
             if test in fhandle.read():
@@ -369,7 +363,6 @@ def block_botnet_sites(temp_file="botnet_block.txt"):
 def pop_domain_bytes(temp_file="pop_domain_bytes.txt"):
     # Get the text for the last string before the needed data
     text = "Hits (%)"
-    x = False
     y = False
     final_data = []
     with open(temp_file, "r") as read_file:
@@ -379,14 +372,13 @@ def pop_domain_bytes(temp_file="pop_domain_bytes.txt"):
     for line in lines:
         if line.__contains__("Total:"):
             break
+        if line.__contains__("WatchGuard Technologies"):
+            y = False
         if y == True:
             each_line = line.strip()
             final_data.append(each_line)
-        else:
-            if line.__contains__(text):
-                x = True
-            if x == True:
-                y = True
+        if line.__contains__(text):
+            y = True
     f.write("\nPopular Domains by Bytes\n")
     i = 0
     for domain in range(3):
@@ -406,7 +398,6 @@ def pop_domain_bytes(temp_file="pop_domain_bytes.txt"):
 def pop_domain_hits(temp_file="pop_domain_hits.txt"):
     # Get the text for the last string before the needed data
     text = "Hits (%)"
-    x = False
     y = False
     final_data = []
     with open(temp_file, "r") as read_file:
@@ -416,14 +407,13 @@ def pop_domain_hits(temp_file="pop_domain_hits.txt"):
     for line in lines:
         if line.__contains__("Total:"):
             break
+        if line.__contains__("WatchGuard Technologies"):
+            y = False
         if y == True:
             each_line = line.strip()
             final_data.append(each_line)
-        else:
-            if line.__contains__(text):
-                x = True
-            if x == True:
-                y = True
+        if line.__contains__(text):
+            y = True
     f.write("\nPopular Domains by Hits\n")
     i = 0
     for domain in range(3):
@@ -449,7 +439,6 @@ def pop_domain_hits(temp_file="pop_domain_hits.txt"):
 def proxy_bw(temp_file="proxy_bw.txt"):
     # Get the text for the last string before the needed data
     text = "Hits (%)"
-    x = False
     y = False
     final_data = []
     with open(temp_file, "r") as read_file:
@@ -462,11 +451,8 @@ def proxy_bw(temp_file="proxy_bw.txt"):
         if y == True:
             each_line = line.strip()
             final_data.append(each_line)
-        else:
-            if line.__contains__(text):
-                x = True
-            if x == True:
-                y = True
+        if line.__contains__(text):
+            y = True
     f.write("\nProxy Traffic by Bandwidth\n")
     i = 0
     for domain in range(1):
@@ -486,7 +472,6 @@ def proxy_bw(temp_file="proxy_bw.txt"):
 def proxy_hits(temp_file="proxy_hits.txt"):
     # Get the text for the last string before the needed data
     text = "Hits (%)"
-    x = False
     y = False
     final_data = []
     with open(temp_file, "r") as read_file:
@@ -499,11 +484,8 @@ def proxy_hits(temp_file="proxy_hits.txt"):
         if y == True:
             each_line = line.strip()
             final_data.append(each_line)
-        else:
-            if line.__contains__(text):
-                x = True
-            if x == True:
-                y = True
+        if line.__contains__(text):
+            y = True
     f.write("\nProxy Traffic by Hits\n")
     i = 0
     for domain in range(1):
@@ -529,7 +511,6 @@ def proxy_hits(temp_file="proxy_hits.txt"):
 def top_cli_host(temp_file="top_cli_host.txt"):
     # Get the text for the last string before the needed data
     text = "(%)"
-    x = False
     y = False
     final_data = []
     with open(temp_file, "r") as read_file:
@@ -545,11 +526,8 @@ def top_cli_host(temp_file="top_cli_host.txt"):
         if y == True:
             each_line = line.strip()
             final_data.append(each_line)
-        else:
-            if line.__contains__(text):
-                x = True
-            if x == True:
-                y = True
+        if line.__contains__(text):
+            y = True
     f.write("\nTop Client hosts by Bytes\n")
     i = 0
     if indexIncrementer == 5:
@@ -581,7 +559,6 @@ def top_cli_host(temp_file="top_cli_host.txt"):
 def top_cli_user(temp_file="top_cli_user.txt"):
     # Get the text for the last string before the needed data
     text = "Bytes (%)"
-    x = False
     y = False
     final_data = []
     with open(temp_file, "r") as read_file:
@@ -594,11 +571,8 @@ def top_cli_user(temp_file="top_cli_user.txt"):
         if y == True:
             each_line = line.strip()
             final_data.append(each_line)
-        else:
-            if line.__contains__(text):
-                x = True
-            if x == True:
-                y = True
+        if line.__contains__(text):
+            y = True
     f.write("\nTop Clients Users by Bandwidth\n")
     total_users = int(len(final_data) / 5)
     if total_users > 3:
@@ -621,7 +595,6 @@ def top_cli_user(temp_file="top_cli_user.txt"):
 def top_cli_hits(temp_file="top_cli_hits.txt"):
     # Get the text for the last string before the needed data
     text = "Hits (%)"
-    x = False
     y = False
     final_data = []
     with open(temp_file, "r") as read_file:
@@ -637,11 +610,8 @@ def top_cli_hits(temp_file="top_cli_hits.txt"):
         if y == True:
             each_line = line.strip()
             final_data.append(each_line)
-        else:
-            if line.__contains__(text):
-                x = True
-            if x == True:
-                y = True
+        if line.__contains__(text):
+            y = True
     f.write("\nTop Clients Hosts by Hits\n")
     i = 0
     if indexIncrement == 4:
@@ -789,10 +759,9 @@ def active_cli_hits(temp_file="active_client_hit.txt"):
     f.write("-" * 40)
 
 
-def app_use_bw(temp_file="app_use_bw.txt"):
+def app_use_bw_user(temp_file="app_use_bw_user.txt"):
     # Get the text for the last string before the needed data
     text = "Hits (%)"
-    x = False
     y = False
     final_data = []
     with open(temp_file, "r") as read_file:
@@ -810,12 +779,43 @@ def app_use_bw(temp_file="app_use_bw.txt"):
         if line.__contains__(text):
             y = True
 
-        # else:
-        #     if line.__contains__(text):
-        #         x = True
-        # if x == True:
-        #     y = True
-    f.write("\nApplication Usage by Bandwidth\n")
+    f.write("\nApplication Usage (User) by Bandwidth\n")
+    i = 0
+    for app in range(3):
+        try:
+            f.write(
+                f"{final_data[i]}: {round((float(final_data[i + 1]) / 1024), 2)} GB at {final_data[i + 2]}%\n"
+            )
+            i += 5
+        except:
+            f.write(
+                f"{final_data[i]} {final_data[i + 1]}: {round((float(final_data[i + 2]) / 1024), 2)} GB at {final_data[i + 3]}%\n"
+            )
+            i += 6
+    f.write("-" * 40)
+
+
+def app_use_bw_host(temp_file="app_use_bw_host.txt"):
+    # Get the text for the last string before the needed data
+    text = "Hits (%)"
+    y = False
+    final_data = []
+    with open(temp_file, "r") as read_file:
+        lines = read_file.readlines()
+    read_file.close()
+    remove(temp_file)
+    for line in lines:
+        if line.__contains__("Total:"):
+            break
+        if line.__contains__("WatchGuard Technologies"):
+            y = False
+        if y == True:
+            each_line = line.strip()
+            final_data.append(each_line)
+        if line.__contains__(text):
+            y = True
+
+    f.write("\nApplication Usage (Host) by Bandwidth\n")
     i = 0
     for app in range(3):
         try:
@@ -834,7 +834,6 @@ def app_use_bw(temp_file="app_use_bw.txt"):
 def app_use_hits(temp_file="app_use_hits.txt"):
     # Get the text for the last string before the needed data
     text = "Hits (%)"
-    x = False
     y = False
     final_data = []
     with open(temp_file, "r") as read_file:
@@ -882,7 +881,6 @@ def app_use_hits(temp_file="app_use_hits.txt"):
 def block_sites_cat(temp_file="block_sites_cat.txt"):
     # Get the text for the last string before the needed data
     text = "Hits (%)"
-    x = False
     y = False
     final_data = []
     with open(temp_file, "r") as read_file:
@@ -892,14 +890,13 @@ def block_sites_cat(temp_file="block_sites_cat.txt"):
     for line in lines:
         if line.__contains__("Total:"):
             break
+        if line.__contains__("WatchGuard Technologies"):
+            y = False
         if y == True:
             each_line = line.strip()
             final_data.append(each_line)
-        else:
-            if line.__contains__(text):
-                x = True
-            if x == True:
-                y = True
+        if line.__contains__(text):
+            y = True
     f.write("\nBlocked Sites by Category\n")
     i = 0  # Incrementer for the rows of data
     num_entries = int(len(final_data) / 3)
@@ -928,7 +925,6 @@ def block_sites_cat(temp_file="block_sites_cat.txt"):
 def block_sites_cli(temp_file="block_sites_cli.txt"):
     # Get the text for the last string before the needed data
     text = "Hits (%)"
-    x = False
     y = False
     final_data = []
     with open(temp_file, "r") as read_file:
@@ -938,14 +934,13 @@ def block_sites_cli(temp_file="block_sites_cli.txt"):
     for line in lines:
         if line.__contains__("Total:"):
             break
+        if line.__contains__("WatchGuard Technologies"):
+            y = False
         if y == True:
             each_line = line.strip()
             final_data.append(each_line)
-        else:
-            if line.__contains__(text):
-                x = True
-            if x == True:
-                y = True
+        if line.__contains__(text):
+            y = True
     f.write("\nBlocked Sites by Client\n")
     i = 0  # Incrementer for the rows of data
     num_entries = int(len(final_data) / 3)
@@ -972,8 +967,10 @@ def reports(temps):
         top_cli_user()
     if "top_cli_hits.txt" in temps:
         top_cli_hits()
-    if "app_use_bw.txt" in temps:
-        app_use_bw()
+    if "app_use_bw_user.txt" in temps:
+        app_use_bw_user()
+    if "app_use_bw_host.txt" in temps:
+        app_use_bw_host()
     if "app_use_hits.txt" in temps:
         app_use_hits()
     if "block_sites_cat.txt" in temps:
