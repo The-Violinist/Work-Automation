@@ -67,6 +67,17 @@
 - **_Find Service belonging to port_**
     - Get process ID: `netstat -aon | findstr "<port number>"`
     - Use the process ID found: `tasklist /fi "PID eq <ID>`
+
+- **_NTP Commands_**
+    - View peer settings `w32tm /query /peers`
+    - Resync `w32tm /resync`
+    - Manually set peer `w32tm /config /manualpeerlist:<peer address>` with optional `/syncfromflags:manual`
+    - Push change `w32tm /config /update`
+    - If this does not work:
+        - `w32tm /unregister`
+        - `net stop w32time`
+        - `w32tm /register`
+        - `net start w32time`
 ---
 
 ### Powershell
