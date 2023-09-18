@@ -78,6 +78,19 @@
         - `net stop w32time`
         - `w32tm /register`
         - `net start w32time`
+
+- **_Unusual VPN Error_**
+    - This solution is for the following error when connecting to a VPN: `Parameter is incorrect`
+    - Clear networking cache:
+        - `netsh int ip reset`
+        - `netsh int ipv6 reset`
+        - `netsh winsock reset`
+        - Restart the computer
+    - Reset Device Manager adapters
+        - Open Device Manager and find Network Adapters
+        - Uninstall all of the WAN Miniport adapters
+        - Click Action > Scan for hardware changes
+        - Adapters should repopulate and the VPN parameter error is resolved
 ---
 
 ### Powershell
