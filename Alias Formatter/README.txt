@@ -1,0 +1,3 @@
+Data is read from a file named "alias_data.txt" in the same directory as the Alias Formatter EXE.
+Data must be entered on individual lines and may consist of FQDNs, single IP addresses, or IP address blocks in CIDR Block format.
+The formatted file is then output in the same directory.
