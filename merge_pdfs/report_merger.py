@@ -115,7 +115,7 @@ f_key = {
 
 # Order of documents for merging final reports
 intermax = [
-    # f_key["cover_sheet"],
+    f_key["cover_sheet"],
     f_key["backup"],
     f_key["365"][0],
     f_key["365"][1],
@@ -155,6 +155,7 @@ intermax = [
     f_key["AD"][0],
     f_key["AD"][1],
     f_key["AD"][3],
+    f_key["SO Review"][0],
 ]
 knudtsen = [
     # f_key["cover_sheet"],
@@ -304,6 +305,7 @@ honi = [
     f_key["AD"][1],
     f_key["AD"][2],
     f_key["AD"][3],
+    f_key["SO Review"][0],
 ]
 mmco = [
     f_key["cover_sheet"],
@@ -334,6 +336,8 @@ mmco = [
     f_key["botnets"][2],
     f_key["IPS"][0],
     f_key["IPS"][1],
+    f_key["IPS"][2],
+    f_key["IPS"][3],
     f_key["GAV"][1],
     f_key["TDR"][2],
     f_key["sslvpn_a_d"][0],
@@ -342,6 +346,7 @@ mmco = [
     f_key["AD"][2],
     f_key["AD"][0],
     f_key["AD"][1],
+    f_key["SO Review"][0],
 ]
 integrated = [
     f_key["cover_sheet"],
@@ -368,6 +373,8 @@ integrated = [
     f_key["block_sites"][0],
     f_key["IPS"][0],
     f_key["IPS"][1],
+    f_key["IPS"][2],
+    f_key["IPS"][3],
     f_key["GAV"][0],
     f_key["GAV"][1],
     f_key["botnets"][0],
@@ -384,6 +391,7 @@ integrated = [
     f_key["dist_group"][1],
     f_key["forward"][0],
     f_key["forward"][1],
+    f_key["SO Review"][0],
 ]
 northcon = [
     f_key["cover_sheet"],
@@ -426,6 +434,7 @@ northcon = [
     f_key["AD"][0],
     f_key["AD"][3],
     f_key["AD"][1],
+    f_key["SO Review"][0],
 ]
 bayshore = [
     f_key["cover_sheet"],
@@ -467,6 +476,7 @@ bayshore = [
     f_key["AD"][1],
     f_key["AD"][2],
     f_key["AD"][3],
+    f_key["SO Review"][0],
 ]
 schweitzer = [
     # f_key["cover_sheet"],
@@ -527,6 +537,8 @@ pffm = [
     f_key["botnet_detect"][1],
     f_key["IPS"][0],
     f_key["IPS"][1],
+    f_key["IPS"][2],
+    f_key["IPS"][3],
     f_key["GAV"][0],
     f_key["GAV"][1],
     f_key["sslvpn_a_d"][0],
@@ -535,6 +547,7 @@ pffm = [
     f_key["AD"][1],
     f_key["AD"][2],
     f_key["AD"][3],
+    f_key["SO Review"][0],
 ]
 abraspokane = [
     # f_key["cover_sheet"],
