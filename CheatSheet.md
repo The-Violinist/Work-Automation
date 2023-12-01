@@ -23,7 +23,7 @@
     - If unsure of the SSID: `netsh wlan show profiles` then use that SSID in the following command:
     - `netsh wlan show profile name="SSID_Name" key=clear`
 - **_Create Wifi profile_**
-    - Use my handy dandy [executable](https://github.com/The-Violinist/Work-Automation/tree/main/netsh) to create an importable XML file!
+    - Use my handy dandy [executable](https://github.com/The-Violinist/Work-Automation/tree/main/ssid_profile) to create an importable XML file!
 - **_Enable RDP_**
     - `reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f`
     - `netsh advfirewall firewall set rule group="remote desktop" new enable=Yes`
