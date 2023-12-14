@@ -24,6 +24,10 @@
     - `netsh wlan show profile name="SSID_Name" key=clear`
 - **_Create Wifi profile_**
     - Use my handy dandy [executable](https://github.com/The-Violinist/Work-Automation/tree/main/ssid_profile) to create an importable XML file!
+
+- **_Enable Ping_**
+    - `netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow`
+
 - **_Enable RDP_**
     - `reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f`
     - `netsh advfirewall firewall set rule group="remote desktop" new enable=Yes`
