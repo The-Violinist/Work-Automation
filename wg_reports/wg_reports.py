@@ -57,7 +57,6 @@ clients = [
     "MMCO",
     "Integrated Personnel",
     "Northcon",
-    "Bay Shore",
     "Schweitzer",
     "PFFM",
     "Spokane ABRA",
