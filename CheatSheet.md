@@ -115,6 +115,9 @@
 
 - **_Get AD Password Requirements_**
     - `Get-ADDefaultDomainPasswordPolicy`
+
+-**_Get list of Root certs_**
+    - `Get-ChildItem 'Cert:\localmachine\Root\'`
 ---
 
 ### Printer
