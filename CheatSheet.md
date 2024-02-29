@@ -15,9 +15,11 @@
 - **_Add to Admins_**
     - `net localgroup administrators user_name /add`
 
+- **_Enable a disabled account_**
+    - `Net user loginname /DOMAIN /active:YES`
+    
 - **_Get Public IP_**
-    - `nslookup myip.opendns.com. resolver1.opendns.com` or
-    - `curl http://ipecho.net/plain`
+    - `curl ipecho.net/plain`
 
 - **_Retrieve Wifi Password_**
     - If unsure of the SSID: `netsh wlan show profiles` then use that SSID in the following command:
@@ -116,7 +118,7 @@
 - **_Get AD Password Requirements_**
     - `Get-ADDefaultDomainPasswordPolicy`
 
--**_Get list of Root certs_**
+- **_Get list of Root certs_**
     - `Get-ChildItem 'Cert:\localmachine\Root\'`
 ---
 
