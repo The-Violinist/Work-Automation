@@ -66,7 +66,10 @@
     - `certutil -hashfile file_path encryption_type`
 
 - **_Get Printer List_**
+    - General information
     - `wmic printer list brief`
+    - Printer list with IP address
+    - `wmic printer get DriverName, PortName`
 
 - **_Logoff a user_**
     - Get session ID `query session`
