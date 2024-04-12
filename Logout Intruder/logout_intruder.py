@@ -1,5 +1,5 @@
 # Script to prevent login by anyone who is not me
-# More or less a joke script which stops login to a computer if the username is not
+# More or less a joke script which stops login to a computer if the username is not me.
 
 ### LIBRARIES ###
 import os
