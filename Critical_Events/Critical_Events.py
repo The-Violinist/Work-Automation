@@ -529,7 +529,7 @@ def get_critical_events(driver, dir_date):
                 e.click()
                 view_report = driver.find_element(By.ID, "generatebutton-1024")
                 view_report.click()
-                time.sleep(2)
+                time.sleep(5)
 
                 event_html_filename = "C:\\tempdir\\CriticalEvents.html"
                 event_pdf_filename = folder + "\\Critical Events.pdf"
@@ -585,7 +585,7 @@ def get_critical_events(driver, dir_date):
 
 def main():
     config = configparser.ConfigParser()
-    with open("settings.ini", "r") as fp_config:
+    with open("settings.ini", "r") as fp_config: 
         config.read_file(fp_config)
 
     # get our date for our directories to store our files in
