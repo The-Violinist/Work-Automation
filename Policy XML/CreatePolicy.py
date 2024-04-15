@@ -1,5 +1,7 @@
 import json 
 
+# Compile command 'pyinstaller.exe --onefile -i"C:\Users\darmstrong\Desktop\pyinstaller\checkmark.ico" CreatePolicy.py'
+
 port_list = []
 
 with open('port_list') as list_file: 
