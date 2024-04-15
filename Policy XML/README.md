@@ -15,4 +15,4 @@ The 'port_list' file contains 5 sections as a layered list:
 - UDP port ranges
     - Entered in the last set of square brackets (list item 4), within an additional set of square brackets for each range. Beginning and ending ports are entered as comma separated values.
 
-Example: ["Policy_Name",[80],[443],[[1024,65535]],[[1024,65535]]]
+Example: ["Policy_Name",[80,443],[80,443],[[1024,65535],[start,end]],[[1024,65535],[start,end]]]
