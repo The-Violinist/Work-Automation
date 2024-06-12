@@ -6,7 +6,7 @@ from win32com import client
 from datetime import date, timedelta
 import shutil
 
-# import time
+# Compile command 'pyinstaller.exe --onefile -i"C:\Users\darmstrong\Desktop\pyinstaller\merge.ico" report_merger.py'
 
 ##########################
 # DICTIONARIES AND LISTS #
@@ -123,6 +123,7 @@ f_key = {
         "connectedDevicesData_Kellogg.pdf",
         "connectedDevicesData_Knudtsen",
         "connectedDevicesData_Abra_PF",
+        "connectedDevices",
     ],
     "Sentinel": [
         "EI.p",
@@ -264,7 +265,7 @@ bankcda = [
     f_key["SO Review"][1],
 ]
 cdahonda = [
-    # f_key["cover_sheet"],
+    f_key["cover_sheet"],
     f_key["backup"],
     f_key["365"][0],
     f_key["365"][1],
@@ -274,12 +275,12 @@ cdahonda = [
     f_key["critical"],
     f_key["patch"],
     f_key["MAV"],
+    f_key["Sentinel"][0],
+    f_key["Sentinel"][1],
     f_key["web_protect"][0],
     f_key["web_protect"][1],
     f_key["top_cli_host"][1],
     f_key["top_cli_host"][0],
-    f_key["top_cli_user"][1],
-    f_key["top_cli_user"][0],
     f_key["app_use_bw"][3],
     f_key["block_sites"][0],
     f_key["block_sites"][1],
@@ -293,12 +294,11 @@ cdahonda = [
     f_key["GAV"][1],
     f_key["sslvpn_a_d"][0],
     f_key["sslvpn_a_d"][1],
-    f_key["Sentinel"][0],
-    f_key["Sentinel"][1],
     f_key["AD"][0],
     f_key["AD"][1],
     f_key["AD"][2],
     f_key["AD"][3],
+    f_key["connected_devices"][7],
     f_key["SO Review"][0],
     f_key["SO Review"][1],
 ]
@@ -363,6 +363,8 @@ mmco = [
     f_key["server"],
     f_key["patch"],
     f_key["MAV"],
+    f_key["Sentinel"][0],
+    f_key["Sentinel"][1],
     f_key["web_protect"][0],
     f_key["web_protect"][1],
     f_key["top_cli_host"][1],
@@ -387,8 +389,6 @@ mmco = [
     f_key["TDR"][2],
     f_key["sslvpn_a_d"][0],
     f_key["sslvpn_a_d"][1],
-    f_key["Sentinel"][0],
-    f_key["Sentinel"][1],
     f_key["AD"][3],
     f_key["AD"][2],
     f_key["AD"][0],
@@ -490,7 +490,7 @@ northcon = [
     f_key["SO Review"][0],
 ]
 schweitzer = [
-    # f_key["cover_sheet"],
+    f_key["cover_sheet"],
     f_key["backup"],
     f_key["365"][0],
     f_key["365"][1],
