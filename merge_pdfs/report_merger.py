@@ -644,7 +644,7 @@ def all_dir_paths():
     )  # Convert the complete date of Monday to a string
 
     dir_path = (
-        "\\\\FS01\\MSP-SecReview\\weekly"  # Upper level directory for all client files
+        "\\\\IMX-FS01\\MSP-SecReview\\weekly"  # Upper level directory for all client files
     )
     dir_list = listdir(dir_path)
 
