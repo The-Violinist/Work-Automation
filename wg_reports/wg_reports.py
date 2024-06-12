@@ -7,6 +7,8 @@ from os import listdir, remove
 from PyPDF2 import PdfFileReader
 import re
 
+# Compile command pyinstaller.exe --onefile -i"C:\Users\darmstrong\Desktop\pyinstaller\glasses.ico" wg_reports.py
+
 ### VARIABLES ###
 # Dictionary of keywords to search for files in the weekly directories
 f_type = {
@@ -90,7 +92,7 @@ def all_dir_paths():
     )  # Convert the complete date of Monday to a string
     # Parent for all client directories
     dir_path = (
-        "\\\\FS01\\MSP-SecReview\\weekly"  # Upper level directory for all client files
+        "\\\\IMX-FS01\\MSP-SecReview\\weekly"  # Upper level directory for all client files
     )
 
     # dir_path = 'C:\\Users\\darmstrong\\Desktop\\script_test'                    # Test directory
