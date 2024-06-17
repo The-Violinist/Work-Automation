@@ -55,7 +55,7 @@ def all_dir_paths():
     )  # Convert the complete date of Monday to a string
 
     dir_path = (
-        "\\\\FS01\\MSP-SecReview\\weekly"  # Upper level directory for all client files
+        "\\\\IMX-FS01\\MSP-SecReview\\weekly"  # Upper level directory for all client files
         # "C:\\Users\\darmstrong\\Desktop\\MSP-SecReview\\Weekly"
     )
     dir_list = listdir(dir_path)
@@ -619,19 +619,20 @@ def main():
     element = driver.find_element(By.ID, "verify-submit")
     element.click()
 
-    # See if there is an ad pop-up and click them until they are all gone
-    while True:
-        try:
-            # element = driver.find_element_by_class_name("_pendo-close-guide")
-            element = driver.find_element(By.CLASS_NAME, "_pendo-close-guide")
-            element.click()
-        except:
-            pass
-            break
+    # # See if there is an ad pop-up and click them until they are all gone
+    # while True:
+    #     try:
+    #         # element = driver.find_element_by_class_name("_pendo-close-guide")
+    #         element = driver.find_element(By.CLASS_NAME, "_pendo-close-guide")
+    #         element.click()
+    #     except:
+    #         pass
+    #         break
 
-    driver.implicitly_wait(20)
+    # driver.implicitly_wait(20)
 
     print("********** CRITICAL EVENTS REPORTS **********")
+    time.sleep(60)
     get_critical_events(driver, dir_date)
 
     # # Grab our main page and switch back to it
