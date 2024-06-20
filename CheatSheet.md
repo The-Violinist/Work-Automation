@@ -106,7 +106,10 @@
 
 ### Powershell
 
-- **_Synchronization service_**
+- **_Determine if a remote port is open_**
+    - `Test-NetConnection -ComputerName "unifi.com" -Port 8080`
+
+- **_Azure Synchronization service_**
     - `Start-ADSyncSyncCycle -PolicyType Delta`
 
 - **_Domain Join_**
