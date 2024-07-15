@@ -62,6 +62,8 @@ clients = [
     "Schweitzer",
     "PFFM",
     "Spokane ABRA",
+    "KFM",
+    "KFAbra"
 ]
 
 ### FUNCTIONS ###
