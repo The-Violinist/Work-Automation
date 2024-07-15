@@ -3,6 +3,8 @@ from img2pdf import convert
 from PIL import Image
 from os import listdir, remove
 
+# Compile command 'pyinstaller.exe --onefile -i"C:\Users\darmstrong\Desktop\pyinstaller\pdf.ico" png_to_pdf.py'
+
 # Create a list of all the weekly folder paths
 def all_dir_paths():
     # Get the subdirectory name based on date
@@ -10,7 +12,7 @@ def all_dir_paths():
     date_monday = date.today() - timedelta(days=day_of_week)
     str_date_monday = date_monday.strftime("%Y-%m-%d")
     # Parent for all client directories
-    dir_path = "\\\\FS01\\MSP-SecReview\\weekly"
+    dir_path = "\\\\IMX-FS01\\MSP-SecReview\\weekly"
     dir_list = listdir(dir_path)
     # Create a list of all the current week directories
     paths = []
