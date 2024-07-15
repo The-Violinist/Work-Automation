@@ -132,7 +132,6 @@ f_key = {
         "EI Knudtsen",
         "TI ABRA",
         "TI Knudtsen",
-        "EI True",
     ],
 }
 
@@ -251,7 +250,7 @@ bankcda = [
     f_key["sslvpn_a_d"][0],
     f_key["sslvpn_a_d"][1],
     f_key["TDR"][0],
-    f_key["Sentinel"][6],
+    f_key["Sentinel"][0],
     f_key["Sentinel"][1],
     f_key["AD"][0],
     f_key["AD"][2],
@@ -602,6 +601,88 @@ abraspokane = [
     f_key["SO Review"][0],
     f_key["SO Review"][1],
 ]
+kfm = [
+    # f_key["cover_sheet"],
+    f_key["backup"],
+    f_key["365"][0],
+    f_key["365"][1],
+    f_key["take_control"][0],
+    f_key["take_control"][1],
+    f_key["server"],
+    f_key["critical"],
+    f_key["patch"],
+    f_key["web_protect"][0],
+    f_key["web_protect"][1],
+    f_key["top_cli_host"][1],
+    f_key["top_cli_host"][0],
+    f_key["top_cli_hits"],
+    f_key["app_use_bw"][1],
+    f_key["app_use_bw"][3],
+    f_key["active_client"][1],
+    f_key["active_client"][0],
+    f_key["pop_domain"][1],
+    f_key["pop_domain"][0],
+    f_key["block_sites"][0],
+    f_key["botnets"][0],
+    f_key["botnet_detect"][0],
+    f_key["botnet_detect"][1],
+    f_key["botnets"][2],
+    f_key["IPS"][1],
+    f_key["IPS"][2],
+    f_key["IPS"][3],
+    f_key["GAV"][1],
+    f_key["sslvpn_a_d"][0],
+    f_key["sslvpn_a_d"][1],
+    f_key["Sentinel"][0],
+    f_key["Sentinel"][1],
+    f_key["AD"][3],
+    f_key["AD"][2],
+    f_key["AD"][0],
+    f_key["AD"][1],
+    f_key["connected_devices"][5],
+    f_key["connected_devices"][6],
+    f_key["SO Review"][0],
+    f_key["SO Review"][1],
+]
+kfabra = [
+    # f_key["cover_sheet"],
+    f_key["backup"],
+    f_key["365"][0],
+    f_key["365"][1],
+    f_key["take_control"][0],
+    f_key["take_control"][1],
+    f_key["server"],
+    f_key["critical"],
+    f_key["patch"],
+    f_key["web_protect"][0],
+    f_key["web_protect"][1],
+    f_key["top_cli_host"][1],
+    f_key["top_cli_host"][0],
+    f_key["top_cli_user"][1],
+    f_key["top_cli_user"][0],
+    f_key["app_use_bw"][3],
+    f_key["block_sites"][0],
+    f_key["block_sites"][1],
+    f_key["botnets"][0],
+    f_key["botnet_detect"][0],
+    f_key["botnet_detect"][1],
+    f_key["botnets"][2],
+    f_key["IPS"][1],
+    f_key["IPS"][2],
+    f_key["IPS"][3],
+    f_key["GAV"][1],
+    f_key["sslvpn_a_d"][0],
+    f_key["sslvpn_a_d"][1],
+    f_key["Sentinel"][0],
+    f_key["Sentinel"][1],
+    f_key["AD"][0],
+    f_key["AD"][1],
+    f_key["AD"][2],
+    f_key["AD"][3],
+    f_key["connected_devices"][0],
+    f_key["SO Review"][0],
+    f_key["SO Review"][1],
+]
 
 # List of clients
 client_list = [
@@ -616,6 +697,8 @@ client_list = [
     ["Schweitzer", schweitzer],
     ["PFFM", pffm],
     ["Spokane ABRA", abraspokane],
+    ["KFM", kfm],
+    ["KFAbra", kfabra]
 ]
 
 #############
@@ -719,29 +802,44 @@ def dates_for_report():
 def merge_pdfs(
     pdfs_list, client_selection
 ):  # Arguments: 1) Complete list of pdfs for specific client; 2) Path to that client's weekly folder
-    f = open("Merged_files.txt", "a")
+    # f = open("Merged_files.txt", "a")
     date_range = dates_for_report()  # Get the date for the security report
     merger = PdfFileMerger(strict=False)  # Ignore bad white space
     result = date_range + " Weekly Security Report.pdf"  # Output file path
-
+    folders = all_dir_paths() # Create list of the client directory paths
+    dest_dir = folders[
+        client_selection
+    ]  # Grab the path to the specific weekly folder for the selected client
+    dest = dest_dir + "\\" + result
     for pdf in pdfs_list:
-        # print(f"Adding {pdf} to the merged pdf...")
-        f.write(f"{pdf}\n")
+        print(f"Adding {pdf}")
+        # f.write(f"{pdf}\n")
         merger.append(pdf, import_bookmarks=False)  # Add all files to the merger
     merger.write(result)  # Create the merged pdf
     merger.close()
-    print("Finished")
-    f.close()
+    print("File merged!")
+    # f.close()
+    print("Moving the file to the client's weekly directory...")
+    shutil.move(result, dest)
+    print("The file has been placed in the client's weekly directory!")
+    input("Press Enter to exit the program")
+
+def check_for_file(client_selection):
+    date_range = dates_for_report()  # Get the date for the security report
+    result = date_range + " Weekly Security Report.pdf"  # Output file path
     folders = all_dir_paths()
     dest_dir = folders[
         client_selection
     ]  # Concatenate a path to the specific weekly folder for the selected client
     dest = dest_dir + "\\" + result
-    shutil.move(result, dest)
-
+    if os.path.isfile(dest) == True:
+        print("This report already exists!\nPress Enter to quit")
+        input()
+        exit()
 
 ### MAIN ###
 client_selection = select_client()  # Select the client directory
+check_for_file(client_selection)
 pdfs = dir_list(
     client_selection
 )  # Create a list of all the files in that directory and convert Cover Sheet
