@@ -41,6 +41,8 @@ client_list = [
     "0077",
     "0100",
     "0160",
+    "0170",
+    "0171"
 ]
 
 
@@ -296,7 +298,7 @@ def create_ce_html_report(bad_html):
 
     return html_report
 
-
+'''
 def get_av_reports(driver, dir_date):
 
     # for Av we want to print in landscape so we need to set our options
@@ -482,7 +484,7 @@ def get_av_reports(driver, dir_date):
                 element.click()
         # close our AV report page now that we have all of our reports
         driver.close()
-
+'''
 
 def get_critical_events(driver, dir_date):
 
@@ -529,7 +531,7 @@ def get_critical_events(driver, dir_date):
                 e.click()
                 view_report = driver.find_element(By.ID, "generatebutton-1024")
                 view_report.click()
-                time.sleep(5)
+                time.sleep(10)
 
                 event_html_filename = "C:\\tempdir\\CriticalEvents.html"
                 event_pdf_filename = folder + "\\Critical Events.pdf"
@@ -632,7 +634,7 @@ def main():
     # driver.implicitly_wait(20)
 
     print("********** CRITICAL EVENTS REPORTS **********")
-    time.sleep(60)
+    time.sleep(60) #Wait for page to load, which sometimes takes FOREVER!
     get_critical_events(driver, dir_date)
 
     # # Grab our main page and switch back to it
