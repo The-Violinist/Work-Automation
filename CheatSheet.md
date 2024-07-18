@@ -128,6 +128,16 @@
     - `Get-ChildItem 'Cert:\localmachine\Root\'`
 ---
 
+### Unifi
+
+- **_Adopt a Device_**
+    - `set-inform http://<server address>:8080/inform`
+-**_Factory Reset_**
+    - `syswrapper.sh restore-default & set-default &`
+-**_Device Information_**
+    - `info`
+---
+
 ### Printer
 
  - **_Clear Print Spooler_**
