@@ -94,6 +94,7 @@ def get_emails(dates, folders):
         i = 0
         for attachment in attachments:
             current_file = attachments[i]
+            print(f"Moving {current_file.filename}")
             current_file.SaveAsFile(directory+'\\'+current_file.filename)
             i += 1
 

@@ -7,13 +7,12 @@ from os import listdir
 ### FUNCTIONS ###
 def get_start_end_dates():
     day_of_week = date.today().weekday()  # Get today's day of the week as an index
-
     date_monday = date.today() - timedelta(
-        days=day_of_week)
+        days=day_of_week -1)
 
     str_date_Monday = date_monday.strftime(
         "%m-%d-%Y")
-
+    print(str_date_Monday)
     #Calculate back to the previous Saturday
     date_Saturday = date.today() - timedelta(
         days=day_of_week + 2
@@ -82,16 +81,18 @@ def get_emails(dates, folders):
             directory = folders[9]
         elif str(msg.Subject).__contains__("ABRA Spokane") and str(msg.Subject).__contains__("Intermax Networks Reports"):
             directory = folders[10]
-        elif str(msg.Subject).__contains__("0170") and str(msg.Subject).__contains__("Intermax Networks Reports"):
+        elif str(msg.Subject).__contains__("Knudtsen Foothills Mazda") and str(msg.Subject).__contains__("Intermax Networks Reports"):
             directory = folders[11]
-        elif str(msg.Subject).__contains__("0171") and str(msg.Subject).__contains__("Intermax Networks Reports"):
+        elif str(msg.Subject).__contains__("Knudtsen Foothills ABRA") and str(msg.Subject).__contains__("Intermax Networks Reports"):
             directory = folders[12]
-        
+        else:
+            continue
             # print(msg.SenderName + " " + str(msg.ReceivedTime) + " " + str(msg.Subject))
             # Loop thru the attachments and save to file
         try:
             attachments = msg.Attachments
             current_file = attachments[0]
+            print(f"Moving {current_file.filename}")
             current_file.SaveAsFile(directory+'\\'+current_file.filename)
         except:
             pass

@@ -86,12 +86,14 @@ def get_emails(dates, folders):
             directory = folders[11]
         elif str(msg.Subject).__contains__("0171") and str(msg.Subject).__contains__("SentinelOne"):
             directory = folders[12]
-        
+        else:
+            continue
             # print(msg.SenderName + " " + str(msg.ReceivedTime) + " " + str(msg.Subject))
             # Loop thru the attachments and save to file
         try:
             attachments = msg.Attachments
             current_file = attachments[0]
+            print(f"Moving {current_file.filename}")
             current_file.SaveAsFile(directory+'\\'+current_file.filename)
         except:
             pass
