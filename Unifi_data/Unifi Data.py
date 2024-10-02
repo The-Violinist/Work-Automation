@@ -7,101 +7,114 @@ from os import system
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+# pyinstaller command `pyinstaller --onefile -i"C:\Users\darmstrong\Desktop\pyinstaller\cloud.ico"  "Unifi Data.py"`
 # List of sites in the Unifi controller
 all_sites = {
-    "37": "0037 Triple Play",
-    "31": "0031 North Idaho Dermatology",
+    "1": "0001 - ADB",
     "2": "0002 - Intermax Networks",
     "2a": "0002 - Intermax Lone Mtn",
     "2b": "0002 - Intermax RVT Conf",
-    "5a": "0005 Knudtsen Abra",
-    "18": "0018 CDA Honda",
-    "30": "0030 Magnuson McHugh",
-    "45": "0045 JVW Law",
-    "14": "0014 North Idaho CASA",
-    "40": "0040 Smith and Malek",
     "2c": "0002 - Innovation Den",
-    "38": "0038 Integrated Personnel",
-    "46": "0046 Northcon",
-    "50": "0050 Bayshore Systems",
-    "11": "0011 Tobler",
-    "51": "0051 Innercept",
-    "47": "0047 Shabby",
-    "59": "0059 Habitat",
-    "72": "0072 HeaterCraft",
+    "2d": "0002-WhalenResidence",
     "5": "0005 Knudtsen Main",
+    "5a": "0005 Knudtsen Abra",
+    "7": "0007 - Bankcda",
+    "10": "0010 - Minutepress",
+    "11": "0011 Tobler",
+    "12": "0012 - Stancraft",
+    "12a": "0012 Stancraft Import",
+    "12b": "0012 - Stancraft FBO",
+    "14": "0014 North Idaho CASA",
+    "15": "0015 - Northern Management Services",
+    "16": "0016 - Community Title",
+    "17": "0017 HADDOCK",
+    "18": "0018 CDA Honda",
+    "19": "0019 - CDAEDC",
+    "20": "0020 T&S",
+    "21": "0021 Hospice of North Idaho",
+    "24": "0024 - Chapman Financial Services",
+    "27": "0027 - Callahan",
+    "30": "0030 Magnuson McHugh",
+    "31": "0031 North Idaho Dermatology",
+    "34": "0034 ITS",
+    "35": "0035 Timberline",
+    "36": "0036-Associated Credit",
+    "37": "0037 Triple Play",
+    "38": "0038 Integrated Personnel",
+    "40": "0040 Smith and Malek",
+    "41": "0041 CDASSE",
+    "42": "0042 HMH",
+    "43": "0043 - SwissTech",
+    "45": "0045 JVW Law",
+    "46": "0046 Northcon",
+    "47": "0047 Shabby",
+    "50": "0050 Bayshore Systems",
+    "51": "0051 Innercept",
+    "52": "0052 - ABHS",
     "54": "0054 Total Tax",
+    "59": "0059 Habitat",
     "61": "0061 Kuma",
+    "62": "0062 - Association Services",
     "63": "0063 Dyck's Oil",
     "64": "0064 Widmyer Corporation",
-    "20": "0020 T&S",
-    "42": "0042 HMH",
-    "34": "0034 ITS",
-    "21": "0021 Hospice of North Idaho",
     "67": "0067 NNCE",
     "68": "0068 - Aaging Better",
-    "52": "0052 - ABHS",
-    "75": "TP4346 - Caddyshack",
-    "15": "0015 - Northern Management Services",
-    "12": "0012 - Stancraft",
+    "69": "0069 - Atchley Financial",
+    "72": "0072 HeaterCraft",
     "74": "0074 - St. Pius",
-    "91": "0091 - Featherston",
-    "12a": "0012 Stancraft Import",
+    "75": "TP4346 - Caddyshack",
     "76": "0076 - EmpireEye",
-    "16": "0016 - Community Title",
-    "1": "0001 - ADB",
     "80": "0080 - BookWorks",
     "81": "0081 Tesh",
     "82": "0082 - Paul Daugharty",
-    "85": "0085-AuburnCrest",
-    "7": "0007 - Bankcda",
-    "17": "0017 HADDOCK",
-    "88": "0088-BGC",
-    "19": "0019 - CDAEDC",
-    "86": "0086 - Owsley Plastic Surgery",
-    "62": "0062 - Association Services",
-    "35": "0035 Timberline",
     "84": "0084 - Inland NW Spine",
+    "85": "0085-AuburnCrest",
+    "86": "0086 - Owsley Plastic Surgery",
+    "88": "0088-BGC",
+    "91": "0091 - Featherston",
+    "93": "0093-CDA PEDS",
     "95": "0095 Boundary Road & Bridge",
     "96": "0096 Lake Drive Apartments",
     "97": "0097-MarkJackson",
-    "93": "0093-CDA PEDS",
-    "27": "0027 - Callahan",
     "100": "0100 PFFM",
+    "102": "0102-Rainbow Electric",
+    "105": "0105 - Holy Family Catholic School",
     "106": "0106 Silver Pine Wealth Management",
-    "2d": "0002-WhalenResidence",
     "108": "0108 - Hayden Canyon Charter School",
-    "69": "0069 - Atchley Financial",
-    "41": "0041 CDASSE",
     "113": "0113 - Ability Home Health",
     "114": "0114 GarageSkins.com",
     "115": "0115-BrandIt",
     "119": "0119 Summit Rehab",
     "120": "0120 City of Post Falls",
-    "105": "0105 - Holy Family Catholic School",
-    "10": "0010 - Minutepress",
     "124": "0124 -Family Health Center",
     "125": "0125 - Killer Burger",
-    "43": "0043 - SwissTech",
     "130": "0130-GVD-SteamPlant",
-    "102": "0102-Rainbow Electric",
-    "133": "0133 - The Timbers",
     "132": "0132 Specialty Construction",
+    "133": "0133 - The Timbers",
     "134": "0134 - 1250 Ironwood",
-    "145": "0145-ASC Northwest",
-    "138": "0138-Calvary",
     "135": "0135-RubyOnTheRiver",
     "137": "0137-Ruby Suites",
+    "145": "0145-ASC Northwest",
     "147": "0147-Sravasti Abbey",
-    "151": "0151-Childrens Village",
-    "36": "0036-Associated Credit",
-    "149": "0149-Steam Plant Hotel",
-    "152": "0152-Hotel Ruby-Ponderay",
     "148": "0148-Hotel Ruby-Spokane",
+    "149": "0149-Steam Plant Hotel",
     "150": "0150-Montvale Hotel",
+    "151": "0151-Childrens Village",
+    "152": "0152-Hotel Ruby-Ponderay",
     "153": "0153-1640, LLC",
     "154": "0154 -WIS",
     "157": "0157-YESPOC",
+    "158": "0158-C&C, L by D",
+    "160": "0160-ABRA Spokane",
+    "163": "0163-CDA Symphony",
+    "165": "0165-The Madison Inn",
+    "166": "0166 - Moore Support",
+    "167": "0167 HeadSport",
+    "169": "0169-Idaho Panhandle Habitat For Humanity",
+    "170": "0170-Knudtsen Foothills Mazda",
+    "172": "0172-Phoenix Protective",
+    "174": "0174-Red Lion Templin's",
+    "175": "0175-Northwest Sports"
 }
 
 
@@ -282,6 +295,86 @@ def unifi_device_data(raw_data):
         model = "Unknown"
         try:
             model = device["model"]
+            if model == "UALR6v2":
+                model = "U6 LR"
+            elif model == "USL24P":
+                model = "USW 24 PoE"
+            elif model == "U7LT":
+                model = "UAP AC Lite"
+            elif model == "U7MSH":
+                model = "UAP AC M"
+            elif model == "U7PG2":
+                model = "UAP AC Pro"
+            elif model == "US24P500":
+                model = "US 24 500W"
+            elif model == "USL16LP":
+                model = "USW Lite 16 PoE"
+            elif model == "USL8LPB":
+                model = "USW Lite 8 PoE"
+            elif model == "US48P500":
+                model = "US 48 500W"
+            elif model == "US8P150":
+                model = "US 8 150W"
+            elif model == "USMINI":
+                model = "USW Flex Mini"
+            elif model == "U7HD":
+                model = "UAP AC HD"
+            elif model == "U7SHD":
+                model = "UAP AC SHD"
+            elif model == "U7MP":
+                model = "UAP AC M Pro"
+            elif model == "U7NHD":
+                model = "nanoHD"
+            elif model == "US8P60":
+                model = "US 8 60W"
+            elif model == "US24P250":
+                model = "US 24 250W"
+            elif model == "UAP6MP":
+                model = "U6 Pro"
+            elif model == "BZ2":
+                model = "UAP"
+            elif model == "US24PRO":
+                model = "USW Pro 24 PoE"
+            elif model == "USL16P":
+                model = "UAP AC HD"
+            elif model == "US48PRO":
+                model = "USW Pro 48 PoE"
+            elif model == "USL8LP":
+                model = "USW Lite 8 PoE"
+            elif model == "USL24":
+                model = "USW 24 G2"
+            elif model == "US16P150":
+                model = "US 16 150W"
+            elif model == "USL24PB":
+                model = "USW 24 PoE"
+            elif model == "USL16PB":
+                model = "USW 16 PoE"
+            elif model == "US48":
+                model = "US 48 G1"
+            elif model == "US8":
+                model = "US 8"
+            elif model == "USM8P":
+                model = "USW Ultra"
+            elif model == "US48P750":
+                model = "US 48 750W"
+            elif model == "USC8":
+                model = "US 8"
+            elif model == "US24":
+                model = "USW 24 G1"
+            elif model == "USL48PB":
+                model = "USW 48 PoE"
+            elif model == "USL48P":
+                model = "USW 48 PoE"
+            elif model == "U7LR":
+                model = "UAP AC LR"
+            elif model == "UFLHD":
+                model = "FlexHD"
+            elif model == "USL48":
+                model = "USW 48 G2"
+            elif model == "USF5P":
+                model = "USW Flex"
+
+
         except:
             pass
         ip = "Unknown"
@@ -473,9 +566,9 @@ def unifi_devices():
 ########
 # MAIN #
 ########
-username = input("Enter Unifi username:\n>")
+# username = input("Enter Unifi username:\n>")
+username = "iadmin"
 password = input("Enter Unifi password:\n>")
-
 # Loop until the user decides to quit
 while True:
     # Request a site
