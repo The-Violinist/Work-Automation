@@ -23,7 +23,8 @@
 
 - **_Retrieve Wifi Password_**
     - If unsure of the SSID: `netsh wlan show profiles` then use that SSID in the following command:
-    - `netsh wlan show profile name="SSID_Name" key=clear`
+    - `netsh wlan show profile name="<SSID_Name>" key=clear`
+
 - **_Create Wifi profile_**
     - Use my handy dandy [executable](https://github.com/The-Violinist/Work-Automation/tree/main/ssid_profile) to create an importable XML file!
 
@@ -50,6 +51,18 @@
     - `ipconfig /flushdns`
     - `ipconfig /release && ipconfig /renew`
 
+- **_Renew IP address after changing a switch port config_**
+    - `timeout /t 15 && ipconfig /release && timeout /t 5 && ipconfig /renew`
+    - Waits 15 seconds (or however long you want) for port profile to be saved to switch, then release and renew the IP
+
+- **_Logoff a user_**
+    - Get session ID `query session`
+    - Logoff the user `logoff <session ID>`
+
+- **_Find Service belonging to port_**
+    - Get process ID: `netstat -aon | findstr "<port number>"`
+    - Use the process ID found: `tasklist /fi "PID eq <ID>`
+
 - **_Elevate_**
     - `runas /user:machine_or_domain\user_name cmd`
 
@@ -71,17 +84,6 @@
     - Printer list with IP address
     - `wmic printer get DriverName, PortName`
 
-- **_Logoff a user_**
-    - Get session ID `query session`
-    - Logoff the user `logoff <session ID>`
-
-- **_Find Service belonging to port_**
-    - Get process ID: `netstat -aon | findstr "<port number>"`
-    - Use the process ID found: `tasklist /fi "PID eq <ID>`
-
-- **_Renew IP address after changing a switch port config_**
-    - `timeout /t 15 && ipconfig /release && timeout /t 5 && ipconfig /renew`
-    - Waits 15 seconds (or however long you want) for port profile to be saved to switch, then releases and renew the IP
 - **_NTP Commands_**
     - View peer settings `w32tm /query /peers`
     - Resync `w32tm /resync`
