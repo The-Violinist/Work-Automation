@@ -79,6 +79,9 @@
     - Get process ID: `netstat -aon | findstr "<port number>"`
     - Use the process ID found: `tasklist /fi "PID eq <ID>`
 
+- **_Renew IP address after changing a switch port config_**
+    - `timeout /t 15 && ipconfig /release && timeout /t 5 && ipconfig /renew`
+    - Waits 15 seconds (or however long you want) for port profile to be saved to switch, then releases and renew the IP
 - **_NTP Commands_**
     - View peer settings `w32tm /query /peers`
     - Resync `w32tm /resync`
